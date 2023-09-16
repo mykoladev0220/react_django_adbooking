@@ -1,0 +1,276 @@
+h1 {
+  font-size: 40px;
+  font-weight: 400;
+  color: #666666;
+  line-height: 48px;
+}
+
+h2{
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 42px;
+  margin: 0;
+}
+
+h3{
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
+}
+
+h4 {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 23px;
+  margin: 0;
+}
+
+h5 {
+  font-size: 13px;;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.content {
+  background: #F3F3F3;
+  /* position: relative; */
+  min-height: 100vh;
+}
+
+.main-content {
+  background: #F3F3F3;
+}
+
+.main-content .create-new {
+  background: #21215f;
+  color: #ffffff;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  font-weight: 300;
+  padding: 8px 20px;
+  font-size: 18px;
+}
+
+.modal-content {
+  border-radius: 6px;
+}
+
+.modal-title {
+  color: #666666;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.modal-content .modal-body h4 {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 14px;
+  border-radius: 4px;
+}
+
+hr {
+  background: #000000;
+}
+
+.m-2 {
+  margin: 20px;
+}
+
+.mt-4 {
+  margin-top: 40px
+}
+
+.pt-4 {
+  padding-top: 40px;
+}
+
+.mr-2 {
+  margin-right: 20px;
+}
+
+.mb-2{
+  margin-bottom: 20px;
+}
+
+.p-2{
+  padding: 20px;
+}
+
+.form-control {
+  border-radius: 4px
+}
+
+.card {
+  border: 1px solid black;
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.anim-btn {
+  cursor: pointer;
+  box-shadow: -1px 3px 3px 0 rgba(80, 80, 80, .2);
+  flex: 0 0 auto;
+  transition: all 0.25s ease-out;
+}
+
+.anim-btn:hover {
+  position: relative;
+  top: -3px;
+  box-shadow: -6px 14px 12px 2px rgba(90, 90, 90, .12);
+}
+
+.shadow {
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.25);
+}
+
+.time-line-box .swiper-slide:first-child, .time-line-box .swiper-slide:last-child {
+  width: 50px;
+}
+
+.time-line-box .swiper-slide:first-child .status.active span:before {
+    left: 0% !important;
+    -webkit-transform: translate(0%, -50%) !important;
+    -ms-transform: translate(0%, -50%) !important;
+    transform: translate(0%, -50%) !important;
+}
+
+.time-line-box .swiper-slide:first-child .status span:before {
+    left: 0% !important;
+    -webkit-transform: translate(0%, -50%) !important;
+    -ms-transform: translate(0%, -50%) !important;
+    transform: translate(0%, -50%) !important;
+}
+
+.time-line-box .swiper-slide:last-child .status.active span:before {
+   left: initial !important;
+   right: 0% !important;
+   -webkit-transform: translate(0%, -50%) !important;
+   -ms-transform: translate(0%, -50%) !important;
+   transform: translate(0%, -50%) !important;
+}
+
+.time-line-box .swiper-slide:last-child .status span:before {
+   left: initial !important;
+   right: 0% !important;
+   -webkit-transform: translate(0%, -50%) !important;
+   -ms-transform: translate(0%, -50%) !important;
+   transform: translate(0%, -50%) !important;
+}
+
+.sub-title {
+  font-weight: 400;
+}
+
+.primary {
+  color: #21215F;
+}
+
+.success {
+  color: #F26722;
+}
+
+.bg-success {
+  background: #F26722;
+}
+
+.bg-primary {
+  background: rgba(33,33,95, 0.5);
+  color: white;
+  border-radius: 4px;
+}
+
+.mr-1 {
+  margin-right: 10px;
+}
+
+input {
+  font-size: 15px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+table.general-table {
+  font-size: 25px;
+}
+
+table.general-table thead {
+  background-color: white;
+}
+
+button {
+  font-size: 20px;
+}
+
+.secondary {
+  background-color: rgba(33,33,95, 0.1);
+}
+
+.black {
+  color: black;
+}
+
+.content-left {
+  justify-content: left;
+}
+
+.pub-mark{
+  visibility: hidden;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position:absolute;
+  top:5px;
+  right:5px;
+  background-color: #F26722;
+}
+
+.pub-card {
+  height: 200px;
+  cursor: pointer;
+  background-color: rgba(33,33,95,0.10);
+}
+
+.btn.secondary .flex-row:after {
+   color: #444;
+   content: ' ▾';
+   position: absolute;
+   right: 0;
+   top: 5px;
+   font-size: 20px;
+}
+
+.origin {
+  background-color: rgb(33,33,95);;
+  border-radius: 4px;
+}
+
+.adsuccess-mark{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #03A803;
+  margin-left:auto;
+  margin-right:auto
+}

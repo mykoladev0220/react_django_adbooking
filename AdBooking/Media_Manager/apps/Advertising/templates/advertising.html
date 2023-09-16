@@ -1,0 +1,153 @@
+{% extends "templates/base.html" %}
+
+{% load static %}
+
+{% block endjs %}
+<script src="{% static " dist/js/advertising/Search.js" %}"></script>
+{% endblock %}
+
+
+{% block breadcrumb %}
+<li class="active">Advertising</li>
+{% endblock %}
+
+{% block content %}
+<div id="content">
+    <div class="main-content pt-4">
+        <div class="content text-center">
+            <h1><i class="fa fa-bullhorn"></i>&nbsp;Welcome to Advertising</h1>
+
+            <h4>
+                <a href="#">Pubs & Accounts</a> &nbsp;|&nbsp;
+                <a href="#">Announcements</a> &nbsp;|&nbsp;
+                <a href="#">Today's Tasks</a> &nbsp;|&nbsp;
+                <a href="#">Sales Goal</a> &nbsp;|&nbsp;
+                <a href="#">Weekly Progress</a>
+            </h4>
+
+            <button class="mt-2 create-new" data-toggle="modal" data-target="#myModal">
+                + Create Something New
+            </button>
+
+            <hr class="mt-2">
+
+            <div class="card m-2 text-left mt-4">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h2 class="primary">Publications & Accounts
+                            <hr style="height:3px">
+                        </h2>
+                    </div>
+
+                    <div class="col-md-7 text-right">
+                        <div class="input-group-rounded" style="width:400px;float: right;">
+                            <input type="text" class="form-control"
+                                   placeholder="Search by Publication Name or Account Name" />
+
+                            <span class="input-group-mark">
+                                <i class="glyphicon glyphicon-search mr-1 success"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-5">
+                        <h3>Publication
+                            <hr class="bg-success" style="width:60%;height: 2.5px;">
+                        </h3>
+
+                        <table class="w-full mt-4 general-table">
+                            <thead>
+                                <th>ID</th>
+                                <th>NAME</th>
+                            </thead>
+
+                            {% if publications %}
+                            <tbody>
+                                {% for publication in publications %}
+                                <tr>
+                                    <td>{{ publication.id }}</td>
+                                    <td><a href="{% url 'view_publication' publication.id %}">{{ publication.name }}</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            {% else %}
+
+                            <tbody>
+                                <tr>
+                                    <td colspan="3">No Publications Found</td>
+                                </tr>
+                            </tbody>
+                            {% endif %}
+                        </table>
+                    </div>
+
+                    <div class="col-md-7">
+                        <h3>Accounts
+                            <hr class="bg-success" style="width: 60%;height: 2.5px;">
+                        </h3>
+
+                        <table class="w-full mt-4 general-table">
+                            <thead>
+                                <th>ID</th>
+                                <th>NAME</th>
+                                <th>TYPE</th>
+                            </thead>
+
+                            <tbody>
+                                {% for account in accountList %}
+                                <tr>
+                                    <td>{{ account.id }}</td>
+                                    <td><a href="{% url 'advertising_account' account.id %}">{{ account.name }}</a></td>
+                                    <td>{{ account.account_type.name }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="3">No Accounts Found</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <img class="background" src="static/svg/Ellipse 5.png" style="width: 100%;height: 200px;margin-top:-200px;"> -->
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        <h4 class="modal-title"><br><br>Get Started With Something New!</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="card anim-btn text-center">
+                            <a href="{% url 'create_classified_ad' %}">
+                                <h4><span class="success">+</span> New Ad
+                                Campaign
+                                </h4>
+                            </a>
+                        </div>
+
+                        <div class="card anim-btn text-center mt-2"></div>
+
+                        <div class="card anim-btn text-center mt-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var salesperson_id = "{{ salesperson_id }}";
+
+</script>
+{% endblock %}

@@ -1,0 +1,82 @@
+<div method="POST" id="create_salesperson_form" style="display:none;">
+    {% csrf_token %}
+    <div class="section-title">
+        New Sales Rep
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="addFirstName">First Name</label>
+                <input class="create-salesrep-input" type="text" name="addFirstName" id="addFirstName" required/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="addLastName">Last Name</label>
+                <input class="create-salesrep-input" type="text" name="addLastName" id="addLastName" required/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="addCompany">Company</label>
+                <input class="create-salesrep-input" type="text" name="addCompany" id="addCompany" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="addEmail">Email</label>
+                <input class="create-salesrep-input" type="email" name="addEmail" id="addEmail" required/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="addPhone">Phone Number</label>
+                <input class="create-salesrep-input" type="text" name="addPhone" id="addPhone" required/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="addAddress">Address</label>
+                <input class="create-salesrep-input" type="text" name="addAddress" id="addAddress" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="addCity">City</label>
+                <input class="create-salesrep-input" type="text" name="addCity" id="addCity" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-6">
+                <label for="addState">State</label>
+                <input class="create-salesrep-input" type="text" name="addState" id="addState" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-6">
+                <label for="addZipCode">Zip Code</label>
+                <input class="create-salesrep-input" type="text" name="addZipCode" id="addZipCode" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="addCommission">Commission Percentage</label>
+                <input class="create-salesrep-input" type="number" name="addCommission" id="addCommission" />
+            </div>
+        </div>
+    </div>
+    <div class="button-section">
+        <button class="btn cancel-btn">Cancel</button>
+        <button class="btn" id="create_btn">Create</button>
+    </div>
+</div>

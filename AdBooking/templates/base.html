@@ -1,0 +1,82 @@
+{% autoescape off %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		{% include "templates/sections/header-tags.html" %}
+		{% include "templates/sections/header.html" %}
+		{% block css %}{% endblock %}
+	</head>
+	{% if request.path == '/' %}
+	{% if settingsSidebar %}
+	<body class="hold-transition skin-blue sidebar-mini">
+	{% else %}
+	<body class="hold-transition skin-blue sidebar-mini settings-sidebar-collapse">
+	{% endif %}
+	{% include "templates/sections/body-tags.html" %}
+	{% else %}
+	{% if settingsSidebar %}
+	<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
+	{% else %}
+	<body class="hold-transition skin-blue sidebar-mini sidebar-collapse settings-sidebar-collapse">
+	{% endif %}
+	{% endif %}
+		<div class="wrapper">
+			<!-- Main Header -->
+			{% include "templates/sections/navbar.html" %}
+			<div id="body">
+		     	 <!-- Content Wrapper. Contains page content -->
+		      	<div class="content-wrapper">
+			        <!-- Content Header (Page header) -->
+			        <section class="content-header">
+		        		<h1>{%block page-header %}{% endblock %}</h1>
+		        		<ol class="breadcrumb">
+		        			<li><a href="{{url}}/"><i class="fa fa-dashboard"></i> Admin</a></li>
+		        			{%block breadcrumb %}
+							{% endblock %}
+						</ol>
+				    </section>
+			        <!-- Main content -->
+			        <section class="content container-fluid">
+			        	<!--
+			        	<div class="box box-solid">
+			        		<div class="box-header with-border">
+			        			<h3 class="box-title">Alert - 12/10/2020</h3>
+			        			<div class="box-tools pull-right">
+			        				<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+			        			</div>
+			        		</div>
+			        		<div class="box-body">
+				        		We recently pushed an update to fix the run_date filter, fix column summing for some charts, and add an option to not refresh the page on filter toggle. If you're experiencing issues since the update, try resetting the dashboard/chart to it's default version. If that doesn't work try clearing your cache. <br><br><a href="https://www.refreshyourcache.com/en/home/" target="_blank">Click here for an example on how to clear cache for each browser</a>.
+				        	</div>
+			        	</div>
+			        -->
+			        	{%block forwardjs %}{% endblock %}
+						{%block content %}{% endblock %}
+					</section>
+					<!-- Main Footer -->
+					<footer class="footer">
+						{% include "templates/sections/footer.html" %}
+					</footer>
+					<!-- /.content -->
+				</div>
+				<!-- /.content-wrapper -->
+			</div>
+			<!-- Page Settings Sidebar -->
+			{% if settingsSidebar %}
+			<aside class="settings-sidebar">
+				{%block settings-sidebar %}
+				{% endblock %}
+			</aside>
+			{% endif %}
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				{% include "templates/sections/right_navbar.html" %}
+			</aside>
+			<footer>
+				{% include "templates/sections/javascript.html" %}
+				{%block endjs %}{% endblock %}
+			</footer>
+		</div>
+	</body>
+</html>
+{% endautoescape %}

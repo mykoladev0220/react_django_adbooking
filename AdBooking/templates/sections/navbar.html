@@ -1,0 +1,191 @@
+<header class="main-header">
+	{% load static %}
+	<!-- Logo -->
+	<a href="{{url}}/" class="logo">
+		<!-- mini logo for sidebar mini 50x50 pixels -->
+		<span class="logo-mini"><img src="{% static "dist/img/icon.ico" %}" width="50" height="50" /></span>
+		<!-- logo for regular state and mobile devices -->
+		<span class="logo-lg" style="width:200px; height:50px; background-size:136px"></span>
+	</a>
+
+	<!-- Header Navbar -->
+	<nav class="navbar navbar-static-top" role="navigation">
+		<!-- Sidebar toggle button-->
+		<a href="{{url}}/" class="sidebar-toggle" data-toggle="push-menu" role="button">
+			<span class="sr-only">Toggle navigation</span>
+		</a>
+
+		<!-- Navbar Right Menu -->
+		<div class="navbar-custom-menu">
+			<ul class="nav navbar-nav">
+				<!-- Messages: style can be found in dropdown.less-->
+				<li class="dropdown messages-menu">
+					<!-- Menu toggle button -->
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-envelope-o"></i>
+						<span class="label label-success">4</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="header">You have 4 messages</li>
+						<li>
+							<!-- inner menu: contains the messages -->
+							<ul class="menu">
+								<li><!-- start message -->
+									<a href="#">
+										<div class="pull-left">
+											<!-- User Image -->
+											<img src="" class="img-circle" alt="">
+										</div>
+										<!-- Message title and timestamp -->
+										<h4>
+											Support Team
+											<small><i class="fa fa-clock-o"></i> 5 mins</small>
+										</h4>
+										<!-- The message -->
+										<p>Why not buy a new awesome theme?</p>
+									</a>
+								</li>
+								<!-- end message -->
+							</ul>
+							<!-- /.menu -->
+						</li>
+						<li class="footer"><a href="#">See All Messages</a></li>
+					</ul>
+				</li>
+				<!-- /.messages-menu -->
+
+				<!-- Notifications Menu -->
+				<li class="dropdown notifications-menu">
+					<!-- Menu toggle button -->
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-bell-o"></i>
+						<span class="label label-warning">10</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="header">You have 10 notifications</li>
+						<li>
+							<!-- Inner Menu: contains the notifications -->
+							<ul class="menu">
+								<li><!-- start notification -->
+									<a href="#">
+										<i class="fa fa-users text-aqua"></i> 5 new members joined today
+									</a>
+								</li>
+								<!-- end notification -->
+							</ul>
+						</li>
+						<li class="footer"><a href="#">View all</a></li>
+					</ul>
+				</li>
+				<!-- Tasks Menu -->
+				<li class="dropdown tasks-menu">
+					<!-- Menu Toggle Button -->
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-flag-o"></i>
+						<span class="label label-danger">9</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="header">You have 9 tasks</li>
+						<li>
+							<!-- Inner menu: contains the tasks -->
+							<ul class="menu">
+								<li><!-- Task item -->
+									<a href="#">
+										<!-- Task title and progress text -->
+										<h3>
+											Design some buttons
+											<small class="pull-right">20%</small>
+										</h3>
+										<!-- The progress bar -->
+										<div class="progress xs">
+											<!-- Change the css width attribute to simulate progress -->
+											<div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+											aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+											<span class="sr-only">20% Complete</span>
+										</div>
+									</div>
+								</a>
+							</li>
+							<!-- end task item -->
+						</ul>
+					</li>
+					<li class="footer">
+						<a href="#">View all tasks</a>
+					</li>
+				</ul>
+			</li>
+			<!-- User Account Menu -->
+			<li class="dropdown user user-menu">
+				<!-- Menu Toggle Button -->
+				<a href="#" class="dropdown-toggle" data-toggle="control-sidebar">
+					<!-- hidden-xs hides the username on small devices so only the image appears. -->
+					<span>{{user}}</span>
+				</a>
+			</li>
+			<!-- Control Sidebar Toggle Button -->
+			<li>
+				<a href="#" id="settings-sidebar" data-toggle="settings-sidebar"><i class="fa fa-gears"></i></a>
+			</li>
+		</ul>
+	</div>
+</nav>
+</header>
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+	<!-- sidebar: style can be found in sidebar.less -->
+	<section class="sidebar">
+		<!-- Sidebar Menu -->
+		<ul class="sidebar-menu" data-widget="tree">
+
+			{% if user.is_superuser %}
+			<li>
+				
+				<a href="{{url}}/admin"><i class="fa fa-shield"></i> <span>Admin</span></a>
+				<!--
+				<i style="font-size: 15px; position: fixed; top: 14px; left: 15px; color: white;" class="fa fa-shield"></i>
+
+				<svg style="width: 25px;" id="gear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 425.79 419.65"><defs><style>.cls-1{fill:#23275a;}.cls-2{fill:#e56c26;}</style></defs><path class="cls-1" d="M259.12,406.18a11.9,11.9,0,0,0-2.47,5l-1.06,4.74c-2.66,11.51-18.28,13.49-23.69,3l-2.22-4.3a12.69,12.69,0,0,0-22.58,0l-2.22,4.3c-5.46,10.49-21,8.51-23.69-3l-1.06-4.74a12.73,12.73,0,0,0-21.9-5.6L155,409.22a12.72,12.72,0,0,1-22.19-8.8l.15-4.83a12.71,12.71,0,0,0-19.77-10.88l-4.06,2.71c-9.82,6.58-22.53-2.66-19.29-14l1.3-4.69A12.7,12.7,0,0,0,74.7,353.24l-4.59,1.65C59,358.8,49,346.72,54.93,336.47l2.41-4.16a12.72,12.72,0,0,0-12.08-19.09l-4.83.43c-11.8,1.07-18.47-13.14-10.16-21.56l3.39-3.48a12.69,12.69,0,0,0-7-21.46l-4.79-.77a12.72,12.72,0,0,1-4.45-23.45l4.16-2.51a12.7,12.7,0,0,0-1.45-22.53L15.77,216a12.72,12.72,0,0,1,1.5-23.83l4.64-1.36a12.71,12.71,0,0,0,4.21-22.18l-3.82-3c-9.28-7.3-4.45-22.24,7.39-22.72l4.84-.15a12.72,12.72,0,0,0,9.62-20.44l-2.95-3.87A12.68,12.68,0,0,1,54,98.3l4.74,1a12.71,12.71,0,0,0,14.4-17.4l-1.88-4.44a12.71,12.71,0,0,1,17.4-16.34l4.3,2.17A12.73,12.73,0,0,0,111.19,50l-.72-4.79c-1.79-11.7,12-19.24,20.93-11.5L135,36.91a12.73,12.73,0,0,0,21-8.32l.49-4.83c1.16-11.75,16.39-15.66,23.1-5.9l2.76,4A12.69,12.69,0,0,0,204.78,19l1.69-4.54a12.68,12.68,0,0,1,23.83,0L232,19a12.69,12.69,0,0,0,22.38,2.81l2.75-4a12.7,12.7,0,0,1,23.11,5.9l.48,4.83A12.68,12.68,0,0,0,283,34.68a228,228,0,0,0-23.88,371.5Z" transform="translate(-8.18 -6.14)"/><path class="cls-2" d="M421.21,263.19l-4.44.71a11.79,11.79,0,0,0-6.5,19.92l3.18,3.23a11.78,11.78,0,0,1-9.42,20l-4.48-.4a11.83,11.83,0,0,0-11.26,17.72l2.28,3.86a11.82,11.82,0,0,1-14.13,17.09l-4.22-1.53a11.82,11.82,0,0,0-15.29,14.36l1.25,4.35a11.81,11.81,0,0,1-17.94,13L336.51,373a11.78,11.78,0,0,0-18.34,10.09l.09,4.49a11.8,11.8,0,0,1-20.6,8.16l-3-3.36a11.74,11.74,0,0,0-18,.54A211.62,211.62,0,0,1,298.83,48.16a11.77,11.77,0,0,0,17.36,2.07l3.41-3A11.82,11.82,0,0,1,339,57.94l-.68,4.45a11.79,11.79,0,0,0,16.92,12.33l4-2a11.8,11.8,0,0,1,16.15,15.17L373.71,92A11.78,11.78,0,0,0,387,108.14l4.4-.94a11.79,11.79,0,0,1,11.88,18.67l-2.73,3.58a11.8,11.8,0,0,0,8.92,19l4.49.14c10.95.44,15.48,14.31,6.82,21.08l-3.5,2.78a11.8,11.8,0,0,0,3.9,20.59l4.31,1.26a11.8,11.8,0,0,1,1.39,22.12l-4.13,1.79a11.8,11.8,0,0,0-1.3,20.91l3.86,2.33A11.8,11.8,0,0,1,421.21,263.19Z" transform="translate(-8.18 -6.14)"/></svg>
+				-->
+			</li>
+			{% endif %}
+			<li><a href="{{url}}/"><i class="fa fa-home"></i> <span>Home</span></a></li>
+			{% if "BI.accounting_access" in menu %}
+			<li>
+				<a href="{{url}}/accounting"><i class="fa fa-calculator"></i> <span>Accounting</span></a>
+			</li>
+			{% endif %}
+			{% if "BI.advertising_access" in menu %}
+			<li>
+				<a href="{{url}}/advertising"><i class="fa fa-bullhorn"></i> <span>Advertising</span></a>
+			</li>
+			{% endif %}
+			{% if "BI.bi_access" in menu %}
+			<li>
+				<a href="{{url}}/bi"><i class="fa fa-line-chart"></i> <span>BI</span></a>
+			</li>
+			{% endif %}
+			{% if "BI.circulation_access" in menu %}
+			<li>
+				<a href="{{url}}/circulation"><i class="fa fa-circle-o-notch"></i> <span>Circulation</span></a>
+			</li>
+			{% endif %}
+			{% if "BI.editorial_access" in menu %}
+			<li>
+				<a href="{{url}}/editorial"><i class="fa fa-edit"></i> <span>Editorial</span></a>
+			</li>
+			{% endif %}
+			{% if "BI.production_access" in menu %}
+			<li>
+				<a href="{{url}}/production"><i class="fa fa-id-card"></i> <span>Production</span></a>
+			</li>
+			{% endif %}
+			<li>
+				<a href="{{url}}/support"><i class="fa fa-question-circle"></i> <span>Support</span></a>
+			</li>
+		</ul>
+		<!-- /.search form -->
+
+		<!-- /.sidebar-menu -->
+	</section>
+	<!-- /.sidebar -->
+</aside>

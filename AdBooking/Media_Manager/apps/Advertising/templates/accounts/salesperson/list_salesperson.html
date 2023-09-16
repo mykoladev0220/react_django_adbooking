@@ -1,0 +1,116 @@
+{% extends "templates/base.html" %}
+
+{% load static %}
+
+{% block page-header %}<i class="fa fa-bullhorn"></i> Advertising{% endblock %}
+
+{% block breadcrumb %}
+<li class="active">Advertising</li>
+{% endblock %}
+
+{% block endjs %}
+<script src="{% static "dist/js/advertising/utils.js" %}"></script>
+<script src="{% static "dist/js/advertising/salesperson/ListSalesperson.js" %}"></script>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static "dist/css/advertising/main.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "dist/css/advertising/salesperson/ListSalesperson.css" %}">
+{% endblock %}
+
+{% block content %}
+<div id="content">
+    <div id="content_box">
+        <div class="column" id="left_side">
+            <div id="header_box">
+                
+                {% if numReps > 0 %}
+                    <div id="header_title">Sales Representatives (<span>{{ numReps }}</span>)</div>
+                {% else %}
+                    <div id="header_title">Sales Representatives</div>
+                {% endif %}
+                <div id="header_search">
+                    <button id="search_btn"><i class="fa fa-search"></i></button>
+                    <button id="filter_btn"><i class="fa fa-filter"></i></button>
+                    <button id="add_btn"><i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+            <div id="left_side_content">
+                <div id="active_contact_list">
+                    {% for person in salespersonList %}
+                    <div class="item active">
+                        <h3 class="item-id">{{ person.id }}</h3>
+                        <div class="item-content">
+                            <div class="item-name">
+                                <strong><a href="{% url 'view_salesperson' person.id %}">{{ person.first_name }} {{ person.last_name }}</a></strong> - <small>{{ person.company }}</small>
+                            </div>
+                            <div class="item-contact">
+                                <div class="item-phone">
+                                    <div class="item-phone-label">
+                                        <i class="fa fa-phone"></i> 
+                                        Phone: 
+                                    </div>
+                                    {{ person.phone_number }}
+                                </div>
+                                <div class="item-email">
+                                    <div class="item-email-label">
+                                        <i class="fa fa-envelope"></i> 
+                                        Email: 
+                                    </div>
+                                    {{ person.email }}
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} <div class="item-icons" data-salesperson-id="{{ person.id }}">
+                            <i class="fa fa-pencil edit-icon"></i>
+                            <i class="fa fa-trash delete-icon"></i>
+                        </div> {% endcomment %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="column" id="right_side">
+            <section id="new_salesrep_section">
+                <button class="btn" id="new_salesrep_btn">Add a New Sales Representative</button>
+            </section>
+            {% include 'snippets/salesperson/AddSalesperson.html' %}
+        </div>
+    </div>
+</div>
+<script>
+    const searchBtn = document.querySelector('#search_btn');
+    const filterBtn = document.querySelector('#filter_btn');
+    const addSalespersonBtn = document.querySelector('#add_btn');
+    const newSalespersonBtn = document.querySelector('#new_salesrep_btn');
+
+    const cancelBtns = document.querySelectorAll('.cancel-btn');
+    const createBtn = document.querySelectorAll('#cancel_btn');
+
+    const createSalespersonForm = document.querySelector('#create_salesperson_form');
+    const createFormInputs = document.querySelectorAll('.create-salesrep-input');
+
+    addSalespersonBtn.addEventListener('click', handleClickNew);
+    newSalespersonBtn.addEventListener('click', handleClickNew);
+
+    cancelBtns.forEach(button => button.addEventListener('click', handleCancel));
+
+    function handleClickNew(e) {
+        newSalespersonBtn.style.display = 'none';
+        createSalespersonForm.style.display = 'block';
+    }
+
+    function handleCancel(e) {
+        createSalespersonForm.style.display = 'none';
+        clearInputs();
+        
+        newSalespersonBtn.style.display = 'block';
+    }
+
+    function clearInputs() {
+        createFormInputs.forEach(input => {
+            input.value = '';
+        })
+    }
+</script>
+{% endblock %}
