@@ -1,5 +1,3 @@
-console.log('Search.js');
-
 const searchInput = document.querySelector('#search-input');
 
 const publicationTable = document.querySelector('#publication-table');
@@ -15,6 +13,9 @@ let accounts = [];
 
 searchInput.addEventListener('keyup', () => {
     const searchValue = searchInput.value;
+
+    console.log(" ================== " + searchValue);
+
     searchPublication(searchValue);
     searchAccount(searchValue);
 });

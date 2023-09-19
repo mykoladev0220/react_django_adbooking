@@ -25,10 +25,11 @@ def advertising_view(request):
 
     if not request.user.has_perm('BI.advertising_access'):
         return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
-    
+
     currentUser = User.objects.get(id=request.user.id)
 
     hasCurrentCompany = CurrentCompany.objects.filter(user=currentUser)
+
     currentCompany = None
 
     if len(hasCurrentCompany):
@@ -39,12 +40,7 @@ def advertising_view(request):
 
     # company_accounts = [row.account for row in CompanyAccount.objects.filter(company=1).select_related()]
 
-    """
-        # TODO - refactor this to only show the publications the user has access to (this would apply for all users that are not admins)
-        - if admin, show all publications
-    """
     publications = Publication.objects.all()
-
 
     today = datetime.datetime.today().strftime('%Y-%m-%d')
 

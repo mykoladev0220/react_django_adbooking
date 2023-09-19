@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block endjs %}
-<script src="{% static " dist/js/advertising/Search.js" %}"></script>
+    <script src='{% static "dist/js/advertising/Search.js" %}'></script>
 {% endblock %}
 
 
@@ -40,9 +40,10 @@
                     </div>
 
                     <div class="col-md-7 text-right">
-                        <div class="input-group-rounded" style="width:400px;float: right;">
-                            <input type="text" class="form-control"
-                                   placeholder="Search by Publication Name or Account Name" />
+                        <div class="input-group-rounded" style="width:400px; float:right;">
+                            <input type="text" id="search-input" class="form-control"
+                                   placeholder="Search by Publication Name or Account Name"
+                            />
 
                             <span class="input-group-mark">
                                 <i class="glyphicon glyphicon-search mr-1 success"></i>
@@ -57,7 +58,7 @@
                             <hr class="bg-success" style="width:60%;height: 2.5px;">
                         </h3>
 
-                        <table class="w-full mt-4 general-table">
+                        <table id="publication-table" class="w-full mt-4 general-table">
                             <thead>
                                 <th>ID</th>
                                 <th>NAME</th>
@@ -89,7 +90,7 @@
                             <hr class="bg-success" style="width: 60%;height: 2.5px;">
                         </h3>
 
-                        <table class="w-full mt-4 general-table">
+                        <table id="account-table" class="w-full mt-4 general-table">
                             <thead>
                                 <th>ID</th>
                                 <th>NAME</th>
