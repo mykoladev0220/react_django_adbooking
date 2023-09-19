@@ -7,5 +7,6 @@
 # Ignore bundler config.
 /venv
 /.idea
+/video_result
 /Temp
 
