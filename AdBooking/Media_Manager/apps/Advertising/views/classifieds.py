@@ -31,7 +31,7 @@ from ..helpers import daysOfTheWeek, weekdayDict, getDatesBetween
 # import the necessary functions needed 
 from ..models.permissions import getPublicationAccess
 
-from ..forms import ClassifiedsContentForm
+from ..forms import ClassifiedsContentForm, AdvertisingAccountForm
 
 login_redirect = "/login/?next="
 

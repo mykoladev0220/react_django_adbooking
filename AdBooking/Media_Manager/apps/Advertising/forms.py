@@ -13,19 +13,24 @@ from ckeditor.widgets import CKEditorWidget
 
 publications = [(pub.id, pub.name) for pub in Publication.objects.all()]
 acct_types = [(type.id, type.name) for type in AccountType.objects.all()]
-salespeople = [(person.id, str(person.id) + " - " + person.first_name + " " + person.last_name) for person in SalesPerson.objects.all()]
+salespeople = [(person.id, str(person.id) + " - " + person.first_name + " " + person.last_name) for person in
+               SalesPerson.objects.all()]
 accounts = [(account.id, account.name) for account in Account.objects.all() if account.archived != 1]
 ad_rates = [(rate.id, rate.name) for rate in AdvertisingRate.objects.all()]
 ad_types = [(type.id, type.name) for type in AdType.objects.all()]
 charges = [(charge.id, charge.name) for charge in ServiceCharge.objects.all()]
 gl_codes = [(code.id, code.description) for code in GLCode.objects.all()]
 
-daysOfTheWeek = [('sunday',"Sunday"),('monday',"Monday"),('tuesday',"Tuesday"),('wednesday',"Wednesday"),('thursday',"Thursday"),('friday',"Friday"),('saturday',"Saturday")]
+daysOfTheWeek = [('sunday', "Sunday"), ('monday', "Monday"), ('tuesday', "Tuesday"), ('wednesday', "Wednesday"),
+                 ('thursday', "Thursday"), ('friday', "Friday"), ('saturday', "Saturday")]
 
-locationChoices = [('static', 'Static'), ('prem_insideCover', 'Inside Cover (Premium)'), ('prem_backCover', 'Back Cover (Premium)'), ('prem_center', 'Center (Premium)')]
+locationChoices = [('static', 'Static'), ('prem_insideCover', 'Inside Cover (Premium)'),
+                   ('prem_backCover', 'Back Cover (Premium)'), ('prem_center', 'Center (Premium)')]
+
 
 class DateInput(forms.DateInput):
     input_type = 'date'
+
 
 class AdvertisingAccountForm(forms.ModelForm):
     submitter = forms.CharField(label="Submitter", max_length=100)
@@ -58,11 +63,13 @@ class AdvertisingAccountForm(forms.ModelForm):
             'balance': forms.HiddenInput(),
         }
 
+
 class PublicationForm(forms.ModelForm):
     name = forms.CharField(label="Name", max_length=100)
-    runDays = forms.MultipleChoiceField(label="Pubication Days", choices=daysOfTheWeek, widget=forms.CheckboxSelectMultiple)
+    runDays = forms.MultipleChoiceField(label="Pubication Days", choices=daysOfTheWeek,
+                                        widget=forms.CheckboxSelectMultiple)
 
-    class Meta: 
+    class Meta:
         model = Publication
         fields = ['name', 'runDays']
 
@@ -71,9 +78,10 @@ class AccountTypesForm(forms.ModelForm):
     code = forms.CharField(label="Code", max_length=100)
     name = forms.CharField(label="Name", max_length=100)
 
-    class Meta: 
+    class Meta:
         model = AccountType
         fields = '__all__'
+
 
 class SalesPersonForm(forms.ModelForm):
     first_name = forms.CharField(max_length=100)
@@ -91,6 +99,7 @@ class SalesPersonForm(forms.ModelForm):
         model = SalesPerson
         fields = '__all__'
 
+
 class SecondaryContactForm(forms.ModelForm):
     name = CharField(label="Name", max_length=100)
     email = EmailField(label="Email", max_length=100)
@@ -104,15 +113,19 @@ class SecondaryContactForm(forms.ModelForm):
             'account': forms.HiddenInput(),
         }
 
+
 class MergeAccountForm(forms.Form):
     account1 = forms.ChoiceField(label="Account 1", widget=forms.Select, choices=accounts)
     account2 = forms.ChoiceField(label="Account 2", widget=forms.Select, choices=accounts)
 
-unitTypeChoices = [('word', 'Word'), ('line', 'Line'), ('inch','Inch'), ('column', 'Column')]
+
+unitTypeChoices = [('word', 'Word'), ('line', 'Line'), ('inch', 'Inch'), ('column', 'Column')]
 taxCategoryChoices = [('none', 'No Tax')]
 rateTypeChoices = [('rop', 'ROP Display'), ('liner', 'Liner'), ('unit', 'Unit Based'), ('class', 'Class Display')]
 
 sizeChoices = [("quarter_page", "Quarter Page"), ("half_page", "Half Page"), ("full_page", "Full Page")]
+
+
 class AdvertisingRateForm(forms.ModelForm):
     name = forms.CharField(label="Name", max_length=100)
     description = forms.CharField(label="Description", max_length=100)
@@ -120,8 +133,9 @@ class AdvertisingRateForm(forms.ModelForm):
     price = forms.FloatField(label="Price Per Unit")
     gl_code = forms.ChoiceField(label='GL Code', widget=forms.Select, choices=gl_codes)
     tax_category = forms.ChoiceField(label='Tax Category', widget=forms.Select, choices=taxCategoryChoices)
-    publication = forms.MultipleChoiceField(label="Publications", widget=forms.CheckboxSelectMultiple, choices=publications) 
-    ad_type = forms.ChoiceField(label="Rate Type", widget=forms.Select, choices=rateTypeChoices) 
+    publication = forms.MultipleChoiceField(label="Publications", widget=forms.CheckboxSelectMultiple,
+                                            choices=publications)
+    ad_type = forms.ChoiceField(label="Rate Type", widget=forms.Select, choices=rateTypeChoices)
     start_date = forms.DateField(label="Start Date", widget=DateInput)
     end_date = forms.DateField(label="End Date", widget=DateInput)
     size = forms.ChoiceField(label="Size", widget=forms.Select, choices=sizeChoices, required=False)
@@ -133,7 +147,7 @@ class AdvertisingRateForm(forms.ModelForm):
     locked = forms.CheckboxInput()
     account = forms.ChoiceField(label="Account", widget=forms.Select, choices=accounts, required=False)
 
-    class Meta: 
+    class Meta:
         model = AdvertisingRate
         fields = '__all__'
         widgets = {
@@ -141,12 +155,14 @@ class AdvertisingRateForm(forms.ModelForm):
             'hidden': forms.HiddenInput()
         }
 
+
 class AdvertisingOrderForm(forms.ModelForm):
     ad_type = forms.ChoiceField(label="Ad Type", widget=forms.Select, choices=ad_types)
     ad_rate = forms.ChoiceField(label="Ad Rate", widget=forms.Select, choices=ad_rates)
     account = forms.ChoiceField(label="Account", widget=forms.Select, choices=accounts)
     salesperson = forms.ChoiceField(label="Sales Person", widget=forms.Select, choices=salespeople)
-    publication = forms.MultipleChoiceField(label="Publication", choices=publications, widget=forms.CheckboxSelectMultiple)
+    publication = forms.MultipleChoiceField(label="Publication", choices=publications,
+                                            widget=forms.CheckboxSelectMultiple)
     start_date = forms.DateField(label="Start Date", widget=DateInput)
     end_date = forms.DateField(label="End Date", widget=DateInput)
     override_ad_cost = forms.CharField(label="Override Ad Cost", max_length=100, required=False)
@@ -157,17 +173,20 @@ class AdvertisingOrderForm(forms.ModelForm):
 
     class Meta:
         model = AdvertisingOrder
-        fields = ['ad_type', 'ad_rate', 'account', 'salesperson', 'publication', 'start_date', 'end_date', 
-                    'override_ad_cost', 'tearsheets', 'locked', 'active', 'bill_date']
+        fields = ['ad_type', 'ad_rate', 'account', 'salesperson', 'publication', 'start_date', 'end_date',
+                  'override_ad_cost', 'tearsheets', 'locked', 'active', 'bill_date']
+
 
 class ServiceChargeForm(forms.ModelForm):
     name = forms.CharField(label="Name", max_length=100)
     amount = forms.IntegerField(label="Amount")
-    apply_level = forms.ChoiceField(label="Apply Level", widget=forms.Select, choices=[('account', 'Account'), ('order', 'Order'), ('insertion', 'Insertion')])
-    
+    apply_level = forms.ChoiceField(label="Apply Level", widget=forms.Select,
+                                    choices=[('account', 'Account'), ('order', 'Order'), ('insertion', 'Insertion')])
+
     class Meta:
         model = ServiceCharge
         fields = '__all__'
+
 
 # class AccountServiceChargeForm(forms.ModelForm):
 #     charge = forms.ChoiceField(label="Service Charge", widget=forms.Select, choices=charges)
@@ -183,7 +202,7 @@ class ServiceChargeForm(forms.ModelForm):
 
 class AdDeadlineForm(forms.ModelForm):
     account = forms.ChoiceField(label="Account", widget=forms.Select, choices=accounts)
-    publication = forms.ChoiceField(label="Publication", widget=forms.Select, choices=publications)  
+    publication = forms.ChoiceField(label="Publication", widget=forms.Select, choices=publications)
     publication_day = forms.MultipleChoiceField(label="Publication Day", choices=daysOfTheWeek, widget=forms.Select)
     time = forms.TimeField(label="Time", input_formats=('%H:%M %p',))
     ad_type = forms.ChoiceField(label="Ad Type", widget=forms.Select, choices=ad_types)
@@ -193,7 +212,10 @@ class AdDeadlineForm(forms.ModelForm):
         model = AdDeadline
         fields = '__all__'
 
+
 statuses = [('good', 'Good'), ('late', 'Late'), ('killed', 'Killed')]
+
+
 class InsertionForm(forms.ModelForm):
     publication = forms.ChoiceField(label="Publication", widget=forms.Select, choices=publications)
     date = forms.DateField(label="Date", widget=DateInput)
@@ -202,16 +224,18 @@ class InsertionForm(forms.ModelForm):
     class Meta:
         model = Insertion
         fields = ['publication', 'date', 'status']
-        
+
+
 class RateLocationForm(forms.ModelForm):
     # rate = forms.ChoiceField(label="Ad Rate", widget=forms.Select, choices=ad_rates)
     location = forms.ChoiceField(label="Location", widget=forms.Select, choices=locationChoices)
-    publication = forms.ChoiceField(label="Publication", widget=forms.Select, choices=publications)  
+    publication = forms.ChoiceField(label="Publication", widget=forms.Select, choices=publications)
     price = forms.FloatField(label="Price")
 
     class Meta:
         model = RateLocation
         fields = '__all__'
+
 
 class AdTypeForm(forms.ModelForm):
     code = forms.CharField(label="Code", max_length=50)
@@ -220,6 +244,7 @@ class AdTypeForm(forms.ModelForm):
     class Meta:
         model = AdType
         fields = '__all__'
+
 
 class ClassifiedsContentForm(forms.Form):
     content = forms.CharField(widget=CKEditorWidget())

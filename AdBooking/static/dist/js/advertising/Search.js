@@ -14,8 +14,6 @@ let accounts = [];
 searchInput.addEventListener('keyup', () => {
     const searchValue = searchInput.value;
 
-    console.log(" ================== " + searchValue);
-
     searchPublication(searchValue);
     searchAccount(searchValue);
 });
