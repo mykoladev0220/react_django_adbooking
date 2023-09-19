@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block endjs %}
-<script src="{% static "dist/js/advertising/Search.js" %}"></script>
+<script src="{% static "dist/js/advertising/SearchPublic.js" %}"></script>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -199,7 +199,7 @@
 <!--                        <input type="text" id="search-input" class="form-control shadow" placeholder="Select an Advertiser"-->
 <!--                               style="width:50%;margin:auto;">-->
 
-                        <select id="search-select" class="form-control shadow" style="width: 50%; margin: auto">
+                        <select id="search-select" class="form-control shadow" style="width: 50%; margin: auto; text-align: left">
                             <option value="" disabled selected>Select an Advertiser</option>
                             {% for account in accounts %}
                             <option value="{{ account.id }}">{{ account.submitter }}</option>
@@ -378,7 +378,7 @@
                         </button>
 
                         <div class="input-group-rounded" style="width:300px;float: right;">
-                            <input type="text" class="form-control" placeholder="Search for a publication"/>
+                            <input id="search-pub" type="text" class="form-control" placeholder="Search for a publication"/>
 
                             <span class="input-group-mark">
                                 <i class="glyphicon glyphicon-search mr-1 primary"></i>
@@ -387,11 +387,12 @@
                     </div>
 
                     <div class="card scrollbar m-2 text-left" id="scrollbar1">
-                        <div class="row">
-                            <div class="col-md-4">
+                        <div class="row publication">
+                            {% for publication in publications %}
+                            <div class="col-md-4 pub_ele">
                                 <div class="card mt-2 flex-col pub-card" id="card1">
                                     <div>
-                                        <h3>Teams Leader - Print Edition</h3>
+                                        <h3 class="pub_name">{{publication.name}}</h3>
 
                                         <h4>Publication Type: Print</h4>
                                     </div>
@@ -407,64 +408,7 @@
                                     <img src="{% static "svg/Vector (2).svg" %}" style="height: 15px;margin-top:8px;">
                                 </div>
                             </div>
-
-                            <div class="col-md-4">
-                                <div class="card mt-2 flex-col pub-card" id="card2">
-                                    <div>
-                                        <h3>Teams Leader - Print Edition</h3>
-
-                                        <h4>Publication Type: Print</h4>
-                                    </div>
-
-                                    <div class="flex-row content-left">
-                                        <img src="{% static "svg/Star 1.svg" %}" style="height: 18px;">&nbsp;
-
-                                        <h4>Add to Favorites</h4>
-                                    </div>
-                                </div>
-                                <div id="favoriteIcon2" class="text-center pub-mark">
-                                    <img src="{% static "svg/Vector (2).svg" %}" style="height: 15px;margin-top:8px">
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="card mt-2 flex-col pub-card" id="card3">
-                                    <div>
-                                        <h3>Teams Leader - Print Edition</h3>
-                                        <h4>Publication Type: Print</h4>
-                                    </div>
-                                    <div class="flex-row content-left">
-                                        <img src="{% static "svg/Star 1.svg" %}" style="height: 18px;">&nbsp;
-
-                                        <h4>Add to Favorites</h4>
-                                    </div>
-                                </div>
-
-                                <div id="favoriteIcon3" class="text-center pub-mark">
-                                    <img src="{% static "svg/Vector (2).svg" %}" style="height: 15px;margin-top:8px">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="card mt-2 flex-col pub-card" id="card4">
-                                    <div>
-                                        <h3>Teams Leader - Print Edition</h3>
-
-                                        <h4>Publication Type: Print</h4>
-                                    </div>
-
-                                    <div class="flex-row content-left">
-                                        <img src="{% static "svg/Star 1.svg" %}" style="height: 18px;">&nbsp;
-
-                                        <h4>Add to Favorites</h4>
-                                    </div>
-                                </div>
-
-                                <div id="favoriteIcon4" class="text-center pub-mark">
-                                    <img src="{% static "svg/Vector (2).svg" %}" style="height: 15px;margin-top:8px">
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
 
