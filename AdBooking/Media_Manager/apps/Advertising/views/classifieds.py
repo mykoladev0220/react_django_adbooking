@@ -97,6 +97,8 @@ def create_classified_ad(request):
 
     adjustments = ClassifiedAdjustment.objects.all()
 
+    rating = ClassifiedRate.objects.all();
+
     form = ClassifiedsContentForm()
 
     classificationList = Classification.objects.filter(active=True)
@@ -330,7 +332,8 @@ def create_classified_ad(request):
         "fileList": fileList,
         "form": form,
         "adTypes": adTypes,
-        "adjustments": adjustments
+        "adjustments": adjustments,
+        "rating": rating
     }
 
     return render(request, "CreateNewClassified.html", context)

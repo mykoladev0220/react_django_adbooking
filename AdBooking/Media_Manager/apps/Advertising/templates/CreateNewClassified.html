@@ -527,9 +527,9 @@
                                             <label for="sel1">*Available Rates::</label>
 
                                             <select class="form-control" id="rate">
-                                                <option>rate1</option>
-                                                <option>rate2</option>
-                                                <option>rate3</option>
+                                                {% for rate in rating %}
+                                                <option value="{{rate.id}}">{{rate.name}}</option>
+                                                {% endfor %}
                                             </select>
                                         </div>
                                         <div class="form-group">
