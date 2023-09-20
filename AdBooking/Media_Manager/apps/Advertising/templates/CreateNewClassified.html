@@ -4,6 +4,7 @@
 
 {% block endjs %}
 <script src="{% static "dist/js/advertising/SearchPublic.js" %}"></script>
+<script src="{% static "dist/js/advertising/ClassfiedsNew.js" %}"></script>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -145,6 +146,7 @@
         position: relative;
     }
 </style>
+
 <div id="content">
     <div class="content text-center">
         <h1 class="">New Ad Campaign</h1>
@@ -389,22 +391,22 @@
                     <div class="card scrollbar m-2 text-left" id="scrollbar1">
                         <div class="row publication">
                             {% for publication in publications %}
-                            <div class="col-md-4 pub_ele">
-                                <div class="card mt-2 flex-col pub-card" id="card1">
-                                    <div>
+                            <div id="publication_{{publication.id}}" class="col-md-4 pub_ele">
+                                <div class="card mt-2 flex-col pub-card">
+                                    <div onclick="selectPublications({{publication.id}})">
                                         <h3 class="pub_name">{{publication.name}}</h3>
 
                                         <h4>Publication Type: Print</h4>
                                     </div>
 
-                                    <div class="flex-row content-left">
-                                        <img src="{% static "svg/Star 1.svg" %}" style="height: 18px;">&nbsp;
+                                    <div class="flex-row content-left" onclick="selectStar({{publication.id}})">
+                                        <img id="star_{{publication.id}}" src="{% static "svg/Star-white.svg" %}" style="height: 18px;">&nbsp;
 
-                                        <h4>Add to Favorites</h4>
+                                        <h4 style="line-height: 20px;">Add to Favorites</h4>
                                     </div>
                                 </div>
 
-                                <div id="favoriteIcon1" class="text-center pub-mark">
+                                <div id="favoriteIcon_{{publication.id}}" class="text-center pub-mark">
                                     <img src="{% static "svg/Vector (2).svg" %}" style="height: 15px;margin-top:8px;">
                                 </div>
                             </div>
@@ -938,41 +940,6 @@
 
     $('#datepicker2').datepicker({
         uiLibrary: 'bootstrap'
-    });
-
-    document.getElementById('card1').addEventListener('click', function () {
-        var img = document.getElementById('favoriteIcon1');
-
-        if (img.style.visibility == 'hidden') {
-            img.style.visibility = 'visible';
-        } else {
-            img.style.visibility = 'hidden';
-        }
-    });
-    document.getElementById('card2').addEventListener('click', function () {
-        var img = document.getElementById('favoriteIcon2');
-
-        if (img.style.visibility === 'hidden') {
-            img.style.visibility = 'visible';
-        } else {
-            img.style.visibility = 'hidden';
-        }
-    });
-    document.getElementById('card3').addEventListener('click', function () {
-        var img = document.getElementById('favoriteIcon3');
-        if (img.style.visibility === 'hidden') {
-            img.style.visibility = 'visible';
-        } else {
-            img.style.visibility = 'hidden';
-        }
-    });
-    document.getElementById('card4').addEventListener('click', function () {
-        var img = document.getElementById('favoriteIcon4');
-        if (img.style.visibility === 'hidden') {
-            img.style.visibility = 'visible';
-        } else {
-            img.style.visibility = 'hidden';
-        }
     });
 </script>
 {% endblock %}
