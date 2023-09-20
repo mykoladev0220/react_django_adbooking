@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 from .... import views
 
 # import the necessary models needed
-from ..models.advertising import Account, SalesPerson, wasCreatedRecently
+from ..models.advertising import Account, SalesPerson, wasCreatedRecently, Adjustment
 from ..models.publications import Publication, PublicationRunDay, getRunDays
 from ..models.classifieds import ClassifiedAd, ClassifiedGraphic, Classification, ClassifiedAdjustment, ClassifiedRate, ClassifiedRatePublication, ClassifiedPublication, ClassifiedStyling, getClassifiedRates, ClassifiedPublicationRate, ClassifiedAdType, ClassifiedPublicationDate, UploadGraphicsPermission, UploadGraphic, DeleteGraphicsPermission
 from ..models.permissions import isAdminOrManager, ManagerOverride, AccountAccess
@@ -94,6 +94,8 @@ def create_classified_ad(request):
     salespersonList = SalesPerson.objects.all()
 
     adTypes = ClassifiedAdType.objects.all()
+
+    adjustments = ClassifiedAdjustment.objects.all()
 
     form = ClassifiedsContentForm()
 
@@ -327,7 +329,8 @@ def create_classified_ad(request):
         "contentForm": ClassifiedsContentForm(),
         "fileList": fileList,
         "form": form,
-        "adTypes": adTypes
+        "adTypes": adTypes,
+        "adjustments": adjustments
     }
 
     return render(request, "CreateNewClassified.html", context)

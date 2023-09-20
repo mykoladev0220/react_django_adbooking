@@ -506,12 +506,12 @@
                                         <label for="sel1">*Ad Type:</label>
 
                                         <select class="form-control" id="adtype">
-                                            <option>Video</option>
-                                            <option>Music</option>
-                                            <option>Picture</option>
+                                            {% for adType in adTypes %}
+                                            <option value="{{adType.id}}">{{adType.name}}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
-                                    <div class="mt-2">
+                                    <div id="adjustment" class="mt-2">
                                         <div>
                                             <h5>Adjustments: &nbsp;
                                                 <span style="cursor:pointer;color:#337AB7"
@@ -519,12 +519,6 @@
                                                      data-target="#myModal">+ Add Adjustment(s)
                                                 </span>
                                             </h5>
-                                        </div>
-
-                                        <div class="mt-1 flex-row">
-                                            <h5 class="black">002_COLOR SECONDARY</h5>
-
-                                            <h5 class="black">$0.00</h5>
                                         </div>
                                     </div>
 
@@ -830,51 +824,32 @@
 
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        {% for adjustment in adjustments %}
+                        <div class="col-md-6" onclick="selectAdjustment({{adjustment.id}})">
                             <div class="card pub-card">
                                 <div class="flex-row">
-                                    <h4>001_COLOR MAIN</h4>
-                                    <h4>$1.50</h4>
+                                    <h4>{{adjustment.code}}</h4>
+                                    <h4>${{adjustment.amount}}</h4>
                                 </div>
 
-                                <h5>Description:$1 per unit Main Pub Only</h5>
+                                <h5>Description: {{adjustment.description}}</h5>
 
                                 <div class="flex-row content-left">
-                                    <h5 class="mr-2">Apply Level: Insertion</h5>
+                                    <h5 class="mr-2">Apply Level: {{adjustment.apply_level}}</h5>
                                     <h5>Section</h5>
                                 </div>
 
                                 <div class="flex-row content-left">
-                                    <h5 class="mr-2">Value: Amount</h5>
-                                    <h5>Value: Debit(-)</h5>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="card pub-card">
-                                <div class="flex-row">
-                                    <h4>002_COLOR SECONDARY</h4>
-                                    <h4>$1.50</h4>
+                                    <h5 class="mr-2">Value: {{adjustment.amount}}</h5>
+                                    <h5>Value: {{adjustment.value_type}}</h5>
                                 </div>
 
-                                <h5>Description:$1 per unit Main Pub Only</h5>
-
-                                <div class="flex-row content-left">
-                                    <h5 class="mr-2">Apply Level: Insertion</h5>
-                                    <h5>Section</h5>
-                                </div>
-
-                                <div class="flex-row content-left">
-                                    <h5 class="mr-2">Value: Amount</h5>
-                                    <h5>Value: Debit(+)</h5>
-                                </div>
-
-                                <div style="margin-bottom: -20px;">
+                                <div id="sel_adjustment_{{adjustment.id}}" style="margin-bottom: -20px; visibility: hidden" >
                                     <button class="btn btn-primary origin">Selected</button>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
