@@ -106,3 +106,28 @@ function campaign_next() {
 
     showSection(3);
 }
+
+function publication_next() {
+    var adtype = document.getElementById("adtype").value;
+
+    if (adtype === "") {
+        alert("Please complete the fields.");
+        return;
+    }
+
+    var adsize = document.getElementById("adsize").value;
+
+    if (adsize === "") {
+        alert("Please complete the fields.");
+        return;
+    }
+
+    var rate = document.getElementById("rate").value;
+
+    if (rate === "") {
+        alert("Please complete the fields.");
+        return;
+    }
+
+    showSection(5);
+}
