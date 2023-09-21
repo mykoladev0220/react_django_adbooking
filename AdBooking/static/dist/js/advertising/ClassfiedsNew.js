@@ -53,3 +53,56 @@ function deleteAdjustment(id) {
 
     remove.remove();
 }
+
+//advertiser
+function selectedAdvertiser() {
+    document.getElementById("advertise_Name").innerText = document.getElementById("search-select").value;
+}
+
+function advertiser_next() {
+    var advertiser = document.getElementById("search-select").value;
+    if (advertiser === "") {
+        alert("Please complete the fields.");
+
+        return;
+    }
+
+    showSection(2);
+}
+
+function campaign_next() {
+    var orderName = document.getElementById("orderName").value;
+
+    if (orderName === "") {
+        alert("Please complete the fields.");
+        return;
+    } else {
+        document.getElementById("total_orderName").innerText = orderName;
+    }
+
+    var seles = document.getElementById("sell").value;
+
+    if (seles === "") {
+        alert("Please complete the fields.");
+        return;
+    } else {
+        document.getElementById("total_sales").innerText = seles;
+    }
+
+    var startDate = document.getElementById("startDate").value;
+
+    if (startDate === "") {
+        alert("Please complete the fields.");
+        return;
+    } else {
+        document.getElementById("total_startDate").innerText = startDate;
+    }
+
+    var endDate = document.getElementById("endDate").value;
+    document.getElementById("total_endDate").innerText = endDate;
+
+    var brief = document.getElementById("brief").value;
+    document.getElementById("total_brief").innerText = brief;
+
+    showSection(3);
+}

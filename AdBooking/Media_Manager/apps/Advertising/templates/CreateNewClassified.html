@@ -145,9 +145,9 @@
         height: 100%;
         position: relative;
     }
-</style>
+    </style>`
 
-<div id="content">
+    <div id="content">`
     <div class="content text-center">
         <h1 class="">New Ad Campaign</h1>
         <div class="card" style="width: 80%;margin:auto;margin-top:40px;padding:0;border-radius: 10px;">
@@ -198,13 +198,10 @@
                     <h2 class="mt-4 sub-title">Select An Advertiser</h2>
 
                     <div class="mt-4">
-<!--                        <input type="text" id="search-input" class="form-control shadow" placeholder="Select an Advertiser"-->
-<!--                               style="width:50%;margin:auto;">-->
-
-                        <select id="search-select" class="form-control shadow" style="width: 50%; margin: auto; text-align: left">
+                        <select id="search-select" class="form-control shadow" onchange="selectedAdvertiser()" style="width: 50%; margin: auto; text-align: left">
                             <option value="" disabled selected>Select an Advertiser</option>
                             {% for account in accounts %}
-                            <option value="{{ account.id }}">{{ account.submitter }}</option>
+                            <option value="{{ account.submitter }}">{{ account.submitter }}</option>
                             {% endfor %}
                         </select>
 
@@ -215,7 +212,7 @@
                     </div>
 
                     <div class="mt-4 text-right">
-                        <button class="btn mr-2 btn-primary bg-primary shadow" onclick="showSection(2)"
+                        <button class="btn mr-2 btn-primary bg-primary shadow" onclick="advertiser_next()"
                                 style="width:40%;">Next
                         </button>
                     </div>
@@ -268,7 +265,7 @@
                             <div class="form-group">
                                 <label for="orderName">*Order Name:</label>
 
-                                <input type="text" class="form-control shadow" id="orderName"
+                                <input type="text" id="orderName" class="form-control shadow"
                                        placeholder="Enter Order Name" name="orderName">
                             </div>
 
@@ -281,7 +278,7 @@
                                             <select class="form-control shadow" id="sell" style="border-radius: 4px">
                                                 <option>Select a Salesperson</option>
                                                 {% for salesperson in salespersonList %}
-                                                <option value="{{ salesperson.id }}">{{ salesperson.first_name }} {{ salesperson.last_name}}</option>
+                                                <option value="{{ salesperson.first_name }} {{salesperson.last_name}}">{{ salesperson.first_name }} {{ salesperson.last_name}}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -319,7 +316,7 @@
                             Previous
                         </button>
 
-                        <button class="btn btn-primary bg-primary" onclick="showSection(3)" style="width: 40%;">Next
+                        <button class="btn btn-primary bg-primary" onclick="campaign_next()" style="width: 40%;">Next
                         </button>
                     </div>
 
@@ -648,33 +645,25 @@
                             <div class="col-md-6">
                                 <div class="mt-2">
                                     <h5>Campaign Name:</h5>
-                                    <h4 class="black">Ad Order Name Goes Here</h4>
+                                    <h4 class="black" id="total_orderName"></h4>
                                 </div>
 
                                 <div class="mt-2">
                                     <h5>Brief Descriptions:</h5>
 
-                                    <h5>Lorem ipsum dolor sit amet, at natum omnes alienum est. Qui ad fabulas deleniti
-                                        pericula, doming
-                                        semper ponderum at eam, et vim delectus consequat deterruisset. Ne possim
-                                        equidem pertinax eam,
-                                        essent conclusionemque vim et. Usu ut vocent fastidii, dicant apeirian vim ne,
-                                        vis ex minimum
-                                        lobortis consectetuer. Usu id vero autem delicata, zril incorrupte et est. Est
-                                        no soleat alienum.
-                                    </h5>
+                                    <h5 id="total_brief"></h5>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mt-2 flex-row" style="justify-content: left;align-items: end;">
                                     <div class="mr-2">
                                         <h5>Start Date:</h5>
-                                        <h4>5/22/2023</h4>
+                                        <h4 id="total_startDate"></h4>
                                     </div>
 
                                     <div>
                                         <h5>End Date:</h5>
-                                        <h4>5/27/2023</h4>
+                                        <h4 id="total_endDate"></h4>
                                     </div>
                                 </div>
 
@@ -684,7 +673,7 @@
                                 </div>
 
                                 <div class="mt-1">
-                                    <h4 style="text-align: right">Advertiser Name Goes Here</h4>
+                                    <h4 id="advertise_Name" style="text-align: right"></h4>
                                 </div>
 
                                 <div class="mt-2 flex-row">
@@ -694,7 +683,7 @@
                                 </div>
 
                                 <div>
-                                    <h4 style="text-align: right">Kyle Jernigan</h4>
+                                    <h4 id="total_sales" style="text-align: right"></h4>
                                 </div>
                             </div>
                         </div>
@@ -887,10 +876,6 @@
     $(document).ready(function() {
         $('#search-select').select2();
     });
-
-    // (function($) {
-    //   $('#search-select').select2();
-    // })(jQuery);
 </script>
 
 <script>
