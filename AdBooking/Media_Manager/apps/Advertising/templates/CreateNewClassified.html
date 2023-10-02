@@ -145,12 +145,12 @@
         height: 100%;
         position: relative;
     }
-    </style>`
+</style>`
 
-    <div id="content">`
+<div id="content">`
     <div class="content text-center">
-        <h1 class="">New Ad Campaign</h1>
-        <div class="card" style="width: 80%;margin:auto;margin-top:40px;padding:0;border-radius: 10px;">
+        <h1 style="margin-bottom: 50px">New Ad Campaign</h1>
+        <div class="card c-card">
             <div class="row">
                 <div class="col-md-12" id="section1">
                     <div class="time-line-box mt-1">
@@ -198,27 +198,37 @@
                     <h2 class="mt-4 sub-title">Select An Advertiser</h2>
 
                     <div class="mt-4">
-                        <select id="search-select" class="form-control shadow" onchange="selectedAdvertiser()" style="width: 50%; margin: auto; text-align: left">
-                            <option value="" disabled selected>Select an Advertiser</option>
+                        <select id="search-select" class="form-control shadow" onchange="selectedAdvertiser()" style="width: 50%">
+                            <option value="" disabled selected>
+                                Select an Advertiser
+                            </option>
                             {% for account in accounts %}
-                            <option value="{{ account.submitter }}">{{ account.submitter }}</option>
+                            <option value="{{ account.submitter }}">
+                                {{ account.submitter }}
+                            </option>
                             {% endfor %}
                         </select>
 
                         <span class="text-right"
-                              style="width: 50%; display: block; margin: auto; margin-top: 5px !important; color: black">Don't see your advertiser? <a
-                                style="cursor: pointer; color: #21215f; text-decoration: underline;" data-toggle="modal"
-                                data-target="#createAdvertiseModal">Click here to create one!</a></span>
+                              style="width: 50%; display: block; margin: auto; margin-top: 5px !important; color: black">
+                            Don't see your advertiser?
+                            <a style="cursor: pointer; color: #21215f; text-decoration: underline;" data-toggle="modal"
+                                data-target="#createAdvertiseModal">
+                                Click here to create one!
+                            </a>
+                        </span>
                     </div>
 
                     <div class="mt-4 text-right">
-                        <button class="btn mr-2 btn-primary bg-primary shadow" onclick="advertiser_next()"
-                                style="width:40%;">Next
+                        <button class="btn btn-primary bg-primary shadow c-option-btn" onclick="advertiser_next()">
+                            Next
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16" fill="none">
+                                <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z" fill="white"/>
+                            </svg>
                         </button>
                     </div>
 
-                    <img class="mt-2" src="{% static "svg/Ellipse 9.svg" %}" style="width:
-                    100%;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;">
+                    <img class="mt-2 c-background2" src="{% static 'svg/Ellipse 9.svg' %}">
                 </div>
 
                 <div class="col-md-12 hide" id="section2">
@@ -261,7 +271,7 @@
 
                     <h2 class="mt-4 sub-title">Ad Campaign Info</h2>
                     <div class="m-2">
-                        <form class="text-left" action="#">
+                        <form class="text-left c-form" action="#">
                             <div class="form-group">
                                 <label for="orderName">*Order Name:</label>
 
@@ -278,7 +288,9 @@
                                             <select class="form-control shadow" id="sell" style="border-radius: 4px">
                                                 <option>Select a Salesperson</option>
                                                 {% for salesperson in salespersonList %}
-                                                <option value="{{ salesperson.first_name }} {{salesperson.last_name}}">{{ salesperson.first_name }} {{ salesperson.last_name}}</option>
+                                                <option value="{{ salesperson.first_name }} {{salesperson.last_name}}">
+                                                    {{ salesperson.first_name }} {{ salesperson.last_name}}
+                                                </option>
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -311,16 +323,20 @@
                         </form>
                     </div>
 
-                    <div class="flex-row m-2">
-                        <button class="btn btn-primary bg-primary" onclick="showSection(1)" style="width: 40%;">
+                    <div class="flex-row">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(1)" style="width: 40%;">
                             Previous
                         </button>
 
-                        <button class="btn btn-primary bg-primary" onclick="campaign_next()" style="width: 40%;">Next
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="campaign_next()" style="width: 40%;">
+                            Next
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16" fill="none">
+                                <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z" fill="white"/>
+                            </svg>
                         </button>
                     </div>
 
-                    <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
+                    <img src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
                 </div>
 
                 <div class="col-md-12 hide" id="section3">
@@ -368,16 +384,16 @@
                         </div>
                     </div>
 
-                    <h2 class="mt-4">Select Publication(s)</h2>
+                    <h2 class="mt-4 sub-title">Select Your Ad Format(s)</h2>
 
-                    <div class="flex-row m-2">
-                        <button class="btn btn-primary bg-primary">
+                    <div class="flex-row c-p-adFormat">
+                        <button class="btn btn-primary bg-primary c-filter">
                             <img src={% static "svg/Vector (1).svg" %}>
                             Filter
                         </button>
 
                         <div class="input-group-rounded" style="width:300px;float: right;">
-                            <input id="search-pub" type="text" class="form-control" placeholder="Search for a publication"/>
+                            <input id="search-pub" type="text" class="form-control" placeholder="Search"/>
 
                             <span class="input-group-mark">
                                 <i class="glyphicon glyphicon-search mr-1 primary"></i>
@@ -385,25 +401,28 @@
                         </div>
                     </div>
 
-                    <div class="card scrollbar m-2 text-left" id="scrollbar1">
-                        <div class="row publication">
-                            {% for publication in publications %}
-                            <div id="publication_{{publication.id}}" class="col-md-4 pub_ele">
-                                <div class="card mt-2 flex-col pub-card">
-                                    <div onclick="selectPublications({{publication.id}})">
-                                        <h3 class="pub_name">{{publication.name}}</h3>
-
-                                        <h4>Publication Type: Print</h4>
+                    <div class="card scrollbar text-left c-adFormat" id="scrollbar1">
+                        <div class="publication">
+                            {% for adType in adTypes %}
+                            <div id="ad_{{adType.id}}" class="col-md-4 pub_ele">
+                                <div class="flex-col pub-card">
+                                    <div class="c-ad-name">
+                                        <h3 class="pub_name">{{adType.name}}</h3>
                                     </div>
 
-                                    <div class="flex-row content-left" onclick="selectStar({{publication.id}})">
-                                        <img id="star_{{publication.id}}" src="{% static "svg/Star-white.svg" %}" style="height: 18px;">&nbsp;
+                                    <div class="flex-row content-left c-ml-10" onclick="selectStar({{adType.id}})">
+                                        <img id="star_{{adType.id}}" src="{% static "svg/Star-white.svg" %}"
+                                        style="height: 18px;">&nbsp;
 
-                                        <h4 style="line-height: 20px;">Add to Favorites</h4>
+                                        <h4 class="c-favorite" style="line-height: 20px;">Add to Favorites</h4>
+                                    </div>
+
+                                    <div class="c-adType-hover" onclick="selectPublications({{adType.id}})">
+                                        Added to <br> Campaign!
                                     </div>
                                 </div>
 
-                                <div id="favoriteIcon_{{publication.id}}" class="text-center pub-mark">
+                                <div id="favoriteIcon_{{adType.id}}" class="text-center pub-mark">
                                     <img src="{% static "svg/Vector (2).svg" %}" style="height: 15px;margin-top:8px;">
                                 </div>
                             </div>
@@ -411,17 +430,20 @@
                         </div>
                     </div>
 
-                    <div class="flex-row m-2">
-                        <button class="btn btn-primary bg-primary" onclick="showSection(2)" style="width:40%;">
+                    <div class="flex-row">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(2)" style="width:40%;">
                             Previous
                         </button>
 
-                        <button class="btn btn-primary bg-primary" onclick="showSection(4)" style="width:40%;">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(4)" style="width:40%;">
                             Next
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16" fill="none">
+                                <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z" fill="white"/>
+                            </svg>
                         </button>
                     </div>
 
-                    <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
+                    <img src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
                 </div>
 
                 <div class="col-md-12 hide" id="section4">
@@ -512,8 +534,8 @@
                                         <div>
                                             <h5>Adjustments: &nbsp;
                                                 <span style="cursor:pointer;color:#337AB7"
-                                                     data-toggle="modal"
-                                                     data-target="#myModal">+ Add Adjustment(s)
+                                                      data-toggle="modal"
+                                                      data-target="#myModal">+ Add Adjustment(s)
                                                 </span>
                                             </h5>
                                         </div>
@@ -833,7 +855,8 @@
                                     <h5>Value: {{adjustment.value_type}}</h5>
                                 </div>
 
-                                <div id="sel_adjustment_{{adjustment.id}}" style="margin-bottom: -20px; visibility: hidden" >
+                                <div id="sel_adjustment_{{adjustment.id}}"
+                                     style="margin-bottom: -20px; visibility: hidden">
                                     <button class="btn btn-primary origin">Selected</button>
                                 </div>
                             </div>
@@ -873,7 +896,7 @@
 <script>
     var salesperson_id = "{{ salesperson_id }}";
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#search-select').select2();
     });
 </script>
