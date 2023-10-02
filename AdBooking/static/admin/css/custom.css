@@ -6,16 +6,18 @@ h1 {
 }
 
 h2{
-  font-size: 30px;
+  font-size: 35px;
   font-weight: 700;
   line-height: 42px;
   margin: 0;
 }
 
-h3{
-  font-size: 18px;
-  font-weight: 700;
+h3 {
   color: black;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 700;
+  margin-bottom: 11px;
 }
 
 h4 {
@@ -121,7 +123,7 @@ hr {
 .card {
   border: 1px solid black;
   background: white;
-  padding: 20px;
+  padding: 27px 50px 45px 50px;
   border-radius: 4px;
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.5);
 }
@@ -274,4 +276,68 @@ button {
   background-color: #03A803;
   margin-left:auto;
   margin-right:auto
+}
+
+.c-search-publication {
+  width: 80%;
+  height: 45px;
+  background: #FFF;
+  border: .5px solid rgba(102, 102, 102, 0.80);
+  border-radius: 20px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  float: right;
+  margin-right: 4%;
+}
+
+.c-pub-hr {
+  width: 54%;
+  height: 2.5px;
+}
+
+.c-acc-hr {
+  width: 31%;
+  height: 2.5px;
+}
+
+table {
+  border: .5px solid black;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+th {
+  text-align: center;
+  font-size: 16px !important;
+  font-family: "Lato", serif !important;
+  font-weight: 700;
+}
+
+td {
+  border-left: none;
+  border-top: 1px solid rgba(102, 102, 102, 0.40);
+  text-align: center;
+  font-size: 25px !important;
+  font-family: "Karla", serif !important;
+}
+
+tr:hover {
+  background-color: rgba(33, 33, 95, 0.20);
+}
+
+td a {
+  color: black !important;
+  text-decoration: none;
+}
+
+td a:hover {
+  color: black;
+}
+
+@media screen and (max-width: 1799px) {
+  h2 {
+    font-size: 29px !important;
+  }
+
+  hr {
+    margin-right: 0 !important;
+  }
 }

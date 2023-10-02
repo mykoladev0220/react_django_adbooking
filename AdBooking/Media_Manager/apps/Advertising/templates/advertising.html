@@ -13,7 +13,7 @@
 
 {% block content %}
 <div id="content">
-    <div class="main-content pt-4">
+    <div class="main-content">
         <div class="content text-center">
             <h1><i class="fa fa-bullhorn"></i>&nbsp;Welcome to Advertising</h1>
 
@@ -33,15 +33,16 @@
 
             <div class="card m-2 text-left mt-4">
                 <div class="row">
-                    <div class="col-md-5">
-                        <h2 class="primary">Publications & Accounts
-                            <hr style="height:3px">
+                    <div class="col-md-4">
+                        <h2 class="primary">
+                            Publications & Accounts
+                            <hr style="height:3px; margin-right: 30px">
                         </h2>
                     </div>
 
-                    <div class="col-md-7 text-right">
-                        <div class="input-group-rounded" style="width:400px; float:right;">
-                            <input type="text" id="search-input" class="form-control"
+                    <div class="col-md-8 text-right">
+                        <div class="input-group-rounded c-search-publication">
+                            <input type="text" id="search-input" class="form-control c-search"
                                    placeholder="Search by Publication Name or Account Name"
                             />
 
@@ -53,12 +54,13 @@
                 </div>
 
                 <div class="row mt-4">
-                    <div class="col-md-5">
-                        <h3>Publication
-                            <hr class="bg-success" style="width:60%;height: 2.5px;">
+                    <div class="col-md-4">
+                        <h3>
+                            Publication
+                            <hr class="bg-success c-pub-hr">
                         </h3>
 
-                        <table id="publication-table" class="w-full mt-4 general-table">
+                        <table id="publication-table" class="w-full general-table">
                             <thead>
                                 <th>ID</th>
                                 <th>NAME</th>
@@ -69,7 +71,8 @@
                                 {% for publication in publications %}
                                 <tr>
                                     <td>{{ publication.id }}</td>
-                                    <td><a href="{% url 'view_publication' publication.id %}">{{ publication.name }}</a>
+                                    <td>
+                                        <a href="{% url 'view_publication' publication.id %}">{{ publication.name }}</a>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -85,12 +88,12 @@
                         </table>
                     </div>
 
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <h3>Accounts
-                            <hr class="bg-success" style="width: 60%;height: 2.5px;">
+                            <hr class="bg-success c-acc-hr">
                         </h3>
 
-                        <table id="account-table" class="w-full mt-4 general-table">
+                        <table id="account-table" class="w-full general-table">
                             <thead>
                                 <th>ID</th>
                                 <th>NAME</th>
