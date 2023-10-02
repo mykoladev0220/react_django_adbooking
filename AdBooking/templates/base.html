@@ -38,28 +38,11 @@
 				    </section>
 			        <!-- Main content -->
 			        <section class="content container-fluid">
-			        	<!--
-			        	<div class="box box-solid">
-			        		<div class="box-header with-border">
-			        			<h3 class="box-title">Alert - 12/10/2020</h3>
-			        			<div class="box-tools pull-right">
-			        				<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-			        			</div>
-			        		</div>
-			        		<div class="box-body">
-				        		We recently pushed an update to fix the run_date filter, fix column summing for some charts, and add an option to not refresh the page on filter toggle. If you're experiencing issues since the update, try resetting the dashboard/chart to it's default version. If that doesn't work try clearing your cache. <br><br><a href="https://www.refreshyourcache.com/en/home/" target="_blank">Click here for an example on how to clear cache for each browser</a>.
-				        	</div>
-			        	</div>
-			        -->
 			        	{%block forwardjs %}
 						<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 						{% endblock %}
 						{%block content %}{% endblock %}
 					</section>
-					<!-- Main Footer -->
-					<footer class="footer">
-						{% include "templates/sections/footer.html" %}
-					</footer>
 					<!-- /.content -->
 				</div>
 				<!-- /.content-wrapper -->
