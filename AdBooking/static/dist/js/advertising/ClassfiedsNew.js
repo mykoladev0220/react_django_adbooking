@@ -144,3 +144,16 @@ function collapseEditSpec(clickedButton) {
         }
     }
 }
+
+function collapseEditSpecItem(clickedButton, index) {
+    collapseEditSpec(clickedButton);
+
+    const specItem = document.getElementById("edit-ad-item-" + index);
+    const maxHeight = specItem.style.maxHeight;
+
+    if (maxHeight === "inherit") {
+        specItem.style.maxHeight = "55px";
+    } else {
+        specItem.style.maxHeight = "inherit";
+    }
+}

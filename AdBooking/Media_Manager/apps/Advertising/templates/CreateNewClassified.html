@@ -533,7 +533,7 @@
                         </div>
 
                         <div id="demo1" class="collapse secondary p-2 c-ad-spec">
-                            <div>
+                            <div class="c-ad-spec-item">
                                 <div class="c-ad-spec-label">Select Your Publication:</div>
                                 <div class="select-publication">
                                     <select class="form-control" id="select-pub">
@@ -541,7 +541,7 @@
                                         <option value="1">Times Leader-PRO Edition</option>
                                     </select>
 
-                                    <button>
+                                    <button data-target="#create-ad" data-toggle="modal">
                                         + Start An Ad For This Publication
                                     </button>
 
@@ -551,9 +551,9 @@
                                 <hr class="black">
 
                                 <div class="edit-ad">
-                                    <div class="edit-ad-item">
+                                    <div id="edit-ad-item-0" class="edit-ad-item">
                                         <div class="edit-ad-item-title">
-                                            <span>Thanksgiving</span>
+                                            <span>*Ad Name*</span>
 
                                             <h6>Qty:</h6>
 
@@ -608,14 +608,24 @@
                                             <div class="adjustment-label">Description:</div>
 
                                             <div class="ad-type-value">
-                                                Lorem ipsum dolor sit amet, at natum omnes alienum est.
+                                                Lorem ipsum dolor sit amet, at natum omnes alienum est asdfasdfasdfsdafasdfdsaasdfasdfasdfasdfsd afasdfdsaasdfasdfasdfasdfsdafasdfdsaasdf.
                                             </div>
+                                        </div>
+
+                                        <div class="collapse-icon" onclick="collapseEditSpecItem(this, 0)">
+                                            <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
+                                              <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 6V8H9V6H7Z" fill="#F26722"/>
+                                            </svg>
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
+                                              <path d="M8.70711 0.292893C8.31658 -0.097631 7.68342 -0.097631 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 3V1H7V3H9Z" fill="#F26722"/>
+                                            </svg>
                                         </div>
                                     </div>
 
-                                    <div class="edit-ad-item">
+                                    <div id="edit-ad-item-1" class="edit-ad-item">
                                         <div class="edit-ad-item-title">
-                                            <span>Thanksgiving</span>
+                                            <span>Thanksgiving1</span>
 
                                             <h6>Qty:</h6>
 
@@ -672,12 +682,22 @@
                                             <div class="ad-type-value">
                                                 Lorem ipsum dolor sit amet, at natum omnes alienum est.
                                             </div>
+                                        </div>
+
+                                        <div class="collapse-icon" onclick="collapseEditSpecItem(this, 1)">
+                                            <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
+                                              <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 6V8H9V6H7Z" fill="#F26722"/>
+                                            </svg>
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
+                                              <path d="M8.70711 0.292893C8.31658 -0.097631 7.68342 -0.097631 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 3V1H7V3H9Z" fill="#F26722"/>
+                                            </svg>
                                         </div>
                                     </div>
 
-                                    <div class="edit-ad-item">
+                                    <div id="edit-ad-item-2" class="edit-ad-item">
                                         <div class="edit-ad-item-title">
-                                            <span>Thanksgiving</span>
+                                            <span>Thanksgiving2</span>
 
                                             <h6>Qty:</h6>
 
@@ -734,12 +754,22 @@
                                             <div class="ad-type-value">
                                                 Lorem ipsum dolor sit amet, at natum omnes alienum est.
                                             </div>
+                                        </div>
+
+                                        <div class="collapse-icon" onclick="collapseEditSpecItem(this, 2)">
+                                            <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
+                                              <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 6V8H9V6H7Z" fill="#F26722"/>
+                                            </svg>
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
+                                              <path d="M8.70711 0.292893C8.31658 -0.097631 7.68342 -0.097631 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 3V1H7V3H9Z" fill="#F26722"/>
+                                            </svg>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div>
+                            <div class="c-ad-spec-item">
                                 <div class="c-ad-spec-label">Select Your Publication:</div>
                                 <div class="select-publication">
                                     <select class="form-control" id="select-pub1">
@@ -766,19 +796,19 @@
 
                             <hr class="black mt-1" style="color: #666">
 
-                            <div class="flex-row">
+                            <div class="price-label" style="margin-top: 6px">
                                 <h5>Print Ad Subtotal:</h5>
 
-                                <h5 class="c-mr-30">$0.00</h5>
+                                <h5 class="c-mr-50">$0.00</h5>
                             </div>
 
-                            <div class="flex-row">
+                            <div class="price-label">
                                 <h5>Adjustment Total:</h5>
 
-                                <h5 class="c-mr-30">$0.00</h5>
+                                <h5 class="c-mr-50">$0.00</h5>
                             </div>
 
-                            <div class="flex-row">
+                            <div class="price-label">
                                 <h4>Print Ad(s) Total:</h4>
 
                                 <h4 class="c-mr-50">$0.00</h4>
@@ -786,14 +816,12 @@
                         </div>
                     </div>
 
-                    <div class="flex-row c-m-panel">
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(3)"
-                                style="width: 40%;">
+                    <div class="flex-row mt-4">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(3)">
                             Previous
                         </button>
 
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="publication_next()"
-                                style="width: 40%;">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="publication_next()">
                             Next
                         </button>
                     </div>
@@ -1072,6 +1100,80 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="modal fade" id="create-ad" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal header-->
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <h3 class="modal-title">
+                    New Ad
+                    <hr>
+                </h3>
+
+                <div class="value-area">
+                    <div class="ad-value-row">
+                        <div class="ad-value-item">
+                            <div>Ad Name:</div>
+                            <input type="text" placeholder="Enter name here...">
+                        </div>
+
+                        <div class="ad-value-item">
+                            <div>Ad Type:</div>
+                            <select></select>
+                        </div>
+                    </div>
+
+                    <div class="ad-value-row">
+                        <div class="ad-value-item">
+                            <div>Ad Sizes:</div>
+                            <select></select>
+                        </div>
+
+                        <div class="ad-value-item">
+                            <div>Available Rates:</div>
+                            <select></select>
+                        </div>
+                    </div>
+
+                    <div class="ad-textarea-row">
+                        <div>Brief Description:</div>
+                        <textarea></textarea>
+                    </div>
+
+                    <div class="ad-adjustment-calender">
+                        <div class="ad-adjustment">
+                            <div class="ad-adjustment-label">
+                                <div>Adjustments:</div>
+
+                                <span>+</span>
+
+                                <div>Add Adjustment(s)</div>
+                            </div>
+
+                            <div class="ad-adjustment-value">
+                                <div>002_COLOR SECONDARY </div>
+
+                                <div>$0.00</div>
+                            </div>
+                        </div>
+
+                        <div class="ad-calender">
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+
+                    <div class="create-btn">
+                        <button>Create</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
