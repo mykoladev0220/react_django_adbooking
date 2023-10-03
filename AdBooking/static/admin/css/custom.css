@@ -538,7 +538,6 @@ td a:hover {
   border: 1px solid #666;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
   color: #666;
-  display: flex;
   font-family: "Lato", serif;
   font-size: 24px;
   font-weight: 700;
@@ -546,10 +545,18 @@ td a:hover {
   text-align: left;
   padding-left: 17px;
   padding-right: 25px;
+  position: relative;
 }
 
 .c-section svg {
-  margin-left: auto;
+  position: absolute;
+  top: 25px;
+  right: 20px;
+  visibility: hidden;
+}
+
+.c-section .c-svg-active {
+  visibility: visible;
 }
 
 .c-ad-spec {

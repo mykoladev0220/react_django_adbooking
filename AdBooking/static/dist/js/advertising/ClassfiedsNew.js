@@ -98,11 +98,9 @@ function campaign_next() {
         document.getElementById("total_startDate").innerText = startDate;
     }
 
-    var endDate = document.getElementById("endDate").value;
-    document.getElementById("total_endDate").innerText = endDate;
+    document.getElementById("total_endDate").innerText = document.getElementById("endDate").value;
 
-    var brief = document.getElementById("brief").value;
-    document.getElementById("total_brief").innerText = brief;
+    document.getElementById("total_brief").innerText = document.getElementById("brief").value;
 
     showSection(3);
 }
@@ -130,4 +128,19 @@ function publication_next() {
     // }
 
     showSection(5);
+}
+
+function collapseEditSpec(clickedButton) {
+    const childElements = clickedButton.childNodes;
+
+    for (var i = 0; i < childElements.length; i ++) {
+        var item = childElements[i];
+        if (item.nodeName === "svg") {
+            if (item.classList.contains("c-svg-active")) {
+                item.classList.remove("c-svg-active");
+            } else {
+                item.classList.add("c-svg-active");
+            }
+        }
+    }
 }
