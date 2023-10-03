@@ -69,7 +69,7 @@
     }
 
     .time-line-box .status.active {
-        padding: 0px 10px;
+        padding: 0 10px;
         display: flex;
         justify-content: center;
         border-top: 3px solid #F26722;
@@ -151,7 +151,7 @@
     <div class="content text-center">
         <h1 style="margin-bottom: 50px">New Ad Campaign</h1>
         <div class="card c-card">
-            <div class="row">
+            <div>
                 <div class="col-md-12" id="section1">
                     <div class="time-line-box mt-1">
                         <div class="swiper-container text-center">
@@ -198,7 +198,8 @@
                     <h2 class="mt-4 sub-title">Select An Advertiser</h2>
 
                     <div class="mt-4">
-                        <select id="search-select" class="form-control shadow" onchange="selectedAdvertiser()" style="width: 50%">
+                        <select id="search-select" class="form-control shadow" onchange="selectedAdvertiser()"
+                                style="width: 50%">
                             <option value="" disabled selected>
                                 Select an Advertiser
                             </option>
@@ -213,7 +214,7 @@
                               style="width: 50%; display: block; margin: auto; margin-top: 5px !important; color: black">
                             Don't see your advertiser?
                             <a style="cursor: pointer; color: #21215f; text-decoration: underline;" data-toggle="modal"
-                                data-target="#createAdvertiseModal">
+                               data-target="#createAdvertiseModal">
                                 Click here to create one!
                             </a>
                         </span>
@@ -222,8 +223,10 @@
                     <div class="mt-4 text-right">
                         <button class="btn btn-primary bg-primary shadow c-option-btn" onclick="advertiser_next()">
                             Next
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16" fill="none">
-                                <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z" fill="white"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"
+                                 fill="none">
+                                <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z"
+                                      fill="white"/>
                             </svg>
                         </button>
                     </div>
@@ -324,14 +327,18 @@
                     </div>
 
                     <div class="flex-row">
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(1)" style="width: 40%;">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(1)"
+                                style="width: 40%;">
                             Previous
                         </button>
 
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="campaign_next()" style="width: 40%;">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="campaign_next()"
+                                style="width: 40%;">
                             Next
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16" fill="none">
-                                <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z" fill="white"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"
+                                 fill="none">
+                                <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z"
+                                      fill="white"/>
                             </svg>
                         </button>
                     </div>
@@ -431,14 +438,18 @@
                     </div>
 
                     <div class="flex-row">
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(2)" style="width:40%;">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(2)"
+                                style="width:40%;">
                             Previous
                         </button>
 
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(4)" style="width:40%;">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(4)"
+                                style="width:40%;">
                             Next
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16" fill="none">
-                                <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z" fill="white"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"
+                                 fill="none">
+                                <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z"
+                                      fill="white"/>
                             </svg>
                         </button>
                     </div>
@@ -491,127 +502,294 @@
                         </div>
                     </div>
 
-                    <h2 class="mt-4">Edit Publication Ad Settings</h2>
+                    <h2 class="mt-4">Select Your Ad Specs</h2>
 
-                    <div class="m-2">
-                        <div class="btn secondary" data-toggle="collapse" data-target="#demo" style="width:100%">
-                            <div class="flex-row">
-                                <h3>Times Leader - Print Edition</h3>
-                            </div>
+                    <div class="c-m-panel">
+                        <div class="btn secondary c-section" data-toggle="collapse" data-target="#demo">
+                            ROP
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14"
+                                 fill="none">
+                                <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z"
+                                      fill="#666666"/>
+                            </svg>
                         </div>
 
                         <div id="demo" class="collapse">
                         </div>
                     </div>
-                    <div class="m-2">
-                        <div class="btn secondary" data-toggle="collapse" data-target="#demo1" style="width:100%">
-                            <div class="flex-row">
-                                <h3>Times Leader - E Edition</h3>
-                            </div>
+
+                    <div class="c-m-panel">
+                        <div class="btn secondary c-section" data-toggle="collapse" data-target="#demo1">
+                            Print
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14"
+                                 fill="none">
+                                <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z"
+                                      fill="#666666"/>
+                            </svg>
                         </div>
 
-                        <div id="demo1" class="collapse secondary p-2">
-                            <div class="flex-row">
-                                <h4 class="black">Ad #1:</h4>
+                        <div id="demo1" class="collapse secondary p-2 c-ad-spec">
+                            <div>
+                                <div class="c-ad-spec-label">Select Your Publication:</div>
+                                <div class="select-publication">
+                                    <select class="form-control" id="select-pub">
+                                        <option value="0">Times Leader-Print Edition</option>
+                                        <option value="1">Times Leader-PRO Edition</option>
+                                    </select>
 
-                                <h4 class="black">$0.00</h4>
-                            </div>
+                                    <button>
+                                        + Start An Ad For This Publication
+                                    </button>
 
-                            <hr class="black">
+                                    <h4 class="black">$0.00</h4>
+                                </div>
 
-                            <div class="row text-left mt-2">
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label for="sel1">*Ad Type:</label>
+                                <hr class="black">
 
-                                        <select class="form-control" id="adtype">
-                                            {% for adType in adTypes %}
-                                            <option value="{{adType.id}}">{{adType.name}}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                    <div id="adjustment" class="mt-2">
-                                        <div>
-                                            <h5>Adjustments: &nbsp;
-                                                <span style="cursor:pointer;color:#337AB7"
-                                                      data-toggle="modal"
-                                                      data-target="#myModal">+ Add Adjustment(s)
-                                                </span>
-                                            </h5>
+                                <div class="edit-ad">
+                                    <div class="edit-ad-item">
+                                        <div class="edit-ad-item-title">
+                                            <span>Thanksgiving</span>
+
+                                            <h6>Qty:</h6>
+
+                                            <input type="text">
+
+                                            <h4 class="black">$0.00</h4>
+                                        </div>
+
+                                        <div class="value-items">
+                                            <div class="value-items-half">
+                                                <div class="ad-type">
+                                                    <div class="ad-type-label">Ad Type:</div>
+
+                                                    <div class="ad-type-value">*Value</div>
+                                                </div>
+
+                                                <div class="ad-date">
+                                                    <div class="ad-type-label">Dates:</div>
+
+                                                    <div class="ad-type-value">9/12/2023,</div>
+                                                    <div class="ad-type-value">9/17/2023,</div>
+                                                    <div class="ad-type-value">10/13/2023,</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="value-items-half">
+                                                <div class="ad-type">
+                                                    <div class="ad-type-label">Size:</div>
+
+                                                    <div class="ad-type-value">*Value</div>
+                                                </div>
+
+                                                <div class="ad-date">
+                                                    <div class="ad-type-label">Rates:</div>
+
+                                                    <div class="ad-type-value">*Value</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="c-calendar">See Calendar</div>
+
+                                        <div class="adjustment-label">Adjustments:</div>
+
+                                        <div class="adjustment-value">
+                                            <div>002_COLOR SECONDARY</div>
+
+                                            <div>$0.00</div>
+                                        </div>
+
+                                        <div class="c-ad-value-description">
+                                            <div class="adjustment-label">Description:</div>
+
+                                            <div class="ad-type-value">
+                                                Lorem ipsum dolor sit amet, at natum omnes alienum est.
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="mt-2">
-                                        <div class="form-group">
-                                            <label for="sel1">*Available Rates::</label>
+                                    <div class="edit-ad-item">
+                                        <div class="edit-ad-item-title">
+                                            <span>Thanksgiving</span>
 
-                                            <select class="form-control" id="rate">
-                                                {% for rate in rating %}
-                                                <option value="{{rate.id}}">{{rate.name}}</option>
-                                                {% endfor %}
-                                            </select>
+                                            <h6>Qty:</h6>
+
+                                            <input type="text">
+
+                                            <h4 class="black">$0.00</h4>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="notes">Layout Notes</label>
 
-                                            <textarea class="form-control" rows="5" id="layoutnote"></textarea>
+                                        <div class="value-items">
+                                            <div class="value-items-half">
+                                                <div class="ad-type">
+                                                    <div class="ad-type-label">Ad Type:</div>
+
+                                                    <div class="ad-type-value">*Value</div>
+                                                </div>
+
+                                                <div class="ad-date">
+                                                    <div class="ad-type-label">Dates:</div>
+
+                                                    <div class="ad-type-value">9/12/2023,</div>
+                                                    <div class="ad-type-value">9/17/2023,</div>
+                                                    <div class="ad-type-value">10/13/2023,</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="value-items-half">
+                                                <div class="ad-type">
+                                                    <div class="ad-type-label">Size:</div>
+
+                                                    <div class="ad-type-value">*Value</div>
+                                                </div>
+
+                                                <div class="ad-date">
+                                                    <div class="ad-type-label">Rates:</div>
+
+                                                    <div class="ad-type-value">*Value</div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="mt-2">
-                                            <button class="btn btn-primary origin">+Include Another Ad</button>
 
-                                            <button class="btn btn-primary origin">Update Price</button>
+                                        <div class="c-calendar">See Calendar</div>
+
+                                        <div class="adjustment-label">Adjustments:</div>
+
+                                        <div class="adjustment-value">
+                                            <div>002_COLOR SECONDARY</div>
+
+                                            <div>$0.00</div>
+                                        </div>
+
+                                        <div class="c-ad-value-description">
+                                            <div class="adjustment-label">Description:</div>
+
+                                            <div class="ad-type-value">
+                                                Lorem ipsum dolor sit amet, at natum omnes alienum est.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="edit-ad-item">
+                                        <div class="edit-ad-item-title">
+                                            <span>Thanksgiving</span>
+
+                                            <h6>Qty:</h6>
+
+                                            <input type="text">
+
+                                            <h4 class="black">$0.00</h4>
+                                        </div>
+
+                                        <div class="value-items">
+                                            <div class="value-items-half">
+                                                <div class="ad-type">
+                                                    <div class="ad-type-label">Ad Type:</div>
+
+                                                    <div class="ad-type-value">*Value</div>
+                                                </div>
+
+                                                <div class="ad-date">
+                                                    <div class="ad-type-label">Dates:</div>
+
+                                                    <div class="ad-type-value">9/12/2023,</div>
+                                                    <div class="ad-type-value">9/17/2023,</div>
+                                                    <div class="ad-type-value">10/13/2023,</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="value-items-half">
+                                                <div class="ad-type">
+                                                    <div class="ad-type-label">Size:</div>
+
+                                                    <div class="ad-type-value">*Value</div>
+                                                </div>
+
+                                                <div class="ad-date">
+                                                    <div class="ad-type-label">Rates:</div>
+
+                                                    <div class="ad-type-value">*Value</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="c-calendar">See Calendar</div>
+
+                                        <div class="adjustment-label">Adjustments:</div>
+
+                                        <div class="adjustment-value">
+                                            <div>002_COLOR SECONDARY</div>
+
+                                            <div>$0.00</div>
+                                        </div>
+
+                                        <div class="c-ad-value-description">
+                                            <div class="adjustment-label">Description:</div>
+
+                                            <div class="ad-type-value">
+                                                Lorem ipsum dolor sit amet, at natum omnes alienum est.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="adsize">*Ad sizes:</label>
+                            <div>
+                                <div class="c-ad-spec-label">Select Your Publication:</div>
+                                <div class="select-publication">
+                                    <select class="form-control" id="select-pub">
+                                        <option value="0">Times Leader-Print Edition</option>
+                                        <option value="1">Times Leader-PRO Edition</option>
+                                    </select>
 
-                                        <select class="form-control" id="adsize" autofocus>
-                                            <option></option>
-                                            <option value="1080px">1080px</option>
-                                            <option value="720px">720px</option>
-                                            <option value="480px">480px</option>
-                                        </select>
-                                    </div>
+                                    <button>
+                                        + Start An Ad For This Publication
+                                    </button>
+
+                                    <h4 class="black">$0.00</h4>
                                 </div>
 
-                                <div class="col-md-4">
-                                    <div class="body">
-                                        <div id="calendar"></div>
-                                    </div>
-                                </div>
+                                <hr class="black">
+
                             </div>
 
-                            <hr class="black mt-1">
+                            <div class="ad-option-button">
+                                <div class="ad-option-button-item">+ Start A New Publication Ad</div>
 
-                            <div class="flex-row">
-                                <h5>Publication(s) Ad Subtotal:</h5>
-
-                                <h5>$0.00</h5>
+                                <div class="ad-option-button-item update-button">Update Total</div>
                             </div>
 
-                            <div class="flex-row">
-                                <h5>Adjustment:</h5>
+                            <hr class="black mt-1" style="color: #666">
 
-                                <h5>$0.00</h5>
+                            <div class="flex-row">
+                                <h5>Print Ad Subtotal:</h5>
+
+                                <h5 class="c-mr-30">$0.00</h5>
                             </div>
 
                             <div class="flex-row">
-                                <h4>Publication Total:</h4>
+                                <h5>Adjustment Total:</h5>
 
-                                <h4>$0.00</h4>
+                                <h5 class="c-mr-30">$0.00</h5>
+                            </div>
+
+                            <div class="flex-row">
+                                <h4>Print Ad(s) Total:</h4>
+
+                                <h4 class="c-mr-50">$0.00</h4>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex-row m-2">
-                        <button class="btn btn-primary bg-primary" onclick="showSection(3)" style="width: 40%;">
+                    <div class="flex-row c-m-panel">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(3)"
+                                style="width: 40%;">
                             Previous
                         </button>
 
-                        <button class="btn btn-primary bg-primary" onclick="publication_next()" style="width: 40%;">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="publication_next()"
+                                style="width: 40%;">
                             Next
                         </button>
                     </div>
