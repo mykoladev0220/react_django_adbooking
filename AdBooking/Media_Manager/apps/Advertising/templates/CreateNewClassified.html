@@ -457,7 +457,7 @@
                     <img src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
                 </div>
 
-                <div class="col-md-12" id="section4">
+                <div class="col-md-12 hide" id="section4">
                     <div class="time-line-box mt-1">
                         <div class="swiper-container text-center">
                             <div class="swiper-wrapper">
@@ -829,7 +829,7 @@
                     <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
                 </div>
 
-                <div class="col-md-12 hide" id="section5">
+                <div class="col-md-12" id="section5">
                     <div class="time-line-box mt-1">
                         <div class="swiper-container text-center">
                             <div class="swiper-wrapper">
@@ -868,102 +868,122 @@
                         </div>
                     </div>
 
-                    <div class="m-2 text-left">
-                        <h2 style="background: #666666; border-radius: 4px;">
-                            Campaign Details
-                            <hr>
-                        </h2>
+                    <div class="campaign-title">Campaign Summary</div>
+
+                    <div class="text-left campaign-area">
+                        <div class="campaign-detail-label">Campaign Details</div>
+
+                        <hr class="campaign-hr">
+
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="mt-2">
-                                    <h5>Campaign Name:</h5>
-                                    <h4 class="black" id="total_orderName"></h4>
+                                <div class="campaign-item">
+                                    <div class="campaign-item-label">Campaign Name</div>
+
+                                    <div class="campaign-name">Campaign Name Goes Here</div>
                                 </div>
 
-                                <div class="mt-2">
-                                    <h5>Brief Descriptions:</h5>
+                                <div class="campaign-item">
+                                    <div class="campaign-item-label">Brief Descriptions</div>
 
-                                    <h5 id="total_brief"></h5>
+                                    <div class="campaign-brief">
+                                        Lorem ipsum dolor sit amet, at natum omnes alienum est. Qui ad fabulas deleniti pericula, doming semper ponderum at eam, et vim delectus consequat deterruisset. Ne possim equidem pertinax eam, essent conclusionemque vim et. Usu ut vocent fastidii, dicant apeirian vim ne, vis ex minimum lobortis consectetuer. Usu id vero autem delicata, zril incorrupte et est. Est no soleat alienum.
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
-                                <div class="mt-2 flex-row" style="justify-content: left;align-items: end;">
-                                    <div class="mr-2">
-                                        <h5>Start Date:</h5>
-                                        <h4 id="total_startDate"></h4>
+                                <div class="" style="display: flex; margin-left: 15px">
+                                    <div class="campaign-item">
+                                        <div class="campaign-item-label">Start Date:</div>
+                                        <div class="campaign-item-value" id="total_startDate">5/22/2023</div>
                                     </div>
 
-                                    <div>
-                                        <h5>End Date:</h5>
-                                        <h4 id="total_endDate"></h4>
+                                    <div class="campaign-item" style="margin-left: 25px">
+                                        <div class="campaign-item-label">End Date:</div>
+                                        <div class="campaign-item-value" id="total_endDate">5/25/2023</div>
                                     </div>
                                 </div>
 
-                                <div class="flex-row">
-                                    <h5>Accounts #:</h5>
-                                    <h5>Advertiser:</h5>
+                                <div style="display: flex">
+                                    <div class="col-md-6 campaign-item">
+                                        <div class="campaign-item-label">Advertiser:</div>
+                                        <div class="campaign-item-value small-value">Advertiser Name Goes Here:</div>
+                                    </div>
+
+                                    <div class="col-md-6 campaign-item">
+                                        <div class="campaign-item-label">Account #:</div>
+                                        <div class="campaign-item-value small-value">Account Goes Here:</div>
+                                    </div>
                                 </div>
 
-                                <div class="mt-1">
-                                    <h4 id="advertise_Name" style="text-align: right"></h4>
-                                </div>
+                                <div style="display: flex">
+                                    <div class="col-md-6 campaign-item">
+                                        <div class="campaign-item-label">Sales Contact:</div>
+                                        <div class="campaign-item-value small-value">Kyle Jerming</div>
+                                    </div>
 
-                                <div class="mt-2 flex-row">
-                                    <h5>ID #:</h5>
-
-                                    <h5>Sales Contacts:</h5>
-                                </div>
-
-                                <div>
-                                    <h4 id="total_sales" style="text-align: right"></h4>
+                                    <div class="col-md-6 campaign-item">
+                                        <div class="campaign-item-label">Contact ID #:</div>
+                                        <div class="campaign-item-value small-value">Account Goes Here:</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="mt-2">
-                            <h2>Publications Ad Details
-                                <hr>
-                            </h2>
+                            <div class="campaign-detail-label">Ad Details</div>
 
-                            <div class="btn secondary mt-2" data-toggle="collapse" data-target="#demo"
-                                 style="width:100%">
-                                <div class="flex-row">
-                                    <h3>Times Leader - Print Edition</h3>
-                                </div>
+                            <hr class="ad-hr">
+
+                            <div class="btn secondary c-section" data-toggle="collapse" data-target="#demo1" onclick="collapseEditSpec(this)" style="margin-bottom: 20px">
+                                Print
+                                <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none">
+                                    <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z" fill="#666666"/>
+                                </svg>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none">
+                                    <path d="M13.0607 0.93934C12.4749 0.353553 11.5251 0.353553 10.9393 0.93934L1.3934 10.4853C0.807611 11.0711 0.807611 12.0208 1.3934 12.6066C1.97919 13.1924 2.92893 13.1924 3.51472 12.6066L12 4.12132L20.4853 12.6066C21.0711 13.1924 22.0208 13.1924 22.6066 12.6066C23.1924 12.0208 23.1924 11.0711 22.6066 10.4853L13.0607 0.93934ZM13.5 3V2L10.5 2V3L13.5 3Z" fill="#666666"/>
+                                </svg>
                             </div>
 
-                            <div class="btn secondary mt-2" data-toggle="collapse" data-target="#demo"
-                                 style="width:100%">
-                                <div class="flex-row">
-                                    <h3>Times Leader - E Edition</h3>
-                                </div>
+                            <div class="btn secondary c-section" data-toggle="collapse" data-target="#demo" onclick="collapseEditSpec(this)">
+                                ROP
+                                <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none">
+                                    <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z" fill="#666666"/>
+                                </svg>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none">
+                                    <path d="M13.0607 0.93934C12.4749 0.353553 11.5251 0.353553 10.9393 0.93934L1.3934 10.4853C0.807611 11.0711 0.807611 12.0208 1.3934 12.6066C1.97919 13.1924 2.92893 13.1924 3.51472 12.6066L12 4.12132L20.4853 12.6066C21.0711 13.1924 22.0208 13.1924 22.6066 12.6066C23.1924 12.0208 23.1924 11.0711 22.6066 10.4853L13.0607 0.93934ZM13.5 3V2L10.5 2V3L13.5 3Z" fill="#666666"/>
+                                </svg>
                             </div>
                         </div>
 
                         <div class="mt-4">
                             <div class="flex-row">
-                                <h5>Subtotal:</h5>
-                                <h5>$0.00</h5>
+                                <div class="campaign-item-label">Subtotal:</div>
+                                <div class="campaign-item-value small-value mr-2">$0.00</div>
                             </div>
 
                             <div class="flex-row">
-                                <h5>Total Adjustments:</h5>
-                                <h5>$0.00</h5>
+                                <div class="campaign-item-label">Total Adjustments:</div>
+                                <div class="campaign-item-value small-value mr-2">$0.00</div>
                             </div>
 
                             <hr>
 
-                            <div class="flex-row mt-2">
-                                <h4>Grand Total:</h4>
-                                <h4>$0.00</h4>
+                            <div class="flex-row mt-4">
+                                <div class="campaign-item-label big-campaign-label">Campaign Total:</div>
+                                <div class="campaign-item-value big-campaign-label mr-2">$0.00</div>
                             </div>
                         </div>
                     </div>
-                    <div class="flex-row m-2">
-                        <button class="btn btn-primary bg-primary" onclick="showSection(4)" style="width: 40%;">
+
+                    <div class="flex-row" style="margin-top: 40px">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(4)" style="margin: 0">
                             Previous
                         </button>
 
-                        <button class="btn btn-primary origin" onclick="showSection(6)" style="width: 40%;">Create
+                        <button class="btn btn-primary origin c-option-btn" onclick="showSection(6)" style="margin: 0">Create
                             Campaign!
                         </button>
                     </div>
