@@ -1099,7 +1099,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -1154,7 +1153,7 @@
 
                                 <span>+</span>
 
-                                <div>Add Adjustment(s)</div>
+                                <div data-target="#add-adjustment" data-toggle="modal">Add Adjustment(s)</div>
                             </div>
 
                             <div class="ad-adjustment-value">
@@ -1170,8 +1169,109 @@
                     </div>
 
                     <div class="create-btn">
-                        <button>Create</button>
+                        <button data-dismiss="modal">Create</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="add-adjustment" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal header-->
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <h3 class="modal-title">
+                    Adjustments
+                    <hr>
+                </h3>
+
+                <div class="adjustment-row">
+                    <div class="adjustment-item">
+                        <div class="adj-item-title">
+                            001_COLOR_MAIN
+                            <span>$1.50</span>
+                        </div>
+
+                        <div class="adj-item-value">
+                            <span class="item-value-label">Description:</span>
+                            <span class="item-value-value">$1 per unit MAIN PUB ONLY</span>
+                        </div>
+
+                        <div class="adj-item-value">
+                            <div>
+                                <span class="item-value-label">Apply Level:</span>
+                                <span class="item-value-value">Insertion</span>
+                            </div>
+
+                            <div>
+                                <span class="item-value-label">Section:</span>
+                                <span class="item-value-value"></span>
+                            </div>
+                        </div>
+
+                        <div class="adj-item-value">
+                            <div>
+                                <span class="item-value-label">Value:</span>
+                                <span class="item-value-value">Amount</span>
+                            </div>
+
+                            <div>
+                                <span class="item-value-label">Value:</span>
+                                <span class="item-value-value">Debt(-)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="adjustment-item">
+                        <div class="adj-item-title">
+                            002_COLOR_MAIN
+                            <span>$1.50</span>
+                        </div>
+
+                        <div class="adj-item-value">
+                            <span class="item-value-label">Description:</span>
+                            <span class="item-value-value">$1 per unit MAIN PUB ONLY</span>
+                        </div>
+
+                        <div class="adj-item-value">
+                            <div>
+                                <span class="item-value-label">Apply Level:</span>
+                                <span class="item-value-value">Insertion</span>
+                            </div>
+
+                            <div>
+                                <span class="item-value-label">Section:</span>
+                                <span class="item-value-value"></span>
+                            </div>
+                        </div>
+
+                        <div class="adj-item-value">
+                            <div>
+                                <span class="item-value-label">Value:</span>
+                                <span class="item-value-value">Amount</span>
+                            </div>
+
+                            <div>
+                                <span class="item-value-label">Value:</span>
+                                <span class="item-value-value">Credit(+)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="color: #666; height: 1px">
+
+                <div class="option-button">
+                    <button>Add Adjustment</button>
+                </div>
+
+                <div class="modal-footer-img">
+                    <img src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
                 </div>
             </div>
         </div>

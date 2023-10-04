@@ -816,7 +816,8 @@ td a:hover {
   margin-left: auto;
 }
 
-#create-ad .modal-header {
+#create-ad .modal-header,
+#add-adjustment .modal-header {
   background-color: white;
 }
 
@@ -825,18 +826,29 @@ td a:hover {
   height: 1000px;
 }
 
-#create-ad .close {
+#add-adjustment .modal-dialog {
+  width: 850px;
+}
+
+#create-ad .close,
+#add-adjustment .close {
   font-size: 65px;
   opacity: 1;
   line-height: 40px;
 }
 
 #create-ad .modal-content {
-  padding: 6px 100px 10px;
   border-radius: 0;
+  padding: 6px 100px 10px;
 }
 
-#create-ad .modal-title {
+#add-adjustment .modal-content {
+  border-radius: 0;
+  padding: 6px 30px 0;
+}
+
+#create-ad .modal-title,
+#add-adjustment .modal-title {
   color: #666;
   font-family: "Lato", serif;
   font-size: 40px;
@@ -844,8 +856,17 @@ td a:hover {
   text-align: center;
 }
 
+#add-adjustment .modal-title {
+  font-size: 33px;
+}
+
 #create-ad .modal-title hr {
   height: 4px;
+}
+
+#add-adjustment .modal-title hr {
+  color: #666;
+  height: 1px;
 }
 
 .value-area {
@@ -925,6 +946,7 @@ td a:hover {
 
 .ad-adjustment-label div:last-child {
   color: #337AB7;
+  cursor: pointer;
   text-decoration: underline;
 }
 
@@ -950,6 +972,92 @@ td a:hover {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 30px;
+}
+
+.adjustment-row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 18px 0 0 25px;
+  min-height: 340px;
+}
+
+.adjustment-item {
+  width: calc((100% - 60px) / 2);
+  height: 210px;
+  background: #F3F3F3;
+  border-radius: 10px;
+  border: 1px solid #666;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  margin-right: 30px;
+  padding: 15px 10px;
+}
+
+.adj-item-title {
+  color: black;
+  display: flex;
+  font-family: "Lato", serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.adj-item-title span {
+  margin-left: auto;
+}
+
+.adj-item-value {
+  display: flex;
+  font-family: "Lato", serif;
+  font-size: 12px;
+  margin-bottom: 30px;
+}
+
+.adj-item-value div {
+  width: 50%;
+  display: flex;
+  text-align: left;
+}
+
+.item-value-label {
+  color: #666;
+  font-weight: 700;
+  margin-right: 5px;
+}
+
+.item-value-value {
+  color: black;
+  font-weight: 400;
+}
+
+.option-button {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 21px;
+}
+
+.option-button button {
+  width: 43%;
+  height: 40px;
+  background: rgba(33, 33, 95, 0.50);
+  border-radius: 6px;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.option-button button:hover {
+  background: #F26722;
+}
+
+.modal-footer-img {
+  margin-left: -30px;
+  margin-right: -30px;
 }
 
 @media screen and (max-width: 1799px) {
