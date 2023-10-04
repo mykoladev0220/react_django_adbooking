@@ -57,12 +57,49 @@ h5 {
   justify-content: space-between;
 }
 
+.advertising-back-image {
+  width: 112%;
+  position: absolute;
+  bottom: 0;
+  left: -150px;
+}
+
+.advertising-content {
+  height: calc(100vh - 52px);
+  padding: 0 !important;
+}
+
+.advertising-back-image img {
+  width: 100%;
+}
+
 .content {
   background: #F3F3F3;
 }
 
 .main-content {
   background: #F3F3F3;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.c-content {
+  /*width: calc(100% - 160px);*/
+  /*background: none;*/
+  /*position: absolute;*/
+  /*z-index: 1;*/
+}
+
+.advertising-modal-img {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  top: 4%;
+  z-index: 1;
+}
+
+.advertising-modal-body button {
+  z-index: 10;
 }
 
 .main-content .create-new {
@@ -79,6 +116,7 @@ h5 {
   padding: 11px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 25px;
 }
 
 .main-content .create-new svg {

@@ -24,8 +24,6 @@
         overflow-x: hidden;
     }
 
-    /*       ScrollBar 1        */
-
     #scrollbar1::-webkit-scrollbar {
         width: 16px;
     }
@@ -41,40 +39,6 @@
         border: 3px solid transparent;
         background-clip: content-box;
         background-color: #21215F;
-    }
-
-    .timeline {
-        list-style-type: none;
-        display: flex;
-        padding: 0;
-        text-align: center;
-    }
-
-    .time-line-box .timestamp {
-        margin: auto;
-        margin-bottom: 5px;
-        padding: 0px 4px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .time-line-box .status {
-        padding: 0px 10px;
-        display: flex;
-        justify-content: center;
-        border-top: 3px solid #ccc;
-        position: relative;
-        transition: all 200ms ease-in;
-    }
-
-    .time-line-box .status.active {
-        padding: 0 10px;
-        display: flex;
-        justify-content: center;
-        border-top: 3px solid #F26722;
-        position: relative;
-        transition: all 200ms ease-in;
     }
 
     .time-line-box .status span {
@@ -112,42 +76,9 @@
         transform: translate(-50%, -50%);
         transition: all 200ms ease-in;
     }
+</style>
 
-    .swiper-container {
-        width: 95%;
-        margin: auto;
-        overflow-y: auto;
-    }
-
-    .swiper-wrapper {
-        display: inline-flex;
-        flex-direction: row;
-        height: 50px;
-        justify-content: center;
-    }
-
-    .swiper-container::-webkit-scrollbar-track {
-        background: #a8a8a8b6;
-    }
-
-    .swiper-container::-webkit-scrollbar {
-        height: 2px;
-    }
-
-    .swiper-container::-webkit-scrollbar-thumb {
-        background: #4F4F4F !important;
-    }
-
-    .swiper-slide {
-        text-align: center;
-        font-size: 12px;
-        width: 70px;
-        height: 100%;
-        position: relative;
-    }
-</style>`
-
-<div id="content">`
+<div id="content">
     <div class="content text-center">
         <h1 style="margin-bottom: 50px">New Ad Campaign</h1>
         <div class="card c-card">
@@ -161,7 +92,7 @@
                     <div id="progress_5"></div>
                 </div>
 
-                <div class="col-md-12 hide" id="section1">
+                <div class="col-md-12" id="section1">
                     <h2 class="mt-4 sub-title">Select An Advertiser</h2>
 
                     <div class="mt-4">
@@ -795,7 +726,7 @@
                     <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
                 </div>
 
-                <div class="col-md-12" id="section6">
+                <div class="col-md-12 hide" id="section6">
                     <div class="m-2 text-center">
                         <div class="success-label">Ad Campaign Created!</div>
 

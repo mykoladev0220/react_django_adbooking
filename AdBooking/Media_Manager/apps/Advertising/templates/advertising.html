@@ -12,12 +12,17 @@
 {% endblock %}
 
 {% block content %}
-<div id="content">
-    <div class="main-content">
-        <div class="content text-center">
-            <h1><i class="fa fa-bullhorn"></i>&nbsp;Welcome to Advertising</h1>
 
-            <h4>
+<div id="content" class="advertising-content">
+    <div class="main-content">
+        <div class="advertising-back-image">
+            <img src="{% static "svg/advertising_back_img.svg" %}">
+        </div>
+
+        <div class="content text-center c-content">
+            <h1 style="margin-bottom: 40px"><i class="fa fa-bullhorn"></i>&nbsp;Welcome to Advertising</h1>
+
+            <h4 style="margin-bottom: 45px">
                 <a href="#">Pubs & Accounts</a> &nbsp;|&nbsp;
                 <a href="#">Announcements</a> &nbsp;|&nbsp;
                 <a href="#">Today's Tasks</a> &nbsp;|&nbsp;
@@ -32,7 +37,7 @@
                 Create Something New!
             </button>
 
-            <hr class="mt-2">
+            <hr style="margin-bottom: 25px">
 
             <div class="card m-2 text-left mt-4">
                 <div class="row">
@@ -56,7 +61,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-4">
+                <div class="row" style="margin-top: 80px">
                     <div class="col-md-4">
                         <h3>
                             Publication
@@ -122,17 +127,17 @@
             </div>
         </div>
 
-        <!-- <img class="background" src="static/svg/Ellipse 5.png" style="width: 100%;height: 200px;margin-top:-200px;"> -->
-
         <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="position: relative; overflow: hidden">
+                <img src="{% static "svg/advertising_modal_img.svg" %}" class="advertising-modal-img">
+
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-notice">
                         Get Started With Something New!
                     </div>
 
-                    <div class="modal-body">
+                    <div class="modal-body advertising-modal-body" style="z-index: 1">
                         <div class="anim-btn text-center">
                             <a href="{% url 'create_classified_ad' %}">
                                 <div class="c-new-ad">

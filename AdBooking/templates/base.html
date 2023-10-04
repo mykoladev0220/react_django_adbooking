@@ -27,17 +27,8 @@
 			<div id="body">
 		     	 <!-- Content Wrapper. Contains page content -->
 		      	<div class="content-wrapper">
-			        <!-- Content Header (Page header) -->
-			        <section class="content-header">
-		        		<h1>{%block page-header %}{% endblock %}</h1>
-		        		<ol class="breadcrumb">
-		        			<li><a href="{{url}}/"><i class="fa fa-dashboard"></i> Admin</a></li>
-		        			{%block breadcrumb %}
-							{% endblock %}
-						</ol>
-				    </section>
 			        <!-- Main content -->
-			        <section class="content container-fluid">
+			        <section class="content container-fluid" style="padding: 0">
 			        	{%block forwardjs %}
 						<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 						{% endblock %}
