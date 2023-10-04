@@ -334,9 +334,9 @@ button {
   border-radius: 4px;
 }
 
-.adsuccess-mark{
-  width: 60px;
-  height: 60px;
+.adsuccess-mark {
+  width: 202px;
+  height: 202px;
   border-radius: 50%;
   background-color: #03A803;
   margin-left:auto;
@@ -1180,6 +1180,20 @@ td a:hover {
 
 .progress-icons div:last-child {
   margin-right: auto;
+}
+
+.ad-success-btn button {
+  border: 1px solid transparent;
+}
+
+.success-label {
+  color: #000;
+  text-align: center;
+  font-family: "Karla", serif;
+  font-size: 33px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 @media screen and (max-width: 1799px) {

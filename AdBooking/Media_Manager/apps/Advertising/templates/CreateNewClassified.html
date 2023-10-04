@@ -161,7 +161,7 @@
                     <div id="progress_5"></div>
                 </div>
 
-                <div class="col-md-12" id="section1">
+                <div class="col-md-12 hide" id="section1">
                     <h2 class="mt-4 sub-title">Select An Advertiser</h2>
 
                     <div class="mt-4">
@@ -795,23 +795,23 @@
                     <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
                 </div>
 
-                <div class="col-md-12 hide" id="section6">
+                <div class="col-md-12" id="section6">
                     <div class="m-2 text-center">
-                        <h2 style="line-height: 32px;">Ad Campaign Created!</h2>
+                        <div class="success-label">Ad Campaign Created!</div>
 
                         <div id="favoriteIcon1" class="mt-2 adsuccess-mark">
-                            <img src="{% static "svg/Vector (2).svg" %}" class="mt-2" style="height: 20px;">
+                            <img src="{% static "svg/Vector (2).svg" %}" style="height: 140px; margin-top: 35px;">
                         </div>
                     </div>
 
-                    <div class="flex-row m-2" style="justify-content: space-evenly">
+                    <div class="flex-row m-2 ad-success-btn" style="justify-content: space-evenly">
                         <button class="btn btn-primary" onclick="showSection(5)"
                                 style="width: 25%;background-color: rgb(33,33,95);">Create Another Ad Campaign
                         </button>
-                        <button class=" btn btn-primary bg-primary" onclick="" style="width: 25%;">View Ad Campaign
-                        </button>
-                        <button class=" btn btn-primary bg-primary" onclick="" style="width: 25%;">Print Receipt
-                        </button>
+
+                        <button class=" btn btn-primary bg-primary" onclick="" style="width: 25%;">View Ad Campaign</button>
+
+                        <button class=" btn btn-primary bg-primary" onclick="" style="width: 25%;">Print Receipt</button>
                     </div>
 
                     <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
