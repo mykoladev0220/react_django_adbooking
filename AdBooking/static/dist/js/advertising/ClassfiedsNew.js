@@ -60,47 +60,47 @@ function selectedAdvertiser() {
 }
 
 function advertiser_next() {
-    var advertiser = document.getElementById("search-select").value;
-    if (advertiser === "") {
-        alert("Please complete the fields.");
-
-        return;
-    }
+    // var advertiser = document.getElementById("search-select").value;
+    // if (advertiser === "") {
+    //     alert("Please complete the fields.");
+    //
+    //     return;
+    // }
 
     showSection(2);
 }
 
 function campaign_next() {
-    var orderName = document.getElementById("orderName").value;
-
-    if (orderName === "") {
-        alert("Please complete the fields.");
-        return;
-    } else {
-        document.getElementById("total_orderName").innerText = orderName;
-    }
-
-    var seles = document.getElementById("sell").value;
-
-    if (seles === "") {
-        alert("Please complete the fields.");
-        return;
-    } else {
-        document.getElementById("total_sales").innerText = seles;
-    }
-
-    var startDate = document.getElementById("startDate").value;
-
-    if (startDate === "") {
-        alert("Please complete the fields.");
-        return;
-    } else {
-        document.getElementById("total_startDate").innerText = startDate;
-    }
-
-    document.getElementById("total_endDate").innerText = document.getElementById("endDate").value;
-
-    document.getElementById("total_brief").innerText = document.getElementById("brief").value;
+    // var orderName = document.getElementById("orderName").value;
+    //
+    // if (orderName === "") {
+    //     alert("Please complete the fields.");
+    //     return;
+    // } else {
+    //     document.getElementById("total_orderName").innerText = orderName;
+    // }
+    //
+    // var seles = document.getElementById("sell").value;
+    //
+    // if (seles === "") {
+    //     alert("Please complete the fields.");
+    //     return;
+    // } else {
+    //     document.getElementById("total_sales").innerText = seles;
+    // }
+    //
+    // var startDate = document.getElementById("startDate").value;
+    //
+    // if (startDate === "") {
+    //     alert("Please complete the fields.");
+    //     return;
+    // } else {
+    //     document.getElementById("total_startDate").innerText = startDate;
+    // }
+    //
+    // document.getElementById("total_endDate").innerText = document.getElementById("endDate").value;
+    //
+    // document.getElementById("total_brief").innerText = document.getElementById("brief").value;
 
     showSection(3);
 }
