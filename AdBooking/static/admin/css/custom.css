@@ -36,6 +36,7 @@ h5 {
   border-radius: 10px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
   padding: 0 !important;
+  margin-bottom: 20px;
 }
 
 .flex-center {
@@ -81,6 +82,8 @@ h5 {
   background: #F3F3F3;
   padding-left: 60px;
   padding-right: 60px;
+  position: relative;
+  min-height: 100%;
 }
 
 .c-content {
@@ -124,7 +127,7 @@ h5 {
 }
 
 .modal-content {
-  border-radius: 6px;
+  border-radius: 6px;;
 }
 
 .modal-title {
@@ -191,6 +194,13 @@ hr {
   cursor: pointer;
   display: flex;
   margin-top: 24px;
+  transition: all 0.25s ease-out;
+}
+
+.anim-btn:hover {
+  position: relative;
+  top: -3px;
+  box-shadow: -6px 14px 12px 2px rgba(90, 90, 90, .12);
 }
 
 .c-new-ad {
@@ -1232,6 +1242,12 @@ td a:hover {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+.campaign-summary-back {
+  width: calc(100% + 150px);
+  margin-left: -75px;
+  margin-right: -75px;
 }
 
 @media screen and (max-width: 1799px) {

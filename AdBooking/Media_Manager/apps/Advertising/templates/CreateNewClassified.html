@@ -78,9 +78,13 @@
     }
 </style>
 
+<div class="advertising-back-image">
+    <img src="{% static "svg/campaign_back_img.svg" %}">
+</div>
+
 <div id="content">
     <div class="content text-center">
-        <h1 style="margin-bottom: 50px">New Ad Campaign</h1>
+        <h1 style="margin-bottom: 95px; margin-top: 32px">New Ad Campaign</h1>
         <div class="card c-card">
             <div>
                 <div class="progress-icons">
@@ -93,9 +97,9 @@
                 </div>
 
                 <div class="col-md-12" id="section1">
-                    <h2 class="mt-4 sub-title">Select An Advertiser</h2>
+                    <h2 class="sub-title" style="margin-top: 56px">Select An Advertiser</h2>
 
-                    <div class="mt-4">
+                    <div style="margin-top: 69px">
                         <select id="search-select" class="form-control shadow" onchange="selectedAdvertiser()"
                                 style="width: 50%">
                             <option value="" disabled selected>
@@ -118,7 +122,7 @@
                         </span>
                     </div>
 
-                    <div class="mt-4 text-right">
+                    <div class="text-right" style="margin-top: 77px">
                         <button class="btn btn-primary bg-primary shadow c-option-btn" onclick="advertiser_next()">
                             Next
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"
@@ -723,7 +727,7 @@
                         </button>
                     </div>
 
-                    <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
+                    <img class="mt-2 campaign-summary-back" src="{% static "svg/Ellipse 9 (1).svg" %}">
                 </div>
 
                 <div class="col-md-12 hide" id="section6">
