@@ -66,8 +66,12 @@ h5 {
 }
 
 .advertising-content {
-  height: calc(100vh - 52px);
-  padding: 0 !important;
+  padding: 20px 60px 40px !important;
+}
+
+.c-ad-content {
+  background: none !important;
+  box-shadow: none !important;
 }
 
 .advertising-back-image img {
@@ -105,7 +109,7 @@ h5 {
   z-index: 10;
 }
 
-.main-content .create-new {
+.create-new {
   align-items: center;
   color: black;
   border-radius: 5px;
@@ -122,7 +126,7 @@ h5 {
   margin-bottom: 25px;
 }
 
-.main-content .create-new svg {
+.create-new svg {
   margin-right: 5px;
 }
 
