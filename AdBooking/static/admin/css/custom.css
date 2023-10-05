@@ -1040,8 +1040,10 @@ td a:hover {
   border-radius: 10px;
   border: 1px solid #666;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  cursor: pointer;
   margin-right: 30px;
   padding: 15px 10px;
+  position: relative;
 }
 
 .adj-item-title {
@@ -1252,6 +1254,29 @@ td a:hover {
   width: calc(100% + 150px);
   margin-left: -75px;
   margin-right: -75px;
+}
+
+.adjustment-select {
+  width: 100%;
+  height: 39px;
+  align-items: center;
+  color: #F3F3F3;
+  background: #21215F;
+  border-radius: 0 0 9px 9px;
+  display: flex;
+  font-size: 14px;
+  font-family: "Karla", serif;
+  font-weight: 400;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.adjustment-select-active .adjustment-select {
+  opacity: 1;
 }
 
 @media screen and (max-width: 1799px) {

@@ -913,7 +913,7 @@
                 </h3>
 
                 <div class="adjustment-row">
-                    <div class="adjustment-item">
+                    <div class="adjustment-item" onclick="adjustment_select(this)">
                         <div class="adj-item-title">
                             001_COLOR_MAIN
                             <span>$1.50</span>
@@ -947,9 +947,13 @@
                                 <span class="item-value-value">Debt(-)</span>
                             </div>
                         </div>
+
+                        <div class="adjustment-select">
+                            Selected
+                        </div>
                     </div>
 
-                    <div class="adjustment-item">
+                    <div class="adjustment-item" onclick="adjustment_select(this)">
                         <div class="adj-item-title">
                             002_COLOR_MAIN
                             <span>$1.50</span>
@@ -982,6 +986,10 @@
                                 <span class="item-value-label">Value:</span>
                                 <span class="item-value-value">Credit(+)</span>
                             </div>
+                        </div>
+
+                        <div class="adjustment-select">
+                            Selected
                         </div>
                     </div>
                 </div>

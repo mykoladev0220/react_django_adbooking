@@ -56,16 +56,16 @@ function deleteAdjustment(id) {
 
 //advertiser
 function selectedAdvertiser() {
-    document.getElementById("advertise_Name").innerText = document.getElementById("search-select").value;
+    // document.getElementById("advertise_Name").innerText = document.getElementById("search-select").value;
 }
 
 function advertiser_next() {
-    // var advertiser = document.getElementById("search-select").value;
-    // if (advertiser === "") {
-    //     alert("Please complete the fields.");
-    //
-    //     return;
-    // }
+    var advertiser = document.getElementById("search-select").value;
+    if (advertiser === "") {
+        alert("Please complete the fields.");
+
+        return;
+    }
 
     showSection(2);
 }
@@ -155,5 +155,19 @@ function collapseEditSpecItem(clickedButton, index) {
         specItem.style.maxHeight = "55px";
     } else {
         specItem.style.maxHeight = "inherit";
+    }
+}
+
+function adjustment_select(selectedItem) {
+    const adjustment_items = document.querySelector(".adjustment-row").childNodes;
+
+    for (let i = 0; i < adjustment_items.length; i ++) {
+        if (adjustment_items[i].tagName === 'DIV') {
+            if (adjustment_items[i] === selectedItem) {
+                adjustment_items[i].classList.add("adjustment-select-active");
+            } else {
+                adjustment_items[i].classList.remove("adjustment-select-active");
+            }
+        }
     }
 }
