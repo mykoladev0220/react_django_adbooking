@@ -176,7 +176,14 @@ class ClassifiedAdType(models.Model):
     date_updated = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:
-        db_table = 'advertising_classifiedadtype' 
+        db_table = 'advertising_classifiedadtype'
+
+class ClassifiedAdSize(models.Model):
+    size = models.CharField(max_length=20)
+    date_updated = models.DateTimeField(auto_now_add=True, null=True)
+
+    class Meta:
+        db_table = 'advertising_classifiedadsize'
 
 class UploadGraphicsPermission(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
 from django.forms import model_to_dict
-from django.conf import settings
+from json import dumps
 from django.templatetags.static import static
 
 from django.contrib.auth.models import User
@@ -16,6 +16,9 @@ import os
 from datetime import datetime, date, timedelta
  
 import logging
+
+from ..models import ClassifiedAdSize
+
 logger = logging.getLogger(__name__)
 
 from .... import views
@@ -23,12 +26,12 @@ from .... import views
 # import the necessary models needed
 from ..models.advertising import Account, SalesPerson, wasCreatedRecently, Adjustment
 from ..models.publications import Publication, PublicationRunDay, getRunDays
-from ..models.classifieds import ClassifiedAd, ClassifiedGraphic, Classification, ClassifiedAdjustment, ClassifiedRate, ClassifiedRatePublication, ClassifiedPublication, ClassifiedStyling, getClassifiedRates, ClassifiedPublicationRate, ClassifiedAdType, ClassifiedPublicationDate, UploadGraphicsPermission, UploadGraphic, DeleteGraphicsPermission
+from ..models.classifieds import ClassifiedAd, ClassifiedGraphic, Classification, ClassifiedAdjustment, ClassifiedRate, ClassifiedRatePublication, ClassifiedPublication, ClassifiedStyling, getClassifiedRates, ClassifiedPublicationRate, ClassifiedAdType, ClassifiedPublicationDate, UploadGraphicsPermission, UploadGraphic, DeleteGraphicsPermission, ClassifiedAdSize
 from ..models.permissions import isAdminOrManager, ManagerOverride, AccountAccess
 
 from ..helpers import daysOfTheWeek, weekdayDict, getDatesBetween
 
-# import the necessary functions needed 
+# import the necessary functions needed
 from ..models.permissions import getPublicationAccess
 
 from ..forms import ClassifiedsContentForm, AdvertisingAccountForm
@@ -45,7 +48,7 @@ def list_all_classifications(request):
     activeClassificationList = []
     inactiveClassificationList = []
     for classification in classificationList:
-        if classification.active: 
+        if classification.active:
             activeClassificationList.append(classification)
         else:
             inactiveClassificationList.append(classification)
@@ -68,7 +71,7 @@ def list_classifieds(request):
 
     if not request.user.has_perm('BI.advertising_access'):
         return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
-    
+
     lastFiveDays = datetime.today() - timedelta(days=5)
     classifiedsList = ClassifiedAd.objects.filter(date_created__gte=lastFiveDays).order_by('-date_created')
 
@@ -90,14 +93,18 @@ def create_classified_ad(request):
         return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
     accounts = [row.account for row in AccountAccess.objects.filter(user=request.user.id)]
+
     publications = Publication.objects.all()
+
     salespersonList = SalesPerson.objects.all()
 
     adTypes = ClassifiedAdType.objects.all()
 
+    adSizes = ClassifiedAdSize.objects.all()
+
     adjustments = ClassifiedAdjustment.objects.all()
 
-    rating = ClassifiedRate.objects.all();
+    rating = ClassifiedRate.objects.all()
 
     form = ClassifiedsContentForm()
 
@@ -332,6 +339,7 @@ def create_classified_ad(request):
         "fileList": fileList,
         "form": form,
         "adTypes": adTypes,
+        "adSizes": adSizes,
         "adjustments": adjustments,
         "rating": rating
     }
