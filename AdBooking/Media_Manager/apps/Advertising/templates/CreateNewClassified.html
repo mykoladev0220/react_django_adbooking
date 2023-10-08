@@ -24,17 +24,17 @@
         overflow-x: hidden;
     }
 
-    #scrollbar1::-webkit-scrollbar {
+    .scrollbar::-webkit-scrollbar {
         width: 16px;
     }
 
-    #scrollbar1::-webkit-scrollbar-track {
+    .scrollbar::-webkit-scrollbar-track {
         border-radius: 8px;
         background-color: #e7e7e7;
         border: 1px solid #cacaca;
     }
 
-    #scrollbar1::-webkit-scrollbar-thumb {
+    .scrollbar::-webkit-scrollbar-thumb {
         border-radius: 8px;
         border: 3px solid transparent;
         background-clip: content-box;
@@ -235,7 +235,7 @@
                             <div id="ad_{{adType.id}}" class="col-md-4 pub_ele">
                                 <div class="flex-col pub-card">
                                     <div class="c-ad-name">
-                                        <h3 class="pub_name">{{adType.name}}</h3>
+                                        <h3 id="adTypeName_{{adType.id}}" class="pub_name">{{adType.name}}</h3>
                                     </div>
 
                                     <div class="flex-row content-left c-ml-10" onclick="selectStar({{adType.id}})">
@@ -264,7 +264,7 @@
                             Previous
                         </button>
 
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(4)"
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="adFormat_next()"
                                 style="width:40%;">
                             Next
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"
@@ -279,319 +279,12 @@
                 </div>
 
                 <div class="col-md-12 hide" id="section4">
-                    <h2 class="mt-4">Select Your Ad Specs</h2>
+                    <h2 class="mt-4 sub-title">Select Your Ad Specs</h2>
 
-                    <div class="c-m-panel">
-                        <div class="btn secondary c-section" data-toggle="collapse" data-target="#demo" onclick="collapseEditSpec(this)">
-                            ROP
-                            <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none">
-                                <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z" fill="#666666"/>
-                            </svg>
+                    <div id="spec-area">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none">
-                                <path d="M13.0607 0.93934C12.4749 0.353553 11.5251 0.353553 10.9393 0.93934L1.3934 10.4853C0.807611 11.0711 0.807611 12.0208 1.3934 12.6066C1.97919 13.1924 2.92893 13.1924 3.51472 12.6066L12 4.12132L20.4853 12.6066C21.0711 13.1924 22.0208 13.1924 22.6066 12.6066C23.1924 12.0208 23.1924 11.0711 22.6066 10.4853L13.0607 0.93934ZM13.5 3V2L10.5 2V3L13.5 3Z" fill="#666666"/>
-                            </svg>
-                        </div>
-
-                        <div id="demo" class="collapse">
-                        </div>
                     </div>
 
-                    <div class="c-m-panel">
-                        <div class="btn secondary c-section" data-toggle="collapse" data-target="#demo1" onclick="collapseEditSpec(this)">
-                            Print
-                            <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none">
-                                <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z" fill="#666666"/>
-                            </svg>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none">
-                                <path d="M13.0607 0.93934C12.4749 0.353553 11.5251 0.353553 10.9393 0.93934L1.3934 10.4853C0.807611 11.0711 0.807611 12.0208 1.3934 12.6066C1.97919 13.1924 2.92893 13.1924 3.51472 12.6066L12 4.12132L20.4853 12.6066C21.0711 13.1924 22.0208 13.1924 22.6066 12.6066C23.1924 12.0208 23.1924 11.0711 22.6066 10.4853L13.0607 0.93934ZM13.5 3V2L10.5 2V3L13.5 3Z" fill="#666666"/>
-                            </svg>
-                        </div>
-
-                        <div id="demo1" class="collapse secondary p-2 c-ad-spec">
-                            <div class="c-ad-spec-item">
-                                <div class="c-ad-spec-label">Select Your Publication:</div>
-                                <div class="select-publication">
-                                    <select class="form-control" id="select-pub">
-                                        <option value="0">Times Leader-Print Edition</option>
-                                        <option value="1">Times Leader-PRO Edition</option>
-                                    </select>
-
-                                    <button data-target="#create-ad" data-toggle="modal">
-                                        + Start An Ad For This Publication
-                                    </button>
-
-                                    <h4 class="black">$0.00</h4>
-                                </div>
-
-                                <hr class="black">
-
-                                <div class="edit-ad">
-                                    <div id="edit-ad-item-0" class="edit-ad-item">
-                                        <div class="edit-ad-item-title">
-                                            <span>*Ad Name*</span>
-
-                                            <h6>Qty:</h6>
-
-                                            <input type="text">
-
-                                            <h4 class="black">$0.00</h4>
-                                        </div>
-
-                                        <div class="value-items">
-                                            <div class="value-items-half">
-                                                <div class="ad-type">
-                                                    <div class="ad-type-label">Ad Type:</div>
-
-                                                    <div class="ad-type-value">*Value</div>
-                                                </div>
-
-                                                <div class="ad-date">
-                                                    <div class="ad-type-label">Dates:</div>
-
-                                                    <div class="ad-type-value">9/12/2023,</div>
-                                                    <div class="ad-type-value">9/17/2023,</div>
-                                                    <div class="ad-type-value">10/13/2023,</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="value-items-half">
-                                                <div class="ad-type">
-                                                    <div class="ad-type-label">Size:</div>
-
-                                                    <div class="ad-type-value">*Value</div>
-                                                </div>
-
-                                                <div class="ad-date">
-                                                    <div class="ad-type-label">Rates:</div>
-
-                                                    <div class="ad-type-value">*Value</div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="c-calendar">See Calendar</div>
-
-                                        <div class="adjustment-label">Adjustments:</div>
-
-                                        <div class="adjustment-value">
-                                            <div>002_COLOR SECONDARY</div>
-
-                                            <div>$0.00</div>
-                                        </div>
-
-                                        <div class="c-ad-value-description">
-                                            <div class="adjustment-label">Description:</div>
-
-                                            <div class="ad-type-value">
-                                                Lorem ipsum dolor sit amet, at natum omnes alienum est asdfasdfasdfsdafasdfdsaasdfasdfasdfasdfsd afasdfdsaasdfasdfasdfasdfsdafasdfdsaasdf.
-                                            </div>
-                                        </div>
-
-                                        <div class="collapse-icon" onclick="collapseEditSpecItem(this, 0)">
-                                            <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
-                                              <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 6V8H9V6H7Z" fill="#F26722"/>
-                                            </svg>
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
-                                              <path d="M8.70711 0.292893C8.31658 -0.097631 7.68342 -0.097631 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 3V1H7V3H9Z" fill="#F26722"/>
-                                            </svg>
-                                        </div>
-                                    </div>
-
-                                    <div id="edit-ad-item-1" class="edit-ad-item">
-                                        <div class="edit-ad-item-title">
-                                            <span>Thanksgiving1</span>
-
-                                            <h6>Qty:</h6>
-
-                                            <input type="text">
-
-                                            <h4 class="black">$0.00</h4>
-                                        </div>
-
-                                        <div class="value-items">
-                                            <div class="value-items-half">
-                                                <div class="ad-type">
-                                                    <div class="ad-type-label">Ad Type:</div>
-
-                                                    <div class="ad-type-value">*Value</div>
-                                                </div>
-
-                                                <div class="ad-date">
-                                                    <div class="ad-type-label">Dates:</div>
-
-                                                    <div class="ad-type-value">9/12/2023,</div>
-                                                    <div class="ad-type-value">9/17/2023,</div>
-                                                    <div class="ad-type-value">10/13/2023,</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="value-items-half">
-                                                <div class="ad-type">
-                                                    <div class="ad-type-label">Size:</div>
-
-                                                    <div class="ad-type-value">*Value</div>
-                                                </div>
-
-                                                <div class="ad-date">
-                                                    <div class="ad-type-label">Rates:</div>
-
-                                                    <div class="ad-type-value">*Value</div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="c-calendar">See Calendar</div>
-
-                                        <div class="adjustment-label">Adjustments:</div>
-
-                                        <div class="adjustment-value">
-                                            <div>002_COLOR SECONDARY</div>
-
-                                            <div>$0.00</div>
-                                        </div>
-
-                                        <div class="c-ad-value-description">
-                                            <div class="adjustment-label">Description:</div>
-
-                                            <div class="ad-type-value">
-                                                Lorem ipsum dolor sit amet, at natum omnes alienum est.
-                                            </div>
-                                        </div>
-
-                                        <div class="collapse-icon" onclick="collapseEditSpecItem(this, 1)">
-                                            <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
-                                              <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 6V8H9V6H7Z" fill="#F26722"/>
-                                            </svg>
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
-                                              <path d="M8.70711 0.292893C8.31658 -0.097631 7.68342 -0.097631 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 3V1H7V3H9Z" fill="#F26722"/>
-                                            </svg>
-                                        </div>
-                                    </div>
-
-                                    <div id="edit-ad-item-2" class="edit-ad-item">
-                                        <div class="edit-ad-item-title">
-                                            <span>Thanksgiving2</span>
-
-                                            <h6>Qty:</h6>
-
-                                            <input type="text">
-
-                                            <h4 class="black">$0.00</h4>
-                                        </div>
-
-                                        <div class="value-items">
-                                            <div class="value-items-half">
-                                                <div class="ad-type">
-                                                    <div class="ad-type-label">Ad Type:</div>
-
-                                                    <div class="ad-type-value">*Value</div>
-                                                </div>
-
-                                                <div class="ad-date">
-                                                    <div class="ad-type-label">Dates:</div>
-
-                                                    <div class="ad-type-value">9/12/2023,</div>
-                                                    <div class="ad-type-value">9/17/2023,</div>
-                                                    <div class="ad-type-value">10/13/2023,</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="value-items-half">
-                                                <div class="ad-type">
-                                                    <div class="ad-type-label">Size:</div>
-
-                                                    <div class="ad-type-value">*Value</div>
-                                                </div>
-
-                                                <div class="ad-date">
-                                                    <div class="ad-type-label">Rates:</div>
-
-                                                    <div class="ad-type-value">*Value</div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="c-calendar">See Calendar</div>
-
-                                        <div class="adjustment-label">Adjustments:</div>
-
-                                        <div class="adjustment-value">
-                                            <div>002_COLOR SECONDARY</div>
-
-                                            <div>$0.00</div>
-                                        </div>
-
-                                        <div class="c-ad-value-description">
-                                            <div class="adjustment-label">Description:</div>
-
-                                            <div class="ad-type-value">
-                                                Lorem ipsum dolor sit amet, at natum omnes alienum est.
-                                            </div>
-                                        </div>
-
-                                        <div class="collapse-icon" onclick="collapseEditSpecItem(this, 2)">
-                                            <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
-                                              <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 6V8H9V6H7Z" fill="#F26722"/>
-                                            </svg>
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
-                                              <path d="M8.70711 0.292893C8.31658 -0.097631 7.68342 -0.097631 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 3V1H7V3H9Z" fill="#F26722"/>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="c-ad-spec-item">
-                                <div class="c-ad-spec-label">Select Your Publication:</div>
-                                <div class="select-publication">
-                                    <select class="form-control" id="select-pub1">
-                                        <option value="0">Times Leader-Print Edition</option>
-                                        <option value="1">Times Leader-PRO Edition</option>
-                                    </select>
-
-                                    <button>
-                                        + Start An Ad For This Publication
-                                    </button>
-
-                                    <h4 class="black">$0.00</h4>
-                                </div>
-
-                                <hr class="black">
-
-                            </div>
-
-                            <div class="ad-option-button">
-                                <div class="ad-option-button-item">+ Start A New Publication Ad</div>
-
-                                <div class="ad-option-button-item update-button">Update Total</div>
-                            </div>
-
-                            <hr class="black mt-1" style="color: #666">
-
-                            <div class="price-label" style="margin-top: 6px">
-                                <h5>Print Ad Subtotal:</h5>
-
-                                <h5 class="c-mr-50">$0.00</h5>
-                            </div>
-
-                            <div class="price-label">
-                                <h5>Adjustment Total:</h5>
-
-                                <h5 class="c-mr-50">$0.00</h5>
-                            </div>
-
-                            <div class="price-label">
-                                <h4>Print Ad(s) Total:</h4>
-
-                                <h4 class="c-mr-50">$0.00</h4>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="flex-row mt-4">
                         <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(3)">
@@ -604,6 +297,13 @@
                     </div>
 
                     <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
+
+
+                    <select id="publication_data" style="visibility: hidden">
+                        {% for publication in publications %}
+                        <option value="{{publication.id}}">{{publication.name}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
 
                 <div class="col-md-12 hide" id="section5">
@@ -626,7 +326,11 @@
                                     <div class="campaign-item-label">Brief Descriptions</div>
 
                                     <div class="campaign-brief">
-                                        Lorem ipsum dolor sit amet, at natum omnes alienum est. Qui ad fabulas deleniti pericula, doming semper ponderum at eam, et vim delectus consequat deterruisset. Ne possim equidem pertinax eam, essent conclusionemque vim et. Usu ut vocent fastidii, dicant apeirian vim ne, vis ex minimum lobortis consectetuer. Usu id vero autem delicata, zril incorrupte et est. Est no soleat alienum.
+                                        Lorem ipsum dolor sit amet, at natum omnes alienum est. Qui ad fabulas deleniti
+                                        pericula, doming semper ponderum at eam, et vim delectus consequat deterruisset.
+                                        Ne possim equidem pertinax eam, essent conclusionemque vim et. Usu ut vocent
+                                        fastidii, dicant apeirian vim ne, vis ex minimum lobortis consectetuer. Usu id
+                                        vero autem delicata, zril incorrupte et est. Est no soleat alienum.
                                     </div>
                                 </div>
                             </div>
@@ -674,25 +378,35 @@
 
                             <hr class="ad-hr">
 
-                            <div class="btn secondary c-section" data-toggle="collapse" data-target="#demo1" onclick="collapseEditSpec(this)" style="margin-bottom: 20px">
+                            <div class="btn secondary c-section" data-toggle="collapse" data-target="#demo1"
+                                 onclick="collapseEditSpec(this)" style="margin-bottom: 20px">
                                 Print
-                                <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none">
-                                    <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z" fill="#666666"/>
+                                <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="24" height="14"
+                                     viewBox="0 0 24 14" fill="none">
+                                    <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z"
+                                          fill="#666666"/>
                                 </svg>
 
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none">
-                                    <path d="M13.0607 0.93934C12.4749 0.353553 11.5251 0.353553 10.9393 0.93934L1.3934 10.4853C0.807611 11.0711 0.807611 12.0208 1.3934 12.6066C1.97919 13.1924 2.92893 13.1924 3.51472 12.6066L12 4.12132L20.4853 12.6066C21.0711 13.1924 22.0208 13.1924 22.6066 12.6066C23.1924 12.0208 23.1924 11.0711 22.6066 10.4853L13.0607 0.93934ZM13.5 3V2L10.5 2V3L13.5 3Z" fill="#666666"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14"
+                                     fill="none">
+                                    <path d="M13.0607 0.93934C12.4749 0.353553 11.5251 0.353553 10.9393 0.93934L1.3934 10.4853C0.807611 11.0711 0.807611 12.0208 1.3934 12.6066C1.97919 13.1924 2.92893 13.1924 3.51472 12.6066L12 4.12132L20.4853 12.6066C21.0711 13.1924 22.0208 13.1924 22.6066 12.6066C23.1924 12.0208 23.1924 11.0711 22.6066 10.4853L13.0607 0.93934ZM13.5 3V2L10.5 2V3L13.5 3Z"
+                                          fill="#666666"/>
                                 </svg>
                             </div>
 
-                            <div class="btn secondary c-section" data-toggle="collapse" data-target="#demo" onclick="collapseEditSpec(this)">
+                            <div class="btn secondary c-section" data-toggle="collapse" data-target="#demo"
+                                 onclick="collapseEditSpec(this)">
                                 ROP
-                                <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none">
-                                    <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z" fill="#666666"/>
+                                <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="24" height="14"
+                                     viewBox="0 0 24 14" fill="none">
+                                    <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z"
+                                          fill="#666666"/>
                                 </svg>
 
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none">
-                                    <path d="M13.0607 0.93934C12.4749 0.353553 11.5251 0.353553 10.9393 0.93934L1.3934 10.4853C0.807611 11.0711 0.807611 12.0208 1.3934 12.6066C1.97919 13.1924 2.92893 13.1924 3.51472 12.6066L12 4.12132L20.4853 12.6066C21.0711 13.1924 22.0208 13.1924 22.6066 12.6066C23.1924 12.0208 23.1924 11.0711 22.6066 10.4853L13.0607 0.93934ZM13.5 3V2L10.5 2V3L13.5 3Z" fill="#666666"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14"
+                                     fill="none">
+                                    <path d="M13.0607 0.93934C12.4749 0.353553 11.5251 0.353553 10.9393 0.93934L1.3934 10.4853C0.807611 11.0711 0.807611 12.0208 1.3934 12.6066C1.97919 13.1924 2.92893 13.1924 3.51472 12.6066L12 4.12132L20.4853 12.6066C21.0711 13.1924 22.0208 13.1924 22.6066 12.6066C23.1924 12.0208 23.1924 11.0711 22.6066 10.4853L13.0607 0.93934ZM13.5 3V2L10.5 2V3L13.5 3Z"
+                                          fill="#666666"/>
                                 </svg>
                             </div>
                         </div>
@@ -718,11 +432,13 @@
                     </div>
 
                     <div class="flex-row" style="margin-top: 40px">
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(4)" style="margin: 0">
+                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(4)"
+                                style="margin: 0">
                             Previous
                         </button>
 
-                        <button class="btn btn-primary origin c-option-btn" onclick="showSection(6)" style="margin: 0">Create
+                        <button class="btn btn-primary origin c-option-btn" onclick="showSection(6)" style="margin: 0">
+                            Create
                             Campaign!
                         </button>
                     </div>
@@ -741,7 +457,7 @@
 
                     <div class="flex-row m-2 ad-success-btn" style="justify-content: space-evenly">
                         <button class="btn btn-primary" onclick="showSection(5)"
-                                style="width: 25%;background-color: rgb(33,33,95);">Create Another Ad Campaign
+                                style="width: 25%; background-color: rgb(33,33,95);">Create Another Ad Campaign
                         </button>
 
                         <button class=" btn btn-primary bg-primary" onclick="" style="width: 25%;">View Ad Campaign</button>
@@ -750,51 +466,6 @@
                     </div>
 
                     <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header text-center">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                    <h3 class="modal-title">Adjustments
-                        <hr>
-                    </h3>
-                </div>
-
-                <div class="modal-body">
-                    <div class="row">
-                        {% for adjustment in adjustments %}
-                        <div class="col-md-6" onclick="selectAdjustment({{adjustment.id}})">
-                            <div class="card pub-card">
-                                <div class="flex-row">
-                                    <h4>{{adjustment.code}}</h4>
-                                    <h4>${{adjustment.amount}}</h4>
-                                </div>
-
-                                <h5>Description: {{adjustment.description}}</h5>
-
-                                <div class="flex-row content-left">
-                                    <h5 class="mr-2">Apply Level: {{adjustment.apply_level}}</h5>
-                                    <h5>Section</h5>
-                                </div>
-
-                                <div class="flex-row content-left">
-                                    <h5 class="mr-2">Value: {{adjustment.amount}}</h5>
-                                    <h5>Value: {{adjustment.value_type}}</h5>
-                                </div>
-
-                                <div id="sel_adjustment_{{adjustment.id}}"
-                                     style="margin-bottom: -20px; visibility: hidden">
-                                    <button class="btn btn-primary origin">Selected</button>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
                 </div>
             </div>
         </div>
@@ -824,7 +495,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="create-ad" role="dialog">
+    <div class="modal fade create-ad" id="create-ad" role="dialog">
         <div class="modal-dialog">
             <!-- Modal header-->
             <div class="modal-header text-center">
@@ -842,30 +513,42 @@
                     <div class="ad-value-row">
                         <div class="ad-value-item">
                             <div>Ad Name:</div>
-                            <input type="text" placeholder="Enter name here...">
+                            <input id="ad-name" type="text" placeholder="Enter name here...">
                         </div>
 
                         <div class="ad-value-item">
                             <div>Ad Type:</div>
-                            <select></select>
+                            <select id="ad-type">
+                                {% for item in adTypes %}
+                                <option value="{{item.name}}">{{item.name}}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
 
                     <div class="ad-value-row">
                         <div class="ad-value-item">
                             <div>Ad Sizes:</div>
-                            <select></select>
+                            <select id="ad-size">
+                                {% for item in adSizes %}
+                                <option value="{{item.size}}">{{item.size}}</option>
+                                {% endfor %}
+                            </select>
                         </div>
 
                         <div class="ad-value-item">
                             <div>Available Rates:</div>
-                            <select></select>
+                            <select id="ad-rate">
+                                {% for item in rating %}
+                                <option value="{{item.name}}">{{item.name}}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
 
                     <div class="ad-textarea-row">
                         <div>Brief Description:</div>
-                        <textarea></textarea>
+                        <textarea id="ad-brief"></textarea>
                     </div>
 
                     <div class="ad-adjustment-calender">
@@ -878,10 +561,8 @@
                                 <div data-target="#add-adjustment" data-toggle="modal">Add Adjustment(s)</div>
                             </div>
 
-                            <div class="ad-adjustment-value">
-                                <div>002_COLOR SECONDARY </div>
+                            <div id="adjustment-value" class="ad-adjustment-value">
 
-                                <div>$0.00</div>
                             </div>
                         </div>
 
@@ -891,7 +572,7 @@
                     </div>
 
                     <div class="create-btn">
-                        <button data-dismiss="modal">Create</button>
+                        <button onclick="createAdItem()" data-dismiss="modal">Create</button>
                     </div>
                 </div>
             </div>
@@ -912,74 +593,35 @@
                     <hr>
                 </h3>
 
-                <div class="adjustment-row">
-                    <div class="adjustment-item" onclick="adjustment_select(this)">
+                <div class="adjustment-row scrollbar">
+                    {% for item in adjustments %}
+                    <div class="adjustment-item" onclick="adjustment_select(this, {{item.id}})">
                         <div class="adj-item-title">
-                            001_COLOR_MAIN
-                            <span>$1.50</span>
+                            <div id="adjustment-code-0">{{item.code}}</div>
+                            <span id="adjustment-amount-0">${{item.amount}}</span>
                         </div>
 
                         <div class="adj-item-value">
                             <span class="item-value-label">Description:</span>
-                            <span class="item-value-value">$1 per unit MAIN PUB ONLY</span>
+                            <span class="item-value-value">{{item.description}}</span>
                         </div>
 
                         <div class="adj-item-value">
                             <div>
                                 <span class="item-value-label">Apply Level:</span>
-                                <span class="item-value-value">Insertion</span>
+                                <span class="item-value-value">{{item.apply_level}}</span>
                             </div>
 
                             <div>
                                 <span class="item-value-label">Section:</span>
-                                <span class="item-value-value"></span>
+                                <span class="item-value-value">{{item.section_id}}</span>
                             </div>
                         </div>
 
                         <div class="adj-item-value">
                             <div>
                                 <span class="item-value-label">Value:</span>
-                                <span class="item-value-value">Amount</span>
-                            </div>
-
-                            <div>
-                                <span class="item-value-label">Value:</span>
-                                <span class="item-value-value">Debt(-)</span>
-                            </div>
-                        </div>
-
-                        <div class="adjustment-select">
-                            Selected
-                        </div>
-                    </div>
-
-                    <div class="adjustment-item" onclick="adjustment_select(this)">
-                        <div class="adj-item-title">
-                            002_COLOR_MAIN
-                            <span>$1.50</span>
-                        </div>
-
-                        <div class="adj-item-value">
-                            <span class="item-value-label">Description:</span>
-                            <span class="item-value-value">$1 per unit MAIN PUB ONLY</span>
-                        </div>
-
-                        <div class="adj-item-value">
-                            <div>
-                                <span class="item-value-label">Apply Level:</span>
-                                <span class="item-value-value">Insertion</span>
-                            </div>
-
-                            <div>
-                                <span class="item-value-label">Section:</span>
-                                <span class="item-value-value"></span>
-                            </div>
-                        </div>
-
-                        <div class="adj-item-value">
-                            <div>
-                                <span class="item-value-label">Value:</span>
-                                <span class="item-value-value">Amount</span>
+                                <span class="item-value-value">{{item.amount}}</span>
                             </div>
 
                             <div>
@@ -992,12 +634,13 @@
                             Selected
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
 
                 <hr style="color: #666; height: 1px">
 
                 <div class="option-button">
-                    <button>Add Adjustment</button>
+                    <button onclick="addAdjustment()" data-toggle="modal">Add Adjustment</button>
                 </div>
 
                 <div class="modal-footer-img">
@@ -1008,8 +651,6 @@
     </div>
 </div>
 <script>
-    var salesperson_id = "{{ salesperson_id }}";
-
     $(document).ready(function () {
         $('#search-select').select2();
     });
@@ -1037,11 +678,11 @@
         const parents = document.querySelector(".progress-icons");
         const progress_items = parents.querySelectorAll("div");
 
-        for (var i = 0; i < progress_items.length; i ++) {
+        for (var i = 0; i < progress_items.length; i++) {
             document.getElementById("progress_" + i).classList.remove("progress-active");
         }
 
-        for (var j = 0; j <= index; j ++) {
+        for (var j = 0; j <= index; j++) {
             document.getElementById("progress_" + j).classList.add("progress-active");
         }
     }
