@@ -51,13 +51,6 @@ function addAdjustment() {
     parent.innerHTML = innerHtml;
 }
 
-function deleteAdjustment(id) {
-    // var parent = document.getElementById("adjustment");
-    var remove = document.getElementById("adjustments_list" + id);
-
-    remove.remove();
-}
-
 function advertiser_next() {
     var advertiser_id = document.getElementById("search-select").value;
     var advertiser = document.getElementById("select2-search-select-container").innerText;
@@ -117,26 +110,7 @@ function campaign_next() {
 }
 
 function publication_next() {
-    // var adtype = document.getElementById("adtype").value;
-    //
-    // if (adtype === "") {
-    //     alert("Please complete the fields.");
-    //     return;
-    // }
-    //
-    // var adsize = document.getElementById("adsize").value;
-    //
-    // if (adsize === "") {
-    //     alert("Please complete the fields.");
-    //     return;
-    // }
-    //
-    // var rate = document.getElementById("rate").value;
-    //
-    // if (rate === "") {
-    //     alert("Please complete the fields.");
-    //     return;
-    // }
+    document.getElementById("sum-ad-details").innerHTML = document.getElementById("spec-area").innerHTML;
 
     showSection(5);
 }
@@ -221,7 +195,7 @@ function adFormat_next() {
                                                 + Start An Ad For This Publication
                                             </button>
 
-                                            <h4 class="black">$0.00</h4>
+                                            <h4 class="black">$<span id="pub-price-` + index + `-0">0.00</span></h4>
                                         </div>
 
                                         <hr class="black">
@@ -292,10 +266,26 @@ function createAdItem() {
     let adName = eleAdName.value;
     let adType = eleAdType.value;
     let adSize = eleAdSize.value;
-    let adRate = eleAdRate.value;
+    let adRate_id = eleAdRate.value;
     let adbrief = eleBrief.value;
-    let adjCode = eleAdjCode.innerText;
-    let adjAmount = eleAdjAmount.innerText;
+    let adjCode = eleAdjCode != undefined ? eleAdjCode.innerText : '';
+    let adjAmount = eleAdjAmount != undefined ? eleAdjAmount.innerText : '';
+
+    let adUnitPrice = '';
+    let adRate = "";
+    for (let i = 0; i < ratingList.length; i ++) {
+        let item = ratingList[i];
+
+        if (item.pk == adRate_id) {
+            adUnitPrice = item.fields['unit_price'];
+            adRate = item.fields['name'];
+        }
+    }
+
+    let elePubPrice = document.getElementById("pub-price-" + demo_index + "-" + pub_index);
+    let pubPrice = elePubPrice.innerHTML;
+    pubPrice = parseFloat(pubPrice) + parseFloat(adUnitPrice);
+    elePubPrice.innerHTML = pubPrice;
 
     innerHtml += `<div id="edit-ad-item-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" class="edit-ad-item">
                                 <div class="edit-ad-item-title">
@@ -303,9 +293,10 @@ function createAdItem() {
 
                                     <h6>Qty:</h6>
 
-                                    <input type="text" value="1">
+                                    <input type="text" id="ad-count-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" value="1" 
+                                        onkeydown="updatePublicationPrice(event, ` + demo_index + `, ` + pub_index + `, ` + editAdItemCount + `)">
 
-                                    <h4 class="black">$0.00</h4>
+                                    <h4 class="black">$<span id="ad-unit-price-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `">` + adUnitPrice + `</span></h4>
                                 </div>
 
                                 <div class="value-items">
@@ -406,7 +397,7 @@ function createNewPub(index) {
                                     + Start An Ad For This Publication
                                 </button>
 
-                                <h4 class="black">$0.00</h4>
+                                <h4 class="black">$<span id="pub-price-` + index + `-` + specItemCount + `">0.00</span></h4>
                             </div>
 
                             <hr class="black">
@@ -422,4 +413,35 @@ function createNewPub(index) {
 function showAdItemModal(demo, pub) {
     demo_index = demo;
     pub_index = pub;
+}
+
+function updatePublicationPrice (event, demo, pub, ad) {
+    const key = event.key;
+
+    if (key !== "Enter")
+        return;
+
+    let count = document.getElementById("ad-count-" + demo + "-" + pub + "-" + ad).value
+
+    if (isNaN(count))
+        return;
+
+    let elePubPrice = document.getElementById("pub-price-" + demo + "-" + pub);
+    let pubPrice = "0.00";
+
+    let adList = document.getElementById("edit-ad-" + demo + "-" + pub).childNodes;
+    for (let j = 0; j < adList.length; j ++) {
+        if (adList[j].tagName !== "DIV") {
+            document.getElementById("edit-ad-" + demo + "-" + pub).removeChild(adList[j]);
+        }
+    }
+
+    for (let i = 0; i < adList.length; i ++) {
+        let unitPrice = document.getElementById("ad-unit-price-" + demo + "-" + pub + "-" + i).innerText;
+        let count = document.getElementById("ad-count-" + demo + "-" + pub + "-" + i).value;
+
+        pubPrice = parseFloat(pubPrice) + parseFloat(count) * parseFloat(unitPrice);
+    }
+
+    elePubPrice.innerHTML = pubPrice;
 }

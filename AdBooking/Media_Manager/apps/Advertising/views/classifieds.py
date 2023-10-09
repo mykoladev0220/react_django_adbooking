@@ -102,6 +102,7 @@ def create_classified_ad(request):
     adjustments = ClassifiedAdjustment.objects.all()
 
     rating = ClassifiedRate.objects.all()
+    ratingList = serializers.serialize('json', rating)
 
     form = ClassifiedsContentForm()
 
@@ -339,7 +340,8 @@ def create_classified_ad(request):
         "adTypes": adTypes,
         "adSizes": adSizes,
         "adjustments": adjustments,
-        "rating": rating
+        "rating": rating,
+        "ratingList": ratingList,
     }
 
     return render(request, "CreateNewClassified.html", context)
