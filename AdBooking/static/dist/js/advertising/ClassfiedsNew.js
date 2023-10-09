@@ -5,7 +5,7 @@ let pub_index = 0;
 
 let pub_option_list = document.getElementById("publication_data").innerHTML
 
-let sel_adjustment_list = [];
+let sel_adjustment = -1;
 
 function selectPublications(public_id) {
     const selected_img = document.getElementById("favoriteIcon_" + public_id);
@@ -37,20 +37,18 @@ function selectStar(public_id) {
 }
 
 function addAdjustment() {
-    var parent = document.getElementById("adjustment-value");
-    var parent_html = parent.innerHTML;
+    let parent = document.getElementById("adjustment-value");
+    let innerHtml = "";
 
-    for ( let item in sel_adjustment_list ) {
-        let code = document.getElementById("adjustment-code-" + item).innerHTML;
-        let amount = document.getElementById("adjustment-amount-" + item).innerHTML;
+    let code = document.getElementById("adjustment-code-" + sel_adjustment).innerHTML;
+    let amount = document.getElementById("adjustment-amount-" + sel_adjustment).innerHTML;
 
-        parent_html += `<div id="adjustments_list` + item + `" class="mt-1 flex-row">
-                            <h5 class="black">` + code + `</h5>
-                            <h5 class="black">` + amount + `</h5>
-                         </div>`
-    }
+    innerHtml += `<div id="adjustments_list-` + sel_adjustment + `" class="mt-1 flex-row sel-adjustment">
+                    <h5 id="ad-adj-code" class="black">` + code + `</h5>
+                    <h5 id="ad-adj-amount" class="black">` + amount + `</h5>
+                  </div>`;
 
-    parent.innerHTML = parent_html;
+    parent.innerHTML = innerHtml;
 }
 
 function deleteAdjustment(id) {
@@ -60,53 +58,60 @@ function deleteAdjustment(id) {
     remove.remove();
 }
 
-//advertiser
-function selectedAdvertiser() {
-    // document.getElementById("advertise_Name").innerText = document.getElementById("search-select").value;
-}
-
 function advertiser_next() {
-    var advertiser = document.getElementById("search-select").value;
-    if (advertiser === "") {
+    var advertiser_id = document.getElementById("search-select").value;
+    var advertiser = document.getElementById("select2-search-select-container").innerText;
+    if (advertiser_id === "") {
         alert("Please complete the fields.");
 
         return;
     }
 
+    document.getElementById("sum-advertiser-id").innerHTML = advertiser_id;
+    document.getElementById("sum-advertiser-name").innerHTML = advertiser;
+
     showSection(2);
 }
 
 function campaign_next() {
-    // var orderName = document.getElementById("orderName").value;
-    //
-    // if (orderName === "") {
-    //     alert("Please complete the fields.");
-    //     return;
-    // } else {
-    //     document.getElementById("total_orderName").innerText = orderName;
-    // }
-    //
-    // var seles = document.getElementById("sell").value;
-    //
-    // if (seles === "") {
-    //     alert("Please complete the fields.");
-    //     return;
-    // } else {
-    //     document.getElementById("total_sales").innerText = seles;
-    // }
-    //
-    // var startDate = document.getElementById("startDate").value;
-    //
-    // if (startDate === "") {
-    //     alert("Please complete the fields.");
-    //     return;
-    // } else {
-    //     document.getElementById("total_startDate").innerText = startDate;
-    // }
-    //
-    // document.getElementById("total_endDate").innerText = document.getElementById("endDate").value;
-    //
-    // document.getElementById("total_brief").innerText = document.getElementById("brief").value;
+    var orderName = document.getElementById("order-name").value;
+
+    if (orderName === "") {
+        alert("Please complete the fields.");
+        return;
+    } else {
+        document.getElementById("sum-campaign-name").innerText = orderName;
+    }
+
+    let salesContact_id = document.getElementById("sales-contact").value;
+
+    if (salesContact_id === "") {
+        alert("Please complete the fields.");
+        return;
+    } else {
+        let salesContact_name = '';
+
+        for (let item in salesPersonList) {
+            if (salesPersonList[item].pk == salesContact_id) {
+                salesContact_name = salesPersonList[item].fields['first_name'] + salesPersonList[item].fields['last_name'];
+            }
+        }
+        document.getElementById("sum-sales-id").innerText = salesContact_id;
+        document.getElementById("sum-sales-name").innerText = salesContact_name;
+    }
+
+    var startDate = document.getElementById("start-date").value;
+
+    if (startDate === "") {
+        alert("Please complete the fields.");
+        return;
+    } else {
+        document.getElementById("sum-start-date").innerText = startDate;
+    }
+
+    document.getElementById("sum-end-date").innerText = document.getElementById("end-date").value;
+
+    document.getElementById("sum-brief").innerText = document.getElementById("brief").value;
 
     showSection(3);
 }
@@ -165,20 +170,16 @@ function collapseEditSpecItem(clickedButton, demo, publication, ad) {
 }
 
 function adjustment_select(selectedItem, index) {
+    sel_adjustment = index;
+
     const adjustment_items = document.querySelector(".adjustment-row").childNodes;
 
     for (let i = 0; i < adjustment_items.length; i++) {
         if (adjustment_items[i].tagName === 'DIV') {
             if (adjustment_items[i] === selectedItem) {
                 adjustment_items[i].classList.add("adjustment-select-active");
-
-                sel_adjustment_list.push(index);
             } else {
                 adjustment_items[i].classList.remove("adjustment-select-active");
-
-                let sel_index = sel_adjustment_list.indexOf(index);
-                if (sel_index !== -1)
-                    sel_adjustment_list.splice(sel_index, 1);
             }
         }
     }
@@ -285,12 +286,16 @@ function createAdItem() {
     let eleAdSize = document.getElementById("ad-size");
     let eleAdRate = document.getElementById("ad-rate");
     let eleBrief = document.getElementById("ad-brief");
+    let eleAdjCode = document.getElementById("ad-adj-code");
+    let eleAdjAmount = document.getElementById("ad-adj-amount");
 
     let adName = eleAdName.value;
     let adType = eleAdType.value;
     let adSize = eleAdSize.value;
     let adRate = eleAdRate.value;
-    let brief = eleBrief.value;
+    let adbrief = eleBrief.value;
+    let adjCode = eleAdjCode.innerText;
+    let adjAmount = eleAdjAmount.innerText;
 
     innerHtml += `<div id="edit-ad-item-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" class="edit-ad-item">
                                 <div class="edit-ad-item-title">
@@ -298,7 +303,7 @@ function createAdItem() {
 
                                     <h6>Qty:</h6>
 
-                                    <input type="text">
+                                    <input type="text" value="1">
 
                                     <h4 class="black">$0.00</h4>
                                 </div>
@@ -340,16 +345,16 @@ function createAdItem() {
                                 <div class="adjustment-label">Adjustments:</div>
 
                                 <div class="adjustment-value">
-                                    <div>002_COLOR SECONDARY</div>
+                                    <div>` + adjCode + `</div>
 
-                                    <div>$0.00</div>
+                                    <div>` + adjAmount + `</div>
                                 </div>
 
                                 <div class="c-ad-value-description">
                                     <div class="adjustment-label">Description:</div>
 
                                     <div class="ad-type-value">
-                                        ` + brief + `
+                                        ` + adbrief + `
                                     </div>
                                 </div>
 

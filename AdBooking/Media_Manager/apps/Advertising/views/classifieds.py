@@ -1,19 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
 from django.forms import model_to_dict
-from json import dumps
 from django.templatetags.static import static
-
 from django.contrib.auth.models import User
-
 from django.core.files.storage import FileSystemStorage
-
-from ..helpers import is_ajax, daysOfTheWeek
-
+from ..helpers import is_ajax
 import json
 from math import floor
 import os
 from datetime import datetime, date, timedelta
+from django.core import serializers
  
 import logging
 
@@ -96,7 +92,8 @@ def create_classified_ad(request):
 
     publications = Publication.objects.all()
 
-    salespersonList = SalesPerson.objects.all()
+    salesPersonQuery = SalesPerson.objects.all()
+    salesPersonList = serializers.serialize('json', salesPersonQuery)
 
     adTypes = ClassifiedAdType.objects.all()
 
@@ -333,7 +330,8 @@ def create_classified_ad(request):
         "menu": views.get_sidebar(request),
         "accounts": accounts,
         "publications": publications,
-        "salespersonList": salespersonList,
+        "salespersonList": salesPersonList,
+        "salesPersonQuery": salesPersonQuery,
         "classificationList": classificationList,
         "contentForm": ClassifiedsContentForm(),
         "fileList": fileList,

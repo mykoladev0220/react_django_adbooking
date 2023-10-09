@@ -100,13 +100,12 @@
                     <h2 class="sub-title" style="margin-top: 56px">Select An Advertiser</h2>
 
                     <div style="margin-top: 69px">
-                        <select id="search-select" class="form-control shadow" onchange="selectedAdvertiser()"
-                                style="width: 50%">
+                        <select id="search-select" class="form-control shadow" style="width: 50%">
                             <option value="" disabled selected>
                                 Select an Advertiser
                             </option>
                             {% for account in accounts %}
-                            <option value="{{ account.submitter }}">
+                            <option value="{{ account.id }}">
                                 {{ account.submitter }}
                             </option>
                             {% endfor %}
@@ -143,7 +142,7 @@
                             <div class="form-group">
                                 <label for="orderName">*Order Name:</label>
 
-                                <input type="text" id="orderName" class="form-control shadow"
+                                <input type="text" id="order-name" class="form-control shadow"
                                        placeholder="Enter Order Name" name="orderName">
                             </div>
 
@@ -153,11 +152,11 @@
                                         <div class="form-group">
                                             <label for="sel1">*Sales Contact:</label>
 
-                                            <select class="form-control shadow" id="sell" style="border-radius: 4px">
+                                            <select class="form-control shadow" id="sales-contact" style="border-radius: 4px">
                                                 <option>Select a Salesperson</option>
-                                                {% for salesperson in salespersonList %}
-                                                <option value="{{ salesperson.first_name }} {{salesperson.last_name}}">
-                                                    {{ salesperson.first_name }} {{ salesperson.last_name}}
+                                                {% for salesPerson in salesPersonQuery %}
+                                                <option value="{{ salesPerson.id }}">
+                                                    {{ salesPerson.first_name }} {{ salesPerson.last_name}}
                                                 </option>
                                                 {% endfor %}
                                             </select>
@@ -166,17 +165,17 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="startDate" style="display: block">*Start Date:</label>
+                                            <label for="start-date">*Start Date:</label>
 
-                                            <input type="date" id="startDate" style="border-radius: 4px;"/>
+                                            <input type="date" id="start-date" style="border-radius: 4px;"/>
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="endDate">End Date(optional):</label>
+                                            <label for="end-date">End Date(optional):</label>
 
-                                            <input type="date" id="endDate" style="border-radius: 4px;">
+                                            <input type="date" id="end-date" style="border-radius: 4px;">
                                         </div>
                                     </div>
                                 </div>
@@ -299,7 +298,7 @@
                     <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
 
 
-                    <select id="publication_data" style="visibility: hidden">
+                    <select id="publication_data" style="display: none">
                         {% for publication in publications %}
                         <option value="{{publication.id}}">{{publication.name}}</option>
                         {% endfor %}
@@ -319,13 +318,13 @@
                                 <div class="campaign-item">
                                     <div class="campaign-item-label">Campaign Name</div>
 
-                                    <div class="campaign-name">Campaign Name Goes Here</div>
+                                    <div id="sum-campaign-name" class="campaign-name">Campaign Name Goes Here</div>
                                 </div>
 
                                 <div class="campaign-item">
                                     <div class="campaign-item-label">Brief Descriptions</div>
 
-                                    <div class="campaign-brief">
+                                    <div id="sum-brief" class="campaign-brief">
                                         Lorem ipsum dolor sit amet, at natum omnes alienum est. Qui ad fabulas deleniti
                                         pericula, doming semper ponderum at eam, et vim delectus consequat deterruisset.
                                         Ne possim equidem pertinax eam, essent conclusionemque vim et. Usu ut vocent
@@ -339,36 +338,36 @@
                                 <div class="" style="display: flex; margin-left: 15px">
                                     <div class="campaign-item">
                                         <div class="campaign-item-label">Start Date:</div>
-                                        <div class="campaign-item-value" id="total_startDate">5/22/2023</div>
+                                        <div class="campaign-item-value" id="sum-start-date">5/22/2023</div>
                                     </div>
 
                                     <div class="campaign-item" style="margin-left: 25px">
                                         <div class="campaign-item-label">End Date:</div>
-                                        <div class="campaign-item-value" id="total_endDate">5/25/2023</div>
+                                        <div class="campaign-item-value" id="sum-end-date">5/25/2023</div>
                                     </div>
                                 </div>
 
                                 <div style="display: flex">
                                     <div class="col-md-6 campaign-item">
                                         <div class="campaign-item-label">Advertiser:</div>
-                                        <div class="campaign-item-value small-value">Advertiser Name Goes Here:</div>
+                                        <div id="sum-advertiser-name" class="campaign-item-value small-value">Advertiser Name Goes Here:</div>
                                     </div>
 
                                     <div class="col-md-6 campaign-item">
                                         <div class="campaign-item-label">Account #:</div>
-                                        <div class="campaign-item-value small-value">Account Goes Here:</div>
+                                        <div id="sum-advertiser-id" class="campaign-item-value small-value">Account Goes Here:</div>
                                     </div>
                                 </div>
 
                                 <div style="display: flex">
                                     <div class="col-md-6 campaign-item">
                                         <div class="campaign-item-label">Sales Contact:</div>
-                                        <div class="campaign-item-value small-value">Kyle Jerming</div>
+                                        <div id="sum-sales-name" class="campaign-item-value small-value">Kyle Jerming</div>
                                     </div>
 
                                     <div class="col-md-6 campaign-item">
                                         <div class="campaign-item-label">Contact ID #:</div>
-                                        <div class="campaign-item-value small-value">Account Goes Here:</div>
+                                        <div id="sum-sales-id" class="campaign-item-value small-value">Account Goes Here:</div>
                                     </div>
                                 </div>
                             </div>
@@ -597,8 +596,8 @@
                     {% for item in adjustments %}
                     <div class="adjustment-item" onclick="adjustment_select(this, {{item.id}})">
                         <div class="adj-item-title">
-                            <div id="adjustment-code-0">{{item.code}}</div>
-                            <span id="adjustment-amount-0">${{item.amount}}</span>
+                            <div id="adjustment-code-{{item.id}}">{{item.code}}</div>
+                            <span id="adjustment-amount-{{item.id}}">${{item.amount}}</span>
                         </div>
 
                         <div class="adj-item-value">
@@ -640,7 +639,7 @@
                 <hr style="color: #666; height: 1px">
 
                 <div class="option-button">
-                    <button onclick="addAdjustment()" data-toggle="modal">Add Adjustment</button>
+                    <button onclick="addAdjustment()" data-dismiss="modal">Add Adjustment</button>
                 </div>
 
                 <div class="modal-footer-img">
@@ -651,6 +650,8 @@
     </div>
 </div>
 <script>
+    let salesPersonList = JSON.parse(`{{ salespersonList }}`);
+
     $(document).ready(function () {
         $('#search-select').select2();
     });
@@ -686,13 +687,5 @@
             document.getElementById("progress_" + j).classList.add("progress-active");
         }
     }
-
-    $('#datepicker1').datepicker({
-        uiLibrary: 'bootstrap'
-    });
-
-    $('#datepicker2').datepicker({
-        uiLibrary: 'bootstrap'
-    });
 </script>
 {% endblock %}

@@ -765,6 +765,7 @@ td a:hover {
 
 .c-calendar {
   color: #21215F;
+  cursor: pointer;
   font-family: Lato, serif;
   font-size: 12px;
   font-style: normal;
@@ -802,6 +803,22 @@ td a:hover {
 
 .adjustment-value div:first-child {
   margin-right: 19px;
+}
+
+.sel-adjustment {
+  width: 100%;
+}
+
+.sel-adjustment h5 {
+  color: black;
+  display: flex;
+  font-family: "Lato", serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sel-adjustment h5:last-child {
+  margin-left: auto;
 }
 
 .ad-option-button {
@@ -1030,7 +1047,7 @@ td a:hover {
 .adjustment-row {
   display: flex;
   flex-wrap: wrap;
-  padding: 18px 0 0 25px;
+  padding: 18px 0 0 25px !important;
   min-height: 340px;
 }
 
