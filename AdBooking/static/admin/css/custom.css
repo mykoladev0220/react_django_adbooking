@@ -1298,6 +1298,11 @@ td a:hover {
   opacity: 1;
 }
 
+#sum-ad-details .c-m-panel {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 @media screen and (max-width: 1799px) {
   h2 {
     font-size: 29px !important;
