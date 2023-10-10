@@ -371,6 +371,9 @@ function createAdItem() {
     eleAdSize.value = "";
     eleAdRate.value = "";
     eleBrief.value = "";
+
+    document.getElementById("adjustment-value").innerHTML = "";
+    sel_adjustment = -1;
 }
 
 function createNewPub(index) {
