@@ -211,7 +211,7 @@ function adFormat_next() {
                                         + Start A New Publication Ad
                                     </div>
 
-                                    <div class="ad-option-button-item update-button">Update Total</div>
+                                    <div class="ad-option-button-item update-button" onclick="updateTotal(` + index + `)">Update Total</div>
                                 </div>
 
                                 <hr class="black mt-1" style="color: #666">
@@ -219,19 +219,19 @@ function adFormat_next() {
                                 <div class="price-label" style="margin-top: 6px">
                                     <h5>Print Ad Subtotal:</h5>
 
-                                    <h5 class="c-mr-50">$0.00</h5>
+                                    <h5 class="c-mr-50">$<span id="print-ad-price-` + index + `" >0.00</span></h5>
                                 </div>
 
                                 <div class="price-label">
                                     <h5>Adjustment Total:</h5>
 
-                                    <h5 class="c-mr-50">$0.00</h5>
+                                    <h5 class="c-mr-50">$<span id="print-adj-price-` + index + `">0.00</span></h5>
                                 </div>
 
                                 <div class="price-label">
                                     <h4>Print Ad(s) Total:</h4>
 
-                                    <h4 class="c-mr-50">$0.00</h4>
+                                    <h4 class="c-mr-50">$<span id="print-total-price-` + index + `">0.00</span></h4>
                                 </div>
                             </div>
                         </div>`;
@@ -338,7 +338,7 @@ function createAdItem() {
                                 <div class="adjustment-value">
                                     <div>` + adjCode + `</div>
 
-                                    <div>` + adjAmount + `</div>
+                                    <div id="adjAmount-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `">` + adjAmount + `</div>
                                 </div>
 
                                 <div class="c-ad-value-description">
@@ -444,4 +444,49 @@ function updatePublicationPrice (event, demo, pub, ad) {
     }
 
     elePubPrice.innerHTML = pubPrice;
+}
+
+function updateTotal(demo_index) {
+    let specEle = document.getElementById("spec-item-" + demo_index);
+    let specList = specEle.childNodes;
+
+    let printAdPriceEle = document.getElementById("print-ad-price-" + demo_index);
+    let printAdjPriceEle = document.getElementById("print-adj-price-" + demo_index);
+
+    let printAdPrice = 0;
+    let printAdjPrice = 0;
+
+    for (let k = 0; k < specList.length; k++) {
+        if (specList[k].tagName !== "DIV") {
+            specEle.removeChild(specList[k]);
+        }
+    }
+    specList = specEle.childNodes;
+    for (let i = 0; i < specList.length; i ++) {
+        // calculate the print ad price
+        let pubPrice = document.getElementById("pub-price-" + demo_index + "-" + i).innerText;
+        printAdPrice += parseFloat(pubPrice);
+
+        // calculate the adjustments price
+        let pubItem = document.getElementById("edit-ad-" + demo_index + "-" + i);
+        let pubItemList = pubItem.childNodes;
+        let adjAmount = 0;
+
+        for (let m = 0; m < pubItemList.length; m++) {
+            if (pubItemList[m].tagName !== "DIV") {
+                pubItem.removeChild(pubItemList[m]);
+            }
+        }
+
+        pubItemList = pubItem.childNodes;
+        for (let j = 0; j < pubItemList.length; j ++) {
+          adjAmount = adjAmount + parseFloat(document.getElementById("adjAmount-" + demo_index + "-" + i + "-" + j).innerText.replace(/\$/g, ""));
+        }
+
+        printAdjPrice += adjAmount;
+    }
+
+    printAdPriceEle.innerText = printAdPrice.toString();
+    printAdjPriceEle.innerText = printAdjPrice.toString();
+    document.getElementById("print-total-price-" + demo_index).innerText = (printAdPrice + printAdjPrice).toString();
 }
