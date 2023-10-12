@@ -91,6 +91,7 @@ def create_classified_ad(request):
     accounts = [row.account for row in AccountAccess.objects.filter(user=request.user.id)]
 
     publications = Publication.objects.all()
+    publicationsList = serializers.serialize('json', publications)
 
     salesPersonQuery = SalesPerson.objects.all()
     salesPersonList = serializers.serialize('json', salesPersonQuery)
@@ -331,6 +332,7 @@ def create_classified_ad(request):
         "menu": views.get_sidebar(request),
         "accounts": accounts,
         "publications": publications,
+        "publicationsList": publicationsList,
         "salespersonList": salesPersonList,
         "salesPersonQuery": salesPersonQuery,
         "classificationList": classificationList,

@@ -383,19 +383,25 @@
                         <div class="mt-4">
                             <div class="flex-row">
                                 <div class="campaign-item-label">Subtotal:</div>
-                                <div class="campaign-item-value small-value mr-2">$0.00</div>
+                                <div class="campaign-item-value small-value mr-2">
+                                    $<span id="sum-print-total">0.00</span>
+                                </div>
                             </div>
 
                             <div class="flex-row">
                                 <div class="campaign-item-label">Total Adjustments:</div>
-                                <div class="campaign-item-value small-value mr-2">$0.00</div>
+                                <div class="campaign-item-value small-value mr-2">
+                                    $<span id="sum-adj-total">0.00</span>
+                                </div>
                             </div>
 
                             <hr>
 
                             <div class="flex-row mt-4">
                                 <div class="campaign-item-label big-campaign-label">Campaign Total:</div>
-                                <div class="campaign-item-value big-campaign-label mr-2">$0.00</div>
+                                <div class="campaign-item-value big-campaign-label mr-2">
+                                    $<span id="sum-campaign-total">0.00</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -464,7 +470,7 @@
         </div>
     </div>
 
-    <div class="modal fade create-ad" id="create-ad" role="dialog">
+    <div class="modal fade create-ad" id="create-ad" role="dialog" style="overflow: hidden auto">
         <div class="modal-dialog">
             <!-- Modal header-->
             <div class="modal-header text-center">
@@ -622,6 +628,7 @@
 <script>
     let salesPersonList = JSON.parse(`{{ salespersonList }}`);
     let ratingList = JSON.parse(`{{ ratingList }}`);
+    let publicationsList = JSON.parse(`{{ publicationsList }}`);
 
     $(document).ready(function () {
         $('#search-select').select2();
