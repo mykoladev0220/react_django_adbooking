@@ -1,4 +1,4 @@
-let selectedPublicationNames = [];
+let selectedAdFormatsName = [];
 
 let demo_index = 0;
 let pub_index = 0;
@@ -7,7 +7,7 @@ let pub_option_list = document.getElementById("publication_data").innerHTML
 
 let sel_adjustment = -1;
 
-function selectPublications(public_id) {
+function selectAdFormat(public_id) {
     const selected_img = document.getElementById("favoriteIcon_" + public_id);
     const selected_name = document.getElementById("adTypeName_" + public_id).innerText;
 
@@ -15,12 +15,12 @@ function selectPublications(public_id) {
 
     if (visibility === 'visible') {
         selected_img.style.visibility = 'hidden';
-        const index = selectedPublicationNames.indexOf(selected_name);
+        const index = selectedAdFormatsName.indexOf(selected_name);
         if (index !== -1)
-            selectedPublicationNames.splice(index, 1);
+            selectedAdFormatsName.splice(index, 1);
     } else {
         selected_img.style.visibility = 'visible';
-        selectedPublicationNames.push(selected_name);
+        selectedAdFormatsName.push(selected_name);
     }
 }
 
@@ -118,7 +118,7 @@ function publication_next() {
     let sumDemoItemListEle = "";
     let sumPrintTotalValue = "0.00";
     let sumAdjTotalValue = "0.00";
-    for (let demo_idx = 0; demo_idx < selectedPublicationNames.length; demo_idx ++) {
+    for (let demo_idx = 0; demo_idx < selectedAdFormatsName.length; demo_idx ++) {
         let pubEle = document.getElementById("spec-item-" + demo_idx);
         let pubItemList = getChildNodeList(pubEle);
 
@@ -253,7 +253,7 @@ function publication_next() {
         sumDemoItemListEle += `<div class="c-m-panel">
                                     <div class="btn secondary c-section" data-toggle="collapse" data-target="#sum-demo` + demo_idx + `"
                                          onclick="collapseEditSpec(this)">
-                                        ` + selectedPublicationNames[demo_idx] + `
+                                        ` + selectedAdFormatsName[demo_idx] + `
                                         <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="24" height="14"
                                              viewBox="0 0 24 14" fill="none">
                                             <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z"
@@ -365,11 +365,11 @@ function adFormat_next() {
     const spec_item = document.getElementById("spec-area");
     let innerHtml = "";
 
-    for (let index = 0; index < selectedPublicationNames.length; index++) {
+    for (let index = 0; index < selectedAdFormatsName.length; index++) {
         let temp = `<div class="c-m-panel">
                             <div class="btn secondary c-section" data-toggle="collapse" data-target="#demo` + index + `"
                                  onclick="collapseEditSpec(this)">
-                                ` + selectedPublicationNames[index] + `
+                                ` + selectedAdFormatsName[index] + `
                                 <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="24" height="14"
                                      viewBox="0 0 24 14" fill="none">
                                     <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z"
@@ -694,4 +694,60 @@ function updateTotal(demo_index) {
     printAdPriceEle.innerText = printAdPrice.toString();
     printAdjPriceEle.innerText = printAdjPrice.toString();
     document.getElementById("print-total-price-" + demo_index).innerText = (printAdPrice + printAdjPrice).toString();
+}
+
+function filterAdFormats() {
+    let adFormatEle = document.getElementById("ad-format");
+    let adFormatChildArray = Array.from(adFormatEle.children);
+
+    let adArray = [];
+    adFormatChildArray.forEach(row => {
+      let adName = row.querySelector('.pub_name').innerText;
+      let adId = row.querySelector('.pub_name').id;
+      let startIdx = adId.indexOf('_') + 1;
+      adId = adId.substring(startIdx, adId.length);
+
+      adArray.push({id: adId, name: adName});
+    })
+
+    adArray.sort((a, b) => {
+      let nameA = a.name.toLowerCase();
+      let nameB = b.name.toLowerCase();
+
+      if (nameA < nameB) {
+        return -1; // a should come before b
+      }
+      if (nameA > nameB) {
+        return 1; // a should come after b
+      }
+      return 0; // names are equal
+    });
+
+    let adFormatHtml = "";
+    for (let i = 0; i < adArray.length; i ++) {
+        let temp = adArray[i];
+        adFormatHtml += `<div id="ad_` + temp['id'] + `" class="col-md-4 pub_ele">
+                                <div class="flex-col pub-card">
+                                    <div class="c-ad-name">
+                                        <h3 id="adTypeName_` + temp['id'] + `" class="pub_name">` + temp['name'] + `</h3>
+                                    </div>
+
+                                    <div class="flex-row content-left c-ml-10" onclick="selectStar(` + temp['id'] + `)">
+                                        <img id="star_` + temp['id'] + `" src="/static/svg/Star-white.svg" style="height: 18px;">&nbsp;
+
+                                        <h4 class="c-favorite" style="line-height: 20px;">Add to Favorites</h4>
+                                    </div>
+
+                                    <div class="c-adType-hover" onclick="selectAdFormat(` + temp['id'] + `)">
+                                        Added to <br> Campaign!
+                                    </div>
+                                </div>
+
+                                <div id="favoriteIcon_` + temp['id'] + `" class="text-center pub-mark">
+                                    <img src="/static/svg/Vector (2).svg" style="height: 15px; margin-top:8px;">
+                                </div>
+                            </div>`;
+    }
+
+    adFormatEle.innerHTML = adFormatHtml;
 }

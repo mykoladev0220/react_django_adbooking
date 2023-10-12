@@ -214,7 +214,7 @@
                     <h2 class="mt-4 sub-title">Select Your Ad Format(s)</h2>
 
                     <div class="flex-row c-p-adFormat">
-                        <button class="btn btn-primary bg-primary c-filter">
+                        <button class="btn btn-primary bg-primary c-filter" onclick="filterAdFormats()">
                             <img src={% static "svg/Vector (1).svg" %}>
                             Filter
                         </button>
@@ -229,7 +229,7 @@
                     </div>
 
                     <div class="card scrollbar text-left c-adFormat" id="scrollbar1">
-                        <div class="publication">
+                        <div id="ad-format" class="publication">
                             {% for adType in adTypes %}
                             <div id="ad_{{adType.id}}" class="col-md-4 pub_ele">
                                 <div class="flex-col pub-card">
@@ -244,7 +244,7 @@
                                         <h4 class="c-favorite" style="line-height: 20px;">Add to Favorites</h4>
                                     </div>
 
-                                    <div class="c-adType-hover" onclick="selectPublications({{adType.id}})">
+                                    <div class="c-adType-hover" onclick="selectAdFormat({{adType.id}})">
                                         Added to <br> Campaign!
                                     </div>
                                 </div>
