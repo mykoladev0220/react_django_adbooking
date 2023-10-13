@@ -234,14 +234,14 @@ hr {
 }
 
 .time-line-box .swiper-slide:first-child .status.active span:before {
-    left: 0% !important;
+    left: 0 !important;
     -webkit-transform: translate(0%, -50%) !important;
     -ms-transform: translate(0%, -50%) !important;
     transform: translate(0%, -50%) !important;
 }
 
 .time-line-box .swiper-slide:first-child .status span:before {
-    left: 0% !important;
+    left: 0 !important;
     -webkit-transform: translate(0%, -50%) !important;
     -ms-transform: translate(0%, -50%) !important;
     transform: translate(0%, -50%) !important;
@@ -249,7 +249,7 @@ hr {
 
 .time-line-box .swiper-slide:last-child .status.active span:before {
    left: initial !important;
-   right: 0% !important;
+   right: 0 !important;
    -webkit-transform: translate(0%, -50%) !important;
    -ms-transform: translate(0%, -50%) !important;
    transform: translate(0%, -50%) !important;
@@ -257,7 +257,7 @@ hr {
 
 .time-line-box .swiper-slide:last-child .status span:before {
    left: initial !important;
-   right: 0% !important;
+   right: 0 !important;
    -webkit-transform: translate(0%, -50%) !important;
    -ms-transform: translate(0%, -50%) !important;
    transform: translate(0%, -50%) !important;
@@ -347,7 +347,6 @@ button {
 }
 
 .pub_ele {
-  display: block !important;
   padding: 0 9px 10px;
 }
 
@@ -785,17 +784,18 @@ td a:hover {
 }
 
 .adjustment-value {
-  display: flex;
   margin-bottom: 19px;
 }
 
 .adjustment-value div {
   color: #000;
+  display: flex;
   font-family: Lato, serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  margin-bottom: 5px;
 }
 
 .adjustment-value div:first-child {
@@ -993,7 +993,6 @@ td a:hover {
 
 .ad-adjustment-value {
   color: black;
-  display: flex;
   font-size: 12px;
   font-weight: 700;
 }
@@ -1020,6 +1019,10 @@ td a:hover {
 .ad-adjustment-calender .ad-adjustment,
 .ad-adjustment-calender .ad-calender {
   width: calc((100% - 10px) / 2);
+}
+
+.ad-adjustment-calender .ad-calender {
+  margin-left: 10px;
 }
 
 .create-btn {
@@ -1288,11 +1291,7 @@ td a:hover {
   left: 0;
   text-align: center;
   justify-content: center;
-  opacity: 0;
-}
-
-.adjustment-select-active .adjustment-select {
-  opacity: 1;
+  visibility: hidden;
 }
 
 #sum-ad-details .c-m-panel {

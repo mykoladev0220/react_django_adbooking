@@ -5,7 +5,7 @@ let pub_index = 0;
 
 let pub_option_list = document.getElementById("publication_data").innerHTML
 
-let sel_adjustment = -1;
+let selectedAdjustmentArray = [];
 
 function selectAdFormat(public_id) {
     const selected_img = document.getElementById("favoriteIcon_" + public_id);
@@ -40,13 +40,15 @@ function addAdjustment() {
     let parent = document.getElementById("adjustment-value");
     let innerHtml = "";
 
-    let code = document.getElementById("adjustment-code-" + sel_adjustment).innerHTML;
-    let amount = document.getElementById("adjustment-amount-" + sel_adjustment).innerHTML;
+    for (let i = 0; i < selectedAdjustmentArray.length; i ++) {
+        let code = document.getElementById("adjustment-code-" + selectedAdjustmentArray[i]).innerHTML;
+        let amount = document.getElementById("adjustment-amount-" + selectedAdjustmentArray[i]).innerHTML;
 
-    innerHtml += `<div id="adjustments_list-` + sel_adjustment + `" class="mt-1 flex-row sel-adjustment">
-                    <h5 id="ad-adj-code" class="black">` + code + `</h5>
-                    <h5 id="ad-adj-amount" class="black">` + amount + `</h5>
-                  </div>`;
+        innerHtml += `<div id="adjustments_list-` + selectedAdjustmentArray[i] + `" class="mt-1 flex-row sel-adjustment">
+                        <h5 id="ad-adj-code" class="black">` + code + `</h5>
+                        <h5 id="ad-adj-amount" class="black">` + amount + `</h5>
+                      </div>`;
+    }
 
     parent.innerHTML = innerHtml;
 }
@@ -135,9 +137,22 @@ function publication_next() {
                 let adType = document.getElementById("ad-type-" + demo_idx + "-" + pub_idx + "-" + ad_idx).innerHTML;
                 let adSize = document.getElementById("ad-size-" + demo_idx + "-" + pub_idx + "-" + ad_idx).innerHTML;
                 let adRate = document.getElementById("ad-rate-" + demo_idx + "-" + pub_idx + "-" + ad_idx).innerHTML;
-                let adjName = document.getElementById("adj-name-" + demo_idx + "-" + pub_idx + "-" + ad_idx).innerHTML;
-                let adjAmount = document.getElementById("adj-amount-" + demo_idx + "-" + pub_idx + "-" + ad_idx).innerHTML;
                 let adBrief = document.getElementById("ad-brief-" + demo_idx + "-" + pub_idx + "-" + ad_idx).innerHTML;
+
+                let adjEle = document.getElementById("adjustment-item-" + demo_idx + "-" + pub_idx + "-" + ad_idx);
+                let adjEleList = getChildNodeList(adjEle);
+
+                let sumAdjItemListEle = "";
+                for (let adj_idx = 0; adj_idx < adjEleList.length; adj_idx ++) {
+                    let temp = adjEleList[adj_idx];
+                    let adjName = temp.querySelector("#adj-name").innerText;
+                    let adjAmount = temp.querySelector("#adj-amount").innerText;
+
+                    sumAdjItemListEle += `<div id="sum-ad-adj-item-` + demo_idx + `-` + pub_idx + `-` + ad_idx + `-` + adj_idx + `" class="flex-row sel-adjustment">
+                                            <h5 id="sum-ad-adj-code" class="black">` + adjName + `</h5>
+                                            <h5 id="sum-ad-adj-amount" class="black">` + adjAmount + `</h5>
+                                          </div>`;
+                }
 
                 sumAdItemListEle += `<div id="sum-edit-ad-item-` + demo_idx + `-` + pub_idx + `-` + ad_idx + `" class="edit-ad-item">
                                             <div class="edit-ad-item-title">
@@ -186,10 +201,8 @@ function publication_next() {
             
                                             <div class="adjustment-label">Adjustments:</div>
             
-                                            <div class="adjustment-value">
-                                                <div id="sum-adj-name-` + demo_idx + `-` + pub_idx + `-` + ad_idx + `">` + adjName + `</div>
-            
-                                                <div id="sum-adj-amount-` + demo_idx + `-` + pub_idx + `-` + ad_idx + `">` + adjAmount + `</div>
+                                            <div id="sum-adjustment-item-` + demo_idx + `-` + pub_idx + `-` + ad_idx + `" class="adjustment-value">
+                                                ` + sumAdjItemListEle + `
                                             </div>
             
                                             <div class="c-ad-value-description">
@@ -345,19 +358,18 @@ function collapseEditSpecItem(clickedButton, demo, publication, ad, type) {
     }
 }
 
-function adjustment_select(selectedItem, index) {
-    sel_adjustment = index;
+function adjustment_select(selectedItem, id) {
+    let selectLabel = selectedItem.querySelector(".adjustment-select");
+    const visibility = selectLabel.style.visibility;
 
-    const adjustment_items = document.querySelector(".adjustment-row").childNodes;
-
-    for (let i = 0; i < adjustment_items.length; i++) {
-        if (adjustment_items[i].tagName === 'DIV') {
-            if (adjustment_items[i] === selectedItem) {
-                adjustment_items[i].classList.add("adjustment-select-active");
-            } else {
-                adjustment_items[i].classList.remove("adjustment-select-active");
-            }
-        }
+    if (visibility === 'visible') {
+        selectLabel.style.visibility = 'hidden';
+        const index = selectedAdjustmentArray.indexOf(id);
+        if (index !== -1)
+            selectedAdjustmentArray.splice(index, 1);
+    } else {
+        selectLabel.style.visibility = 'visible';
+        selectedAdjustmentArray.push(id);
     }
 }
 
@@ -462,16 +474,12 @@ function createAdItem() {
     let eleAdSize = document.getElementById("ad-size");
     let eleAdRate = document.getElementById("ad-rate");
     let eleBrief = document.getElementById("ad-brief");
-    let eleAdjCode = document.getElementById("ad-adj-code");
-    let eleAdjAmount = document.getElementById("ad-adj-amount");
 
     let adName = eleAdName.value;
     let adType = eleAdType.value;
     let adSize = eleAdSize.value;
     let adRate_id = eleAdRate.value;
     let adbrief = eleBrief.value;
-    let adjCode = eleAdjCode != undefined ? eleAdjCode.innerText : '';
-    let adjAmount = eleAdjAmount != undefined ? eleAdjAmount.innerText : '';
 
     let adUnitPrice = '';
     let adRate = "";
@@ -489,82 +497,93 @@ function createAdItem() {
     pubPrice = parseFloat(pubPrice) + parseFloat(adUnitPrice);
     elePubPrice.innerHTML = pubPrice;
 
+    let adjustmentListText = "";
+    for (let j = 0; j < selectedAdjustmentArray.length; j ++) {
+        let adjustmentItem = document.getElementById("adjustments_list-" + selectedAdjustmentArray[j]);
+        let adjCode = adjustmentItem.querySelector("#ad-adj-code").innerText;
+        let adjAmount = adjustmentItem.querySelector("#ad-adj-amount").innerText;
+
+        adjustmentListText += `<div id="ad-adj-item-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `-` + j + `">
+                                <div id="adj-name">` + adjCode + `</div>
+                                
+                                <div id="adj-amount">` + adjAmount + `</div>
+                               </div>`;
+    }
+
     innerHtml += `<div id="edit-ad-item-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" class="edit-ad-item">
-                                <div class="edit-ad-item-title">
-                                    <span id="ad-name-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `">` + adName + `</span>
+                        <div class="edit-ad-item-title">
+                            <span id="ad-name-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `">` + adName + `</span>
 
-                                    <h6>Qty:</h6>
+                            <h6>Qty:</h6>
 
-                                    <input type="text" id="ad-count-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" value="1" 
-                                        onkeydown="updatePublicationPrice(event, ` + demo_index + `, ` + pub_index + `, ` + editAdItemCount + `)">
+                            <input type="text" id="ad-count-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" value="1" 
+                                onkeydown="updatePublicationPrice(event, ` + demo_index + `, ` + pub_index + `, ` + editAdItemCount + `)">
 
-                                    <h4 class="black">$<span id="ad-unit-price-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `">` + adUnitPrice + `</span></h4>
+                            <h4 class="black">$<span id="ad-unit-price-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `">` + adUnitPrice + `</span></h4>
+                        </div>
+
+                        <div class="value-items">
+                            <div class="value-items-half">
+                                <div class="ad-type">
+                                    <div class="ad-type-label">Ad Type:</div>
+
+                                    <div id="ad-type-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" class="ad-type-value">` + adType + `</div>
                                 </div>
 
-                                <div class="value-items">
-                                    <div class="value-items-half">
-                                        <div class="ad-type">
-                                            <div class="ad-type-label">Ad Type:</div>
+                                <div class="ad-date">
+                                    <div class="ad-type-label">Dates:</div>
 
-                                            <div id="ad-type-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" class="ad-type-value">` + adType + `</div>
-                                        </div>
+                                    <div class="ad-type-value">9/12/2023,</div>
+                                    <div class="ad-type-value">9/17/2023,</div>
+                                    <div class="ad-type-value">10/13/2023,</div>
+                                </div>
+                            </div>
 
-                                        <div class="ad-date">
-                                            <div class="ad-type-label">Dates:</div>
+                            <div class="value-items-half">
+                                <div class="ad-type">
+                                    <div class="ad-type-label">Size:</div>
 
-                                            <div class="ad-type-value">9/12/2023,</div>
-                                            <div class="ad-type-value">9/17/2023,</div>
-                                            <div class="ad-type-value">10/13/2023,</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="value-items-half">
-                                        <div class="ad-type">
-                                            <div class="ad-type-label">Size:</div>
-
-                                            <div id="ad-size-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" class="ad-type-value">` + adSize + `</div>
-                                        </div>
-
-                                        <div class="ad-date">
-                                            <div class="ad-type-label">Rates:</div>
-
-                                            <div id="ad-rate-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" class="ad-type-value">` + adRate + `</div>
-                                        </div>
-                                    </div>
+                                    <div id="ad-size-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" class="ad-type-value">` + adSize + `</div>
                                 </div>
 
-                                <div class="c-calendar">See Calendar</div>
+                                <div class="ad-date">
+                                    <div class="ad-type-label">Rates:</div>
 
-                                <div class="adjustment-label">Adjustments:</div>
-
-                                <div class="adjustment-value">
-                                    <div id="adj-name-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `">` + adjCode + `</div>
-
-                                    <div id="adj-amount-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `">` + adjAmount + `</div>
+                                    <div id="ad-rate-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" class="ad-type-value">` + adRate + `</div>
                                 </div>
+                            </div>
+                        </div>
 
-                                <div class="c-ad-value-description">
-                                    <div class="adjustment-label">Description:</div>
+                        <div class="c-calendar">See Calendar</div>
 
-                                    <div id="ad-brief-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" class="ad-type-value">
-                                        ` + adbrief + `
-                                    </div>
-                                </div>
+                        <div class="adjustment-label">Adjustments:</div>
 
-                                <div class="collapse-icon" onclick="collapseEditSpecItem(this, ` + demo_index + `, ` + pub_index + `, ` + editAdItemCount + `, 0)">
-                                    <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg"
-                                         width="16" height="9" viewBox="0 0 16 9" fill="none">
-                                        <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 6V8H9V6H7Z"
-                                              fill="#F26722"/>
-                                    </svg>
+                        <div id="adjustment-item-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" class="adjustment-value">
+                            ` + adjustmentListText + `
+                        </div>
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9"
-                                         viewBox="0 0 16 9" fill="none">
-                                        <path d="M8.70711 0.292893C8.31658 -0.097631 7.68342 -0.097631 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 3V1H7V3H9Z"
-                                              fill="#F26722"/>
-                                    </svg>
-                                </div>
-                            </div>`;
+                        <div class="c-ad-value-description">
+                            <div class="adjustment-label">Description:</div>
+
+                            <div id="ad-brief-` + demo_index + `-` + pub_index + `-` + editAdItemCount + `" class="ad-type-value">
+                                ` + adbrief + `
+                            </div>
+                        </div>
+
+                        <div class="collapse-icon" onclick="collapseEditSpecItem(this, ` + demo_index + `, ` + pub_index + `, ` + editAdItemCount + `, 0)">
+                            <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg"
+                                 width="16" height="9" viewBox="0 0 16 9" fill="none">
+                                <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 6V8H9V6H7Z"
+                                      fill="#F26722"/>
+                            </svg>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9"
+                                 viewBox="0 0 16 9" fill="none">
+                                <path d="M8.70711 0.292893C8.31658 -0.097631 7.68342 -0.097631 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 3V1H7V3H9Z"
+                                      fill="#F26722"/>
+                            </svg>
+                        </div>
+                    </div>`;
 
     editAdItem.innerHTML = innerHtml;
 
@@ -575,7 +594,12 @@ function createAdItem() {
     eleBrief.value = "";
 
     document.getElementById("adjustment-value").innerHTML = "";
-    sel_adjustment = -1;
+    selectedAdjustmentArray = [];
+    let selectedAdjustmentList = Array.from(document.querySelectorAll(".adjustment-select"))
+
+    selectedAdjustmentList.forEach(row => {
+        row.style.visibility = "hidden";
+    });
 }
 
 function createNewPub(index) {
@@ -685,7 +709,22 @@ function updateTotal(demo_index) {
 
         pubItemList = pubItem.childNodes;
         for (let j = 0; j < pubItemList.length; j ++) {
-          adjAmount = adjAmount + parseFloat(document.getElementById("adj-amount-" + demo_index + "-" + i + "-" + j).innerText.replace(/\$/g, ""));
+            let adjItemElement = document.querySelector("#adjustment-item-" + demo_index + "-" + i + "-" + j);
+            let adjItemElementList = adjItemElement.childNodes;
+
+            for (let temp_adj = 0; temp_adj < adjItemElementList.length; temp_adj ++) {
+                let tempAdjItem = adjItemElementList[temp_adj];
+                if (tempAdjItem.tagName !== "DIV") {
+                    adjItemElement.removeChild(tempAdjItem);
+                }
+            }
+
+            adjItemElementList = adjItemElement.childNodes;
+            for (let adj_idx = 0; adj_idx < adjItemElementList.length; adj_idx ++) {
+                let temp = document.getElementById("ad-adj-item-" + demo_index + "-" + i + "-" + j + "-" + adj_idx);
+                let tempAmount = temp.querySelector("#adj-amount").innerText;
+                adjAmount = adjAmount + parseFloat(tempAmount.replace(/\$/g, ""));
+            }
         }
 
         printAdjPrice += adjAmount;
