@@ -59,14 +59,10 @@ h5 {
 }
 
 .advertising-back-image {
-  width: 112%;
+  width: 130%;
   position: absolute;
   bottom: 0;
-  left: -150px;
-}
-
-.advertising-content {
-  padding: 20px 60px 40px !important;
+  left: -410px;
 }
 
 .c-ad-content {
@@ -351,6 +347,7 @@ button {
 }
 
 .pub_ele {
+  display: block !important;
   padding: 0 9px 10px;
 }
 

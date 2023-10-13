@@ -19,7 +19,9 @@ const searchPublication = (searchValue) => {
     publicationTableRows.forEach(row => {
         const rowTitle = row.querySelector('td:nth-child(2)').innerText;
 
-        if (!rowTitle.toLowerCase().includes(searchValue.toLowerCase()))
+        if (searchValue === "") {
+            row.style.display = '';
+        } else if (!rowTitle.toLowerCase().includes(searchValue.toLowerCase()))
             row.style.display = 'none';
     });
 };
@@ -28,7 +30,9 @@ const searchAccount = (searchValue) => {
     accountTableRows.forEach(row => {
         const rowTitle = row.querySelector('td:nth-child(2)').innerText;
 
-        if (!rowTitle.toLowerCase().includes(searchValue.toLowerCase()))
+        if (searchValue === "") {
+            row.style.display = '';
+        } else if (!rowTitle.toLowerCase().includes(searchValue.toLowerCase()))
             row.style.display = 'none';
     });
 };
