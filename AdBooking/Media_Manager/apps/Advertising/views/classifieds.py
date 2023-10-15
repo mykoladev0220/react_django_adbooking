@@ -1279,3 +1279,17 @@ def register_campaign(request):
         return JsonResponse({'message': 'Data saved successfully'})
     else:
         return JsonResponse({'error': 'Invalid request'})
+
+def campaign_detail(request):
+    if request is None or not request.user.is_authenticated:
+        return redirect(login_redirect + "advertising")
+
+    if not request.user.has_perm('BI.advertising_access'):
+        return render(request, "advertising.html",
+                      {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+
+    context = {
+
+    }
+
+    return render(request, "CampaignDetail.html", context)
