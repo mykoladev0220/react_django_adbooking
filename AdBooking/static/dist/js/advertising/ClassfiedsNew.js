@@ -790,3 +790,47 @@ function filterAdFormats() {
 
     adFormatEle.innerHTML = adFormatHtml;
 }
+
+const getCookie = name => {
+    let cookie = {};
+    document.cookie.split(';').forEach(function (el) {
+        let [k, v] = el.split('=');
+        cookie[k.trim()] = v;
+    })
+    return cookie[name];
+}
+
+function summary_next() {
+    const data = {
+        campaignName: document.getElementById("sum-campaign-name").innerText,
+        startDate: document.getElementById("sum-start-date").innerText,
+        endDate: document.getElementById("sum-end-date").innerText,
+        brief: document.getElementById("sum-brief").innerText,
+        advertiserName: document.getElementById("sum-advertiser-name").innerText,
+        advertiserId: document.getElementById("sum-advertiser-id").innerText,
+        salesName: document.getElementById("sum-sales-name").innerText,
+        salesId: document.getElementById("sum-sales-id").innerText,
+        printTotal: document.getElementById("sum-print-total").innerText,
+        adjTotal: document.getElementById("sum-adj-total").innerText,
+        campaignTotal: document.getElementById("sum-campaign-total").innerText,
+    }
+
+    fetch('/advertising/classifieds/registerCampaign', {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken'),
+            "Accept": "application/json",
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Data saved successfully:', data);
+    })
+    .catch(error => {
+        console.error('Error saving data:', error);
+    });
+
+    showSection(6);
+}

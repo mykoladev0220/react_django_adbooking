@@ -168,6 +168,7 @@ urlpatterns = [
 	path('classifieds/new/', views.create_classified_ad, name='create_classified_ad'),
 	path('classifieds/<int:classifiedId>/', views.view_classified_ad, name='view_classified_ad'),
 	path('classifieds/<int:classifiedId>/edit/', views.edit_classified_ad, name='edit_classified_ad'),
+	path('classifieds/registerCampaign', views.register_campaign, name='register_campaign'),
 
 	path('classifieds/graphics/', views.view_classifieds_graphics, name='view_classifieds_graphics'),
     path('classifieds/graphics/permissions/upload/', views.user_upload_permission, name='user_upload_permission'),

@@ -10,10 +10,8 @@ from math import floor
 import os
 from datetime import datetime, date, timedelta
 from django.core import serializers
- 
-import logging
 
-from ..models import ClassifiedAdSize
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +20,10 @@ from .... import views
 # import the necessary models needed
 from ..models.advertising import Account, SalesPerson, wasCreatedRecently, Adjustment
 from ..models.publications import Publication, PublicationRunDay, getRunDays
-from ..models.classifieds import ClassifiedAd, ClassifiedGraphic, Classification, ClassifiedAdjustment, ClassifiedRate, ClassifiedRatePublication, ClassifiedPublication, ClassifiedStyling, getClassifiedRates, ClassifiedPublicationRate, ClassifiedAdType, ClassifiedPublicationDate, UploadGraphicsPermission, UploadGraphic, DeleteGraphicsPermission, ClassifiedAdSize
+from ..models.classifieds import ClassifiedAd, ClassifiedGraphic, Classification, ClassifiedAdjustment, ClassifiedRate, \
+    ClassifiedRatePublication, ClassifiedPublication, ClassifiedStyling, getClassifiedRates, ClassifiedPublicationRate, \
+    ClassifiedAdType, ClassifiedPublicationDate, UploadGraphicsPermission, UploadGraphic, DeleteGraphicsPermission, \
+    ClassifiedAdSize, ClassifiedCampaignSummary
 from ..models.permissions import isAdminOrManager, ManagerOverride, AccountAccess
 
 from ..helpers import daysOfTheWeek, weekdayDict, getDatesBetween
@@ -34,11 +35,11 @@ from ..forms import ClassifiedsContentForm, AdvertisingAccountForm
 
 login_redirect = "/login/?next="
 
+
 # uploadUrl = '/var/www/Dev_Media_Manager/static/dist/img/advertising/'
 # uploadUrl = static('dist/img/advertising/')
 
 def list_all_classifications(request):
-
     classificationList = Classification.objects.all()
 
     activeClassificationList = []
@@ -61,12 +62,14 @@ def list_all_classifications(request):
 
     return render(request, "classifieds/ListAllClassifications.html", context)
 
+
 def list_classifieds(request):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "advertising")
 
     if not request.user.has_perm('BI.advertising_access'):
-        return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+        return render(request, "advertising.html",
+                      {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
     lastFiveDays = datetime.today() - timedelta(days=5)
     classifiedsList = ClassifiedAd.objects.filter(date_created__gte=lastFiveDays).order_by('-date_created')
@@ -81,12 +84,14 @@ def list_classifieds(request):
 
     return render(request, "classifieds/ListClassifieds.html", context)
 
+
 def create_classified_ad(request):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "advertising")
 
     if not request.user.has_perm('BI.advertising_access'):
-        return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+        return render(request, "advertising.html",
+                      {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
     accounts = [row.account for row in AccountAccess.objects.filter(user=request.user.id)]
 
@@ -112,7 +117,7 @@ def create_classified_ad(request):
     fileList = [model_to_dict(file) for file in UploadGraphic.objects.filter(active=True)]
 
     for file in fileList:
-        file['file_path'] = static('dist/img/advertising/') + file['file'].name #here
+        file['file_path'] = static('dist/img/advertising/') + file['file'].name  # here
 
     if request.method == 'POST':
         errors = []
@@ -125,23 +130,25 @@ def create_classified_ad(request):
             classification = Classification.objects.get(code=classificationId)
         except Classification.DoesNotExist:
             classification = None
-        
+
         try:
             salespersonId = reqData['salesperson'].split(' - ')[0]
             salesperson = SalesPerson.objects.get(pk=salespersonId)
         except SalesPerson.DoesNotExist:
             salesperson = None
 
-        new_classified = ClassifiedAd(classification=classification, submitter=reqData['Ad Taker/Submitter'], salesperson=salesperson, notes=reqData['notes'], content=reqData['text'], 
-                                        price=reqData['Total Price'], line_count=reqData['Total Lines'], start_date=date.today())
+        new_classified = ClassifiedAd(classification=classification, submitter=reqData['Ad Taker/Submitter'],
+                                      salesperson=salesperson, notes=reqData['notes'], content=reqData['text'],
+                                      price=reqData['Total Price'], line_count=reqData['Total Lines'],
+                                      start_date=date.today())
 
         if reqData['account']:
-            try: 
+            try:
                 accountId = reqData['account'].split(' - ')[0]
                 account = Account.objects.get(pk=accountId)
             except Account.DoesNotExist:
                 account = None
-            
+
             new_classified.account = account
         else:
             new_classified.name = reqData['name']
@@ -152,21 +159,21 @@ def create_classified_ad(request):
             columnString = reqData['size'].split(' ')
             new_classified.size = 'Column Based'
             new_classified.columns = columnString[0]
-            new_classified.column_length = columnString[3]   
+            new_classified.column_length = columnString[3]
 
             if len(columnString) == 6:
-                new_classified.conversion_unit = columnString[4] + ' ' + columnString[5][:-1] 
+                new_classified.conversion_unit = columnString[4] + ' ' + columnString[5][:-1]
             else:
                 new_classified.conversion_unit = columnString[4][:-1]
         else:
             new_classified.size = reqData['size']
-        
+
         try:
             adTypeCode = reqData['Ad Type'].split(" - ")[0]
             adType = ClassifiedAdType.objects.get(code=adTypeCode)
         except ClassifiedAdType.DoesNotExist:
             adType = None
-        
+
         new_classified.ad_type = adType
 
         new_classified.save()
@@ -190,7 +197,7 @@ def create_classified_ad(request):
             except Publication.DoesNotExist:
                 print('Error. Publication with id: ' + str(pubId) + ' does not exist. Continuing to next iteration.')
                 continue
-            
+
             # get the run days for each publication 
             runDays = getRunDays(publication)
 
@@ -206,18 +213,18 @@ def create_classified_ad(request):
                 new_classified.recurring = True
                 new_classified.recurring_amount = dateString[0] + ' ' + dateString[1]
                 new_classified.start_date = recurrStartDate
-                
+
                 if recurrTimePeriod == 'days':
                     endDate = recurrStartDate + timedelta(days=recurrAmount)
 
-                elif recurrTimePeriod ==  'weeks':
+                elif recurrTimePeriod == 'weeks':
                     endDate = recurrStartDate + timedelta(weeks=recurrAmount)
 
-                elif recurrTimePeriod ==  'months':
-                    numDays = floor(recurrAmount * 30.436875) # days in a month
+                elif recurrTimePeriod == 'months':
+                    numDays = floor(recurrAmount * 30.436875)  # days in a month
                     endDate = recurrStartDate + timedelta(days=numDays)
 
-                elif recurrTimePeriod ==  'insertions':
+                elif recurrTimePeriod == 'insertions':
                     # get the current weekday
                     daysLeft = int(dateString[0])
                     currDate = recurrStartDate
@@ -226,17 +233,18 @@ def create_classified_ad(request):
                     while daysLeft > 0:
                         nextDate = currDate + timedelta(days=1)
                         nextWeekday = nextDate.weekday()
-                        
+
                         if daysLeft == 1:
                             new_classified.end_date = nextDate
 
                         if daysOfTheWeek[nextWeekday] in runDays:
-                            classifiedRunDate = ClassifiedPublicationDate(classified=new_classified, publication=publication, date=nextDate)
+                            classifiedRunDate = ClassifiedPublicationDate(classified=new_classified,
+                                                                          publication=publication, date=nextDate)
                             classifiedRunDate.save()
 
                             daysLeft -= 1
                             currDate = nextDate
-                        else: 
+                        else:
                             currDate = nextDate
                             continue
 
@@ -245,7 +253,7 @@ def create_classified_ad(request):
                 # get the dates in between and loop through them
                 new_classified.end_date = endDate.date()
                 daysBetween = getDatesBetween(new_classified.start_date.date(), endDate.date())
-                
+
                 # loop through the given dates in between 
                 for day in daysBetween:
                     weekday = daysOfTheWeek[day.weekday()]
@@ -253,7 +261,8 @@ def create_classified_ad(request):
                     # if the current loop date is a run day for that publication
                     if weekday in runDays and weekdayDict[weekday] in reqData['weekday-array']:
                         # save a record of it in the database
-                        classifiedRunDate = ClassifiedPublicationDate(classified=new_classified, publication=publication, date=day)
+                        classifiedRunDate = ClassifiedPublicationDate(classified=new_classified,
+                                                                      publication=publication, date=day)
                         classifiedRunDate.save()
 
             # if the user did not choose recurring dates and instead used the datepicker to choose dates
@@ -273,11 +282,12 @@ def create_classified_ad(request):
                     if 'weekday-array' in reqData:
                         if weekday in runDays and weekdayDict[weekday] in reqData['weekday-array']:
                             # save a record of it in the database
-                            classifiedRunDate = ClassifiedPublicationDate(classified=new_classified, publication=publication, date=dateObj)
+                            classifiedRunDate = ClassifiedPublicationDate(classified=new_classified,
+                                                                          publication=publication, date=dateObj)
                             classifiedRunDate.save()
-        
+
         new_classified.save()
-        
+
         for pubName, rateData in reqData['publication-rates'].items():
             try:
                 publication = Publication.objects.get(name=pubName)
@@ -291,7 +301,8 @@ def create_classified_ad(request):
             try:
                 classifiedRate = ClassifiedRate.objects.get(pk=rateId)
             except ClassifiedRate.DoesNotExist:
-                errors.push('Cannot find classified rate: ' + rateId + ' (Classified Ad #' + str(new_classified.id) + ')')
+                errors.push(
+                    'Cannot find classified rate: ' + rateId + ' (Classified Ad #' + str(new_classified.id) + ')')
                 continue
 
             ratePub = ClassifiedPublicationRate(classified=new_classified, publication=publication, rate=classifiedRate)
@@ -300,13 +311,14 @@ def create_classified_ad(request):
         try:
             user = User.objects.get(username=request.user.username)
         except Account.DoesNotExist:
-            return JsonResponse({ "message": "Error. Cannot find user" }, status=200)
+            return JsonResponse({"message": "Error. Cannot find user"}, status=200)
 
-        notes = 'Manager override needed for account #' + str(new_classified.account.id) + ' because account is not established'
+        notes = 'Manager override needed for account #' + str(
+            new_classified.account.id) + ' because account is not established'
 
         managerOverride = ManagerOverride(name=reqData['name'], created_by=user, manager=user, notes=notes)
         managerOverride.save()
-        
+
         styling = ClassifiedStyling(classified=new_classified)
         if 'frameWidth' in reqData:
             styling.frameWidth = reqData['frameWidth']
@@ -320,10 +332,10 @@ def create_classified_ad(request):
         for image in reqData['graphics']:
             classifiedGraphic = ClassifiedGraphic(classified=new_classified, image=image)
             classifiedGraphic.save()
-        
+
         styling.save()
 
-        return JsonResponse({ "message": "Success. Classified Ad created!", "id": new_classified.id }, status=200)
+        return JsonResponse({"message": "Success. Classified Ad created!", "id": new_classified.id}, status=200)
 
     context = {
         "access": "allow",
@@ -348,12 +360,14 @@ def create_classified_ad(request):
 
     return render(request, "CreateNewClassified.html", context)
 
+
 def view_classified_ad(request, classifiedId):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "advertising")
 
     if not request.user.has_perm('BI.advertising_access'):
-        return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+        return render(request, "advertising.html",
+                      {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
     adminOrManager = isAdminOrManager(request.user.id)
 
@@ -365,7 +379,7 @@ def view_classified_ad(request, classifiedId):
 
     styling = ClassifiedStyling.objects.get(classified=classified)
 
-    message = request.user.username + ' accessed classified #'  + str(classified.id)
+    message = request.user.username + ' accessed classified #' + str(classified.id)
     print(message)
     logging.info(message)
 
@@ -382,12 +396,14 @@ def view_classified_ad(request, classifiedId):
 
     return render(request, "classifieds/ViewClassified.html", context)
 
+
 def edit_classified_ad(request, classifiedId):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "advertising")
 
     if not request.user.has_perm('BI.advertising_access'):
-        return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+        return render(request, "advertising.html",
+                      {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
     classified = get_object_or_404(ClassifiedAd, pk=classifiedId)
 
@@ -405,7 +421,7 @@ def edit_classified_ad(request, classifiedId):
     else:
         recurringAmount = None
         recurringTimePeriod = None
-    
+
     accounts = [row.account for row in AccountAccess.objects.filter(user=request.user.id)]
     salespersonList = SalesPerson.objects.all()
     classifications = Classification.objects.all()
@@ -453,12 +469,12 @@ def edit_classified_ad(request, classifiedId):
                 classified.end_date = classified.start_date + timedelta(days=reqData['recurring-amount'])
 
             elif reqData['recurring-time'] == 'weeks':
-                    classified.end_date = classified.start_date + timedelta(weeks=reqData['recurring-amount'])
+                classified.end_date = classified.start_date + timedelta(weeks=reqData['recurring-amount'])
 
             elif reqData['recurring-time'] == 'months':
                 numDays = floor(reqData['recurring-amount'] * 30.436875)
                 classified.end_date = classified.start_date + timedelta(days=numDays)
-        else: 
+        else:
             classified.recurring = False
             classified.recurring_amount = ''
 
@@ -468,10 +484,10 @@ def edit_classified_ad(request, classifiedId):
         classified.notes = reqData['notes']
 
         sizeDict = {
-        "quarter_page": "Quarter Page",
-        "half_page": "Half Page",
-        'column_based': "Column Based"
-    }
+            "quarter_page": "Quarter Page",
+            "half_page": "Half Page",
+            'column_based': "Column Based"
+        }
 
         if reqData['size'] not in ['quarter_page', 'half_page']:
             classified.columns = reqData['columns']
@@ -508,23 +524,25 @@ def edit_classified_ad(request, classifiedId):
 
     return render(request, "classifieds/EditClassified.html", context)
 
+
 def view_classifieds_graphics(request):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "advertising")
 
     if not request.user.has_perm('BI.advertising_access'):
-        return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+        return render(request, "advertising.html",
+                      {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
     try:
         user = User.objects.get(id=request.user.id)
     except User.DoesNotExist:
         return HttpResponseRedirect('/advertising')
-    
+
     graphicsList = UploadGraphic.objects.all()
     activeGraphicsList = []
     inactiveGraphicsList = []
     for graphic in graphicsList:
-        graphic.file_path = graphic.file_path#.replace('static', '') #here
+        graphic.file_path = graphic.file_path  # .replace('static', '') #here
         graphic.file_name = os.path.basename(graphic.file_path)
 
         if graphic.active:
@@ -549,33 +567,35 @@ def view_classifieds_graphics(request):
 
     return render(request, "classifieds/graphics/ListClassifiedGraphics.html", context)
 
+
 def classified_graphics_action(request):
     if request is None or not request.user.is_authenticated:
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if not request.user.has_perm('BI.advertising_access'):
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
-    
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
+
     # fileDir = 'static/dist/img/advertising/'
     fileDir = static('dist/img/advertising/')
     # fileDir = '/var/www/Dev_Media_Manager'
-    staticPath = '/static/dist/img/advertising/' #here
+    staticPath = '/static/dist/img/advertising/'  # here
 
     user = User.objects.get(id=request.user.id)
-    
+
     if request.method == 'POST':
         if request.FILES:
             reqFiles = request.FILES
             upload_file = reqFiles['image'] if 'image' in reqFiles else None
             if upload_file:
-                fs = FileSystemStorage(location=fileDir + staticPath, base_url=fileDir + staticPath) #here
+                fs = FileSystemStorage(location=fileDir + staticPath, base_url=fileDir + staticPath)  # here
                 file = fs.save(upload_file.name, upload_file)
                 fileurl = fs.url(file)
 
-                uploadedGraphic = UploadGraphic(file_path=str(fileDir + staticPath), local_path=staticPath, uploaded_by=user, file=file) #here
+                uploadedGraphic = UploadGraphic(file_path=str(fileDir + staticPath), local_path=staticPath,
+                                                uploaded_by=user, file=file)  # here
                 uploadedGraphic.save()
 
-                return JsonResponse({ "message": "Success" }, status=200)
+                return JsonResponse({"message": "Success"}, status=200)
             else:
                 print('Cannot find image. Please try again.')
 
@@ -584,7 +604,7 @@ def classified_graphics_action(request):
             reqType = reqData['type']
 
             if reqType not in ['delete', 'active']:
-                return JsonResponse({ "message": "Error. Cannot process request. "}, error=400)
+                return JsonResponse({"message": "Error. Cannot process request. "}, error=400)
 
             # get the graphic id from the request body 
             graphicId = reqData['graphicId'] if 'graphicId' in reqData else 0
@@ -593,67 +613,74 @@ def classified_graphics_action(request):
             try:
                 uploadedGraphic = UploadGraphic.objects.get(pk=graphicId)
             except UploadGraphic.DoesNotExist:
-                return JsonResponse({ "message": "Error. Cannot find the selected graphic in the database. Please try again." }, status=404)
-            
+                return JsonResponse(
+                    {"message": "Error. Cannot find the selected graphic in the database. Please try again."},
+                    status=404)
+
             # make sure the file exists in the file system
             # fileExists = os.path.isfile(uploadedGraphic.file_path + uploadedGraphic.file.name)
             fileExists = os.path.isfile(uploadedGraphic.file_path)
 
             # if the file doesnt exist, return an error message 
             if not fileExists:
-                return JsonResponse({ "message": "Error. Cannot find the selected graphic in the directory. Please try again." }, status=404)
-            
+                return JsonResponse(
+                    {"message": "Error. Cannot find the selected graphic in the directory. Please try again."},
+                    status=404)
+
             # if the file does exist
             else:
                 if reqType == 'delete':
                     hasDeletePermission = DeleteGraphicsPermission.objects.filter(user=user).exists()
                     if not hasDeletePermission:
-                        return JsonResponse({ "message": "Error. You do not have permission to delete graphics. "}, status=403)
-                    
+                        return JsonResponse({"message": "Error. You do not have permission to delete graphics. "},
+                                            status=403)
+
                     else:
                         # mark the graphic as inactive 
                         uploadedGraphic.active = False
                         uploadedGraphic.save()
 
-                    return JsonResponse({ "message": "Success! That graphic has been marked as inactive." }, status=200)
-                
+                    return JsonResponse({"message": "Success! That graphic has been marked as inactive."}, status=200)
+
                 else:
                     # mark the graphic as active 
                     uploadedGraphic.active = True
                     uploadedGraphic.save()
 
-                    return JsonResponse({ "message": "Success! That graphic is now active." }, status=200)
+                    return JsonResponse({"message": "Success! That graphic is now active."}, status=200)
 
     else:
-        return JsonResponse({ "message": "Error. Method not implemented." }, status=405)
+        return JsonResponse({"message": "Error. Method not implemented."}, status=405)
+
 
 def user_upload_permission(request):
     if request is None or not request.user.is_authenticated:
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if not request.user.has_perm('BI.advertising_access'):
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
-    
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
+
     if request.method == 'GET':
         # TODO - loop through User table and include all superuser ids in permissionList
         permissionList = [permission.user.id for permission in UploadGraphicsPermission.objects.all()]
 
-        return JsonResponse({ "message": "Success", "permission_list": permissionList }, status=200)
+        return JsonResponse({"message": "Success", "permission_list": permissionList}, status=200)
     elif request.method == 'POST':
         reqData = json.loads(request.body.decode('utf-8'))
 
         try:
             user = User.objects.get(id=reqData['userId'])
         except User.DoesNotExist:
-            return JsonResponse({ "message": "Error. Cannot find currently logged in user. Please try again." }, status=200)
-        
+            return JsonResponse({"message": "Error. Cannot find currently logged in user. Please try again."},
+                                status=200)
+
         # checking to see if the user currently has the upload permission
         hasPermission = UploadGraphicsPermission.objects.filter(user=user).exists()
-    
+
         # if the user has upload permission and the AJAX request is granting permission
         if hasPermission and reqData['hasPermission']:
-            return JsonResponse({ "message": "User already has upload permission" }, status=200)
-        
+            return JsonResponse({"message": "User already has upload permission"}, status=200)
+
         # if the user does not already have the upload permission and the AJAx request is granting the permission
         if not hasPermission and reqData['hasPermission']:
             permission = UploadGraphicsPermission(user=user, can_upload_graphics=True)
@@ -662,7 +689,7 @@ def user_upload_permission(request):
             logging.info(request.user.username + ' added upload permission from user ' + user.username)
             print(request.user.username + ' added upload permission from user ' + user.username)
 
-            return JsonResponse({ "message": "Succesfully granted upload permission to: " + user.username }, status=200)
+            return JsonResponse({"message": "Succesfully granted upload permission to: " + user.username}, status=200)
 
         # if the user has the upload permission and the AJAX request is removing the permission
         if hasPermission and not reqData['hasPermission']:
@@ -672,39 +699,41 @@ def user_upload_permission(request):
             logging.info(request.user.username + ' removed upload permission from user ' + user.username)
             print(request.user.username + ' removed upload permission from user ' + user.username)
 
-            return JsonResponse({ "message": "Sucessfully removed upload permission from " + user.username})
+            return JsonResponse({"message": "Sucessfully removed upload permission from " + user.username})
 
-        return JsonResponse({ "message": "Success" }, status=200)
+        return JsonResponse({"message": "Success"}, status=200)
     else:
-        return JsonResponse({ "message": "Error. Method not implemented." }, status=405)
+        return JsonResponse({"message": "Error. Method not implemented."}, status=405)
+
 
 def user_delete_permission(request):
     if request is None or not request.user.is_authenticated:
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if not request.user.has_perm('BI.advertising_access'):
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if request.method == 'GET':
         # TODO - loop through User table and include all superuser ids in permissionList
         permissionList = [permission.user.id for permission in DeleteGraphicsPermission.objects.all()]
 
-        return JsonResponse({ "message": "Success", "permission_list": permissionList }, status=200)
+        return JsonResponse({"message": "Success", "permission_list": permissionList}, status=200)
     elif request.method == 'POST':
         reqData = json.loads(request.body.decode('utf-8'))
 
         try:
             user = User.objects.get(id=request.user.id)
         except User.DoesNotExist:
-            return JsonResponse({ "message": "Error. Cannot find currently logged in user. Please try again." }, status=200)
-        
+            return JsonResponse({"message": "Error. Cannot find currently logged in user. Please try again."},
+                                status=200)
+
         # checking to see if the user currently has the delete permission
         hasDeletePermission = DeleteGraphicsPermission.objects.filter(user=user).exists()
-    
+
         # if the user has delete permission and the AJAX request is granting permission
         if hasDeletePermission and reqData['hasDeletePermission']:
-            return JsonResponse({ "message": "User already has delete permission" }, status=200)
-        
+            return JsonResponse({"message": "User already has delete permission"}, status=200)
+
         # if the user does not already have the delete permission and the AJAx request is granting the permission
         if not hasDeletePermission and reqData['hasDeletePermission']:
             permission = DeleteGraphicsPermission(user=user)
@@ -713,7 +742,7 @@ def user_delete_permission(request):
             logging.info(request.user.username + ' added delete permission from user ' + user.username)
             print(request.user.username + ' added delete permission from user ' + user.username)
 
-            return JsonResponse({ "message": "Succesfully granted delete permission to: " + user.username }, status=200)
+            return JsonResponse({"message": "Succesfully granted delete permission to: " + user.username}, status=200)
 
         # if the user has the delete permission and the AJAX request is removing the permission
         if hasDeletePermission and not reqData['hasDeletePermission']:
@@ -723,18 +752,19 @@ def user_delete_permission(request):
             logging.info(request.user.username + ' removed delete permission from user ' + user.username)
             print(request.user.username + ' removed delete permission from user ' + user.username)
 
-            return JsonResponse({ "message": "Sucessfully removed delete permission from " + user.username})
+            return JsonResponse({"message": "Sucessfully removed delete permission from " + user.username})
 
-        return JsonResponse({ "message": "Success" }, status=200)
+        return JsonResponse({"message": "Success"}, status=200)
     else:
-        return JsonResponse({ "message": "Error. Method not implemented." }, status=405)
+        return JsonResponse({"message": "Error. Method not implemented."}, status=405)
+
 
 def create_classification(request):
     if request is None or not request.user.is_authenticated:
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if not request.user.has_perm('BI.advertising_access'):
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if request.method == 'POST':
         reqData = json.loads(request.body.decode('utf-8'))
@@ -746,7 +776,8 @@ def create_classification(request):
                 classification = Classification(code=reqData['code'], name=reqData['code'])
                 classification.save()
 
-                message = 'Classification #' + str(classification.id) + ': ' + classification.name + ' created by ' + request.user.username
+                message = 'Classification #' + str(
+                    classification.id) + ': ' + classification.name + ' created by ' + request.user.username
 
                 print(message)
                 logging.info(message)
@@ -758,48 +789,54 @@ def create_classification(request):
                         elementArray[1] = elementArray[1].replace("\r", "")
 
                         try:
-                            classificationExists = Classification.objects.get(code=elementArray[0], name=elementArray[1])
+                            classificationExists = Classification.objects.get(code=elementArray[0],
+                                                                              name=elementArray[1])
                         except Classification.DoesNotExist:
                             classification = Classification(code=elementArray[0], name=elementArray[1])
                             classification.save()
 
-                            message = 'Classification #' + str(classification.id) + ': ' + classification.name + ' created by ' + request.user.username
+                            message = 'Classification #' + str(
+                                classification.id) + ': ' + classification.name + ' created by ' + request.user.username
 
                             print(message)
                             logging.info(message)
 
-            return JsonResponse({ "message": "Success. Classification(s) created" }, status=200)
+            return JsonResponse({"message": "Success. Classification(s) created"}, status=200)
         else:
-            return JsonResponse({ "message": "Error. Please provide classification details." }, status=200)
+            return JsonResponse({"message": "Error. Please provide classification details."}, status=200)
 
     else:
-        return JsonResponse({ "message": "Invalid request" }, status=200)
+        return JsonResponse({"message": "Invalid request"}, status=200)
+
 
 def get_classification_details(request, id):
     if request is None or not request.user.is_authenticated:
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if not request.user.has_perm('BI.advertising_access'):
-        return JsonResponse({ "message": "Error. Access forbidden" }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden"}, status=403)
 
-    try: 
+    try:
         classification = Classification.objects.get(pk=id)
     except Classification.DoesNotExist:
-        return JsonResponse({ "message": "Error. Cannot find classification with that id. Please try again." }, status=200)
+        return JsonResponse({"message": "Error. Cannot find classification with that id. Please try again."},
+                            status=200)
 
-    return JsonResponse({ "message": "Success", "classification": model_to_dict(classification) }, status=200)
+    return JsonResponse({"message": "Success", "classification": model_to_dict(classification)}, status=200)
+
 
 def edit_classification(request, id):
     if request is None or not request.user.is_authenticated:
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if not request.user.has_perm('BI.advertising_access'):
-        return JsonResponse({ "message": "Error. Access forbidden" }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden"}, status=403)
 
-    try: 
+    try:
         classification = Classification.objects.get(pk=id)
     except Classification.DoesNotExist:
-        return JsonResponse({ "message": "Error. Cannot find classification with that id. Please try again." }, status=200)
+        return JsonResponse({"message": "Error. Cannot find classification with that id. Please try again."},
+                            status=200)
 
     if request.method == 'POST':
         reqData = json.loads(request.body.decode('utf-8'))
@@ -815,17 +852,18 @@ def edit_classification(request, id):
         print(message)
         logging.info(message)
 
-        return JsonResponse({ "message": "Success" }, status=200)
+        return JsonResponse({"message": "Success"}, status=200)
 
     else:
-        return JsonResponse({ "message": "Error. Invalid request. Please try again." }, status=200)
+        return JsonResponse({"message": "Error. Invalid request. Please try again."}, status=200)
+
 
 def list_classified_adjustments(request):
     if request is None or not request.user.is_authenticated:
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if not request.user.has_perm('BI.advertising_access'):
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if request.method == 'GET':
 
@@ -855,32 +893,36 @@ def list_classified_adjustments(request):
 
     elif request.method == 'POST':
         reqData = json.loads(request.body.decode('utf-8'))
-        
+
         amount = float(reqData['amount'])
 
         if reqData['valueType'] not in ['amount', 'percentage']:
-            return JsonResponse({ "error": "Error. Invalid value type. Can only be either an amount or percentage" }, status=200)
+            return JsonResponse({"error": "Error. Invalid value type. Can only be either an amount or percentage"},
+                                status=200)
 
         try:
             publication = Publication.objects.get(pk=reqData['publication'])
         except Publication.DoesNotExist:
-            return JsonResponse({ "message": "Error. Cannot find publication" }, status=200)
+            return JsonResponse({"message": "Error. Cannot find publication"}, status=200)
 
-        adjustment = ClassifiedAdjustment(code=reqData['code'], description=reqData['description'], amount=amount, value_type=reqData['valueType'], 
-                                            apply_level=reqData['applyLevel'], type=reqData['creditDebit'], publication=publication)
+        adjustment = ClassifiedAdjustment(code=reqData['code'], description=reqData['description'], amount=amount,
+                                          value_type=reqData['valueType'],
+                                          apply_level=reqData['applyLevel'], type=reqData['creditDebit'],
+                                          publication=publication)
         adjustment.save()
-        
-        return JsonResponse({ "message": "Success! Adjustment created" }, status=200)
+
+        return JsonResponse({"message": "Success! Adjustment created"}, status=200)
 
     else:
-        return JsonResponse({ "error": "Error. Request method not allowed" }, status=405)    
+        return JsonResponse({"error": "Error. Request method not allowed"}, status=405)
+
 
 def classified_adjustment_details(request, adjustmentId):
     if request is None or not request.user.is_authenticated:
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if not request.user.has_perm('BI.advertising_access'):
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if request.method == 'GET':
         if is_ajax(request):
@@ -889,16 +931,17 @@ def classified_adjustment_details(request, adjustmentId):
                 adjustment = ClassifiedAdjustment.objects.get(pk=adjustmentId)
             except ClassifiedAdjustment.DoesNotExist:
                 print('No classified adjustment found with id: ' + adjustmentId)
-                return JsonResponse({ "message": 'No classified adjustment found with id: ' + str(adjustmentId) }, status=200)
-            
-            return JsonResponse({ "message": "Success", "adjustment": model_to_dict(adjustment)})
+                return JsonResponse({"message": 'No classified adjustment found with id: ' + str(adjustmentId)},
+                                    status=200)
+
+            return JsonResponse({"message": "Success", "adjustment": model_to_dict(adjustment)})
 
         try:
             adjustment = ClassifiedAdjustment.objects.get(pk=adjustmentId)
         except ClassifiedAd.DoesNotExist:
-            return JsonResponse({ "message": "Error. Cannot find classified adjustment" }, status=200)
+            return JsonResponse({"message": "Error. Cannot find classified adjustment"}, status=200)
 
-        return JsonResponse({ "message": "Success", "adjustment_details": model_to_dict(adjustment) }, status=200)
+        return JsonResponse({"message": "Success", "adjustment_details": model_to_dict(adjustment)}, status=200)
 
     elif request.method == 'POST':
         reqData = json.loads(request.body.decode('utf-8'))
@@ -906,12 +949,12 @@ def classified_adjustment_details(request, adjustmentId):
         try:
             adjustment = ClassifiedAdjustment.objects.get(pk=adjustmentId)
         except ClassifiedAd.DoesNotExist:
-            return JsonResponse({ "message": "Error. Cannot find classified adjustment" }, status=200)
+            return JsonResponse({"message": "Error. Cannot find classified adjustment"}, status=200)
 
         try:
             publication = Publication.objects.get(pk=reqData['editPublication'])
         except Publication.DoesNotExist:
-            return JsonResponse({ "message": "Error. Cannot find publication" }, status=200)
+            return JsonResponse({"message": "Error. Cannot find publication"}, status=200)
 
         adjustment.code = reqData['editCode']
         adjustment.description = reqData['editDescription']
@@ -926,17 +969,18 @@ def classified_adjustment_details(request, adjustmentId):
 
         adjustment.save()
 
-        return JsonResponse({ "message": "Success. Classified adjustment saved!" }, status=200)
+        return JsonResponse({"message": "Success. Classified adjustment saved!"}, status=200)
 
     else:
-        return JsonResponse({ "message": "Error. Invalid request method. Please try again" }, status=200)
+        return JsonResponse({"message": "Error. Invalid request method. Please try again"}, status=200)
+
 
 def get_adjustments_by_publication(request):
     if request is None or not request.user.is_authenticated:
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if not request.user.has_perm('BI.advertising_access'):
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if request.method == 'GET':
         publications = request.GET.get('publication[]')
@@ -963,18 +1007,20 @@ def get_adjustments_by_publication(request):
                         }
                     }
                     adjustmentList.append(obj)
-        
-        return JsonResponse({ "message": "Success", "adjustments": adjustmentList }, status=200)
+
+        return JsonResponse({"message": "Success", "adjustments": adjustmentList}, status=200)
 
     else:
-        return JsonResponse({ "message": "Error. Invalid request method. "}, statue=405)
+        return JsonResponse({"message": "Error. Invalid request method. "}, statue=405)
+
 
 def list_classified_rates(request):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "advertising")
 
     if not request.user.has_perm('BI.advertising_access'):
-        return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+        return render(request, "advertising.html",
+                      {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
     rates = ClassifiedRate.objects.all()
 
@@ -988,12 +1034,14 @@ def list_classified_rates(request):
 
     return render(request, "classifieds/rates/ListClassifiedRates.html", context)
 
+
 def create_classified_rate(request):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "advertising")
 
     if not request.user.has_perm('BI.advertising_access'):
-        return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+        return render(request, "advertising.html",
+                      {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
     if request.method == 'GET':
 
@@ -1014,8 +1062,11 @@ def create_classified_rate(request):
 
         reqData = request.POST.dict()
 
-        new_rate = ClassifiedRate(name=request.POST.get('name'), description=request.POST.get('description'), unit_price=request.POST.get('unit_price'), tax_category=request.POST.get('tax_category'), 
-                                    pricing=request.POST.get('pricing'), start_date=request.POST.get('start_date'), end_date=request.POST.get('end_date'))
+        new_rate = ClassifiedRate(name=request.POST.get('name'), description=request.POST.get('description'),
+                                  unit_price=request.POST.get('unit_price'),
+                                  tax_category=request.POST.get('tax_category'),
+                                  pricing=request.POST.get('pricing'), start_date=request.POST.get('start_date'),
+                                  end_date=request.POST.get('end_date'))
 
         if 'locked' in reqData and reqData['account'] != '':
             try:
@@ -1027,14 +1078,14 @@ def create_classified_rate(request):
             except Account.DoesNotExist:
                 new_rate.locked = False
                 new_rate.account = None
-        
+
         new_rate.save()
 
         message = new_rate.id + ' has been created by ' + request.user.username
 
         logging.info(message)
         print(message)
- 
+
         publicationList = request.POST.getlist('publication')
 
         for pubId in publicationList:
@@ -1048,25 +1099,27 @@ def create_classified_rate(request):
 
         return HttpResponseRedirect('/advertising/classifieds/rates/' + str(new_rate.id) + '/')
 
+
 def classified_rate_details(request, rateId):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "advertising")
 
     if not request.user.has_perm('BI.advertising_access'):
-        return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+        return render(request, "advertising.html",
+                      {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
     rate = get_object_or_404(ClassifiedRate, pk=rateId)
 
     if rate.end_date:
         endDate = datetime.strptime(rate.end_date[:10], '%Y-%m-%d').date()
-        if  endDate < date.today():
+        if endDate < date.today():
             rate.active = False
             rate.save()
 
     ratePublications = ClassifiedRatePublication.objects.filter(rate=rate)
 
     if request.method == 'GET':
-        
+
         context = {
             "access": "allow",
             "message": "",
@@ -1079,19 +1132,20 @@ def classified_rate_details(request, rateId):
         return render(request, "classifieds/rates/ViewClassifiedRate.html", context)
 
     else:
-        return JsonResponse({ "message": "Error. Method not implemented "}, status=501)
+        return JsonResponse({"message": "Error. Method not implemented "}, status=501)
+
 
 def edit_classified_rate(request, rateId):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "advertising")
 
     if not request.user.has_perm('BI.advertising_access'):
-        return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+        return render(request, "advertising.html",
+                      {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
     rate = get_object_or_404(ClassifiedRate, pk=rateId)
 
     if request.method == 'GET':
-        
         context = {
             "access": "allow",
             "message": "",
@@ -1102,12 +1156,13 @@ def edit_classified_rate(request, rateId):
 
         return render(request, "classifieds/rates/EditClassifiedRate.html", context)
 
+
 def get_rates_by_publication(request):
     if request is None or not request.user.is_authenticated:
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if not request.user.has_perm('BI.advertising_access'):
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if request.method == 'GET':
         reqPublications = request.GET.get('publications[]')
@@ -1115,29 +1170,31 @@ def get_rates_by_publication(request):
 
         rateList = getClassifiedRates(publicationList)
 
-        return JsonResponse({ "message": "Success", "rates": rateList }, status=200)
+        return JsonResponse({"message": "Success", "rates": rateList}, status=200)
 
     else:
-        return JsonResponse({ "message": "Error. Method not implemented" }, status=501)
+        return JsonResponse({"message": "Error. Method not implemented"}, status=501)
+
 
 def list_classified_ad_types(request):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "advertising")
 
     if not request.user.has_perm('BI.advertising_access'):
-        return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+        return render(request, "advertising.html",
+                      {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
     if request.method == 'GET':
 
         adTypes = ClassifiedAdType.objects.all()
 
         context = {
-                "access": "allow",
-                "message": "",
-                "groups": ', '.join(views.get_groups(request)),
-                "menu": views.get_sidebar(request),
-                "adTypes": adTypes,
-            }
+            "access": "allow",
+            "message": "",
+            "groups": ', '.join(views.get_groups(request)),
+            "menu": views.get_sidebar(request),
+            "adTypes": adTypes,
+        }
 
         return render(request, "classifieds/ad_types/ListClassifiedAdTypes.html", context)
 
@@ -1148,43 +1205,77 @@ def list_classified_ad_types(request):
             adType = ClassifiedAdType(name=reqData['name'], code=reqData['code'])
             adType.save()
 
-            return JsonResponse({ "message": "Success. New ad type created!" }, status=200)
+            return JsonResponse({"message": "Success. New ad type created!"}, status=200)
         elif reqData['type'] == 'edit':
             try:
                 adType = ClassifiedAdType.objects.get(pk=reqData['id'])
             except ClassifiedAdType.DoesNotExist:
-                return JsonResponse({ "message": "Error. An error occurred. Please try again." }, status=200)
+                return JsonResponse({"message": "Error. An error occurred. Please try again."}, status=200)
 
             adType.name = reqData['name']
             adType.code = reqData['code']
 
             adType.save()
 
-            return JsonResponse({ "message": "Success. Ad type saved" }, status=200)
-    
+            return JsonResponse({"message": "Success. Ad type saved"}, status=200)
+
     else:
-        return JsonResponse({ "message": "Error. Method not allowed." }, status=405)
+        return JsonResponse({"message": "Error. Method not allowed."}, status=405)
+
 
 def classified_ad_type_details(request):
     if request is None or not request.user.is_authenticated:
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if not request.user.has_perm('BI.advertising_access'):
-        return JsonResponse({ "message": "Error. Access forbidden." }, status=403)
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
 
     if request.method == 'GET':
         reqTypeId = request.GET.get('typeId')
 
         if reqTypeId is not None or reqTypeId != 'undefined':
 
-            try: 
+            try:
                 adType = ClassifiedAdType.objects.get(pk=reqTypeId)
             except ClassifiedAdType.DoesNotExist:
-                return JsonResponse({ "message": "Error. Cannot find classification ad type with that id." }, status=200)
+                return JsonResponse({"message": "Error. Cannot find classification ad type with that id."}, status=200)
 
-            return JsonResponse({ "message": "Success", "adType": model_to_dict(adType) }, status=200)
+            return JsonResponse({"message": "Success", "adType": model_to_dict(adType)}, status=200)
         else:
-            return JsonResponse({ "message": "Error. Unknown ad type id. Please try again." }, status=200)
+            return JsonResponse({"message": "Error. Unknown ad type id. Please try again."}, status=200)
 
     else:
-        return JsonResponse({ "message": "Error. Method not implemented" }, status=501)
+        return JsonResponse({"message": "Error. Method not implemented"}, status=501)
+
+
+def register_campaign(request):
+    if request is None or not request.user.is_authenticated:
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
+
+    if not request.user.has_perm('BI.advertising_access'):
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
+
+    if request.method == 'POST':
+        body = request.body.decode('utf-8')
+        data = json.loads(body)
+
+        modal = ClassifiedCampaignSummary()
+
+        modal.campaign_name = data['campaignName']
+        modal.start_date = datetime.strptime(data['startDate'], "%Y-%m-%d")
+        modal.end_date = datetime.strptime(data['endDate'], "%Y-%m-%d")
+        modal.brief = data['brief']
+        modal.advertiser_name = data['advertiserName']
+        modal.advertiser_id = data['advertiserId']
+        modal.sales_contact = data['salesName']
+        modal.contact_id = data['salesId']
+        modal.total_sub = data['printTotal']
+        modal.total_adjustment = data['adjTotal']
+        modal.total_campaign = data['campaignTotal']
+        modal.campaign_detail = 1
+
+        modal.save()
+
+        return JsonResponse({'message': 'Data saved successfully'})
+    else:
+        return JsonResponse({'error': 'Invalid request'})

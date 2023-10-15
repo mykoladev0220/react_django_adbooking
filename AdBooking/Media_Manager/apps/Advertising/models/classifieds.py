@@ -2,10 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import model_to_dict
 
-#from ckeditor.fields import RichTextField 
-
-from ..models.publications import Publication
-
 # ------- MODEL DEFINITIONS -------
 class ClassifiedAd(models.Model):
     name = models.CharField(max_length=255)
@@ -50,6 +46,24 @@ class ClassifiedStyling(models.Model):
 
     class Meta:
         db_table = 'advertising_classifiedstyling'
+
+class ClassifiedCampaignSummary(models.Model):
+    campaign_name = models.CharField(max_length=255)
+    start_date = models.DateTimeField(auto_now=False)
+    end_date = models.DateTimeField(auto_now=False)
+    brief = models.CharField(max_length=255)
+    advertiser_id = models.IntegerField(null=True)
+    advertiser_name = models.CharField(max_length=50, null=True)
+    contact_id = models.IntegerField(null=True)
+    sales_contact = models.CharField(max_length=50, null=True)
+    total_sub = models.IntegerField(max_length=10)
+    total_adjustment = models.IntegerField(max_length=10)
+    total_campaign = models.IntegerField(max_length=10)
+    campaign_detail = models.IntegerField(max_length=7)
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "advertising_campaign_summary"
 
 class ClassifiedPublication(models.Model):
     classified = models.ForeignKey('ClassifiedAd', on_delete=models.CASCADE)
