@@ -1272,7 +1272,7 @@ def register_campaign(request):
         modal.total_sub = data['printTotal']
         modal.total_adjustment = data['adjTotal']
         modal.total_campaign = data['campaignTotal']
-        modal.campaign_detail = 1
+        modal.campaign_detail = data['campaignDetail']
 
         modal.save()
 

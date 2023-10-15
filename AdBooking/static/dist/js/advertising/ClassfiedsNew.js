@@ -160,7 +160,7 @@ function publication_next() {
             
                                                 <h6>Qty:</h6>
                                                     
-                                                <h6 style="margin-left: 5px">` + adCount + `</h6>
+                                                <h6 id="sum-ad-count-` + demo_idx + `-` + pub_idx + `-` + ad_idx + `" style="margin-left: 5px">` + adCount + `</h6>
             
                                                 <h4 class="black">$<span id="sum-ad-unit-price-` + demo_idx + `-` + pub_idx + `-` + ad_idx + `">` + adUnitPrice + `</span></h4>
                                             </div>
@@ -264,7 +264,7 @@ function publication_next() {
         sumAdjTotalValue = parseFloat(sumAdjTotalValue) + parseFloat(printAdjPrice);
 
         sumDemoItemListEle += `<div class="c-m-panel">
-                                    <div class="btn secondary c-section" data-toggle="collapse" data-target="#sum-demo` + demo_idx + `"
+                                    <div class="btn secondary c-section" data-toggle="collapse" data-target="#sum-demo-` + demo_idx + `"
                                          onclick="collapseEditSpec(this)">
                                         ` + selectedAdFormatsName[demo_idx] + `
                                         <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="24" height="14"
@@ -280,7 +280,7 @@ function publication_next() {
                                         </svg>
                                     </div>
         
-                                    <div id="sum-demo` + demo_idx + `" class="collapse secondary p-2 c-ad-spec">
+                                    <div id="sum-demo-` + demo_idx + `" class="collapse secondary p-2 c-ad-spec">
                                         <div id="sum-spec-item-` + demo_idx + `">
                                            ` + sumPubItemListEle + `
                                         </div>
@@ -813,6 +813,7 @@ function summary_next() {
         printTotal: document.getElementById("sum-print-total").innerText,
         adjTotal: document.getElementById("sum-adj-total").innerText,
         campaignTotal: document.getElementById("sum-campaign-total").innerText,
+        campaignDetail: getCampaignDetail()
     }
 
     fetch('/advertising/classifieds/registerCampaign', {
@@ -833,4 +834,77 @@ function summary_next() {
     });
 
     showSection(6);
+}
+
+function getCampaignDetail() {
+    let campaignDetailEle = document.getElementById("sum-ad-details");
+    let campaignDetailList = getChildNodeList(campaignDetailEle);
+
+    let campaignArray = [];
+    for (let demo_idx = 0; demo_idx < campaignDetailList.length; demo_idx ++) {
+        let campaignName = selectedAdFormatsName[demo_idx];
+        let subAdPrice = document.getElementById("sum-print-ad-price-" + demo_idx).innerText;
+        let subAdjPrice = document.getElementById("sum-print-adj-price-" + demo_idx).innerText;
+        let subTotalPrice = document.getElementById("sum-print-total-price-" + demo_idx).innerText;
+        let pubArray = [];
+
+        let cdPubEle = document.getElementById("sum-spec-item-" + demo_idx);
+        let cdPubList = getChildNodeList(cdPubEle);
+        for (let pub_idx = 0; pub_idx < cdPubList.length; pub_idx ++) {
+            let pubName = document.getElementById("sum-select-pub-" + demo_idx + "-" + pub_idx).innerText;
+            let pubPrice = document.getElementById("sum-pub-price-" + demo_idx + "-" + pub_idx).innerText;
+            let adArray = [];
+
+            let cdAdEle = document.getElementById("sum-edit-ad-" + demo_idx + "-" + pub_idx);
+            let dAdList = getChildNodeList(cdAdEle);
+            for (let ad_idx = 0; ad_idx < dAdList.length; ad_idx ++) {
+                let adName = document.getElementById("sum-ad-name-" + demo_idx + "-" + pub_idx + "-" + ad_idx).innerText;
+                let adCount = document.getElementById("sum-ad-count-" + demo_idx + "-" + pub_idx + "-" + ad_idx).innerText;
+                let adPrice = document.getElementById("sum-ad-unit-price-" + demo_idx + "-" + pub_idx + "-" + ad_idx).innerText;
+                let adType = document.getElementById("sum-ad-type-" + demo_idx + "-" + pub_idx + "-" + ad_idx).innerText;
+                let adSize = document.getElementById("sum-ad-size-" + demo_idx + "-" + pub_idx + "-" + ad_idx).innerText;
+                let adRate = document.getElementById("sum-ad-rate-" + demo_idx + "-" + pub_idx + "-" + ad_idx).innerText;
+                let adjArray = [];
+
+                let cdAdjEle = document.getElementById("sum-adjustment-item-" + demo_idx + "-" + pub_idx + "-" + ad_idx);
+                let cdAdjList = getChildNodeList(cdAdjEle);
+                for (let adj_idx = 0; adj_idx < cdAdjList.length; adj_idx ++) {
+                    let adjItem = cdAdjList[adj_idx];
+                    let adjName = adjItem.querySelector("#sum-ad-adj-code").innerText;
+                    let adjAmount = adjItem.querySelector("#sum-ad-adj-amount").innerText;
+
+                    adjArray.push({
+                        adjName: adjName,
+                        adjAmount: adjAmount
+                    });
+                }
+
+                adArray.push({
+                    adName: adName,
+                    adCount: adCount,
+                    adPrice: adPrice,
+                    adType: adType,
+                    adSize: adSize,
+                    adRate: adRate,
+                    adjArray: adjArray
+                });
+            }
+
+            pubArray.push({
+                pubName: pubName,
+                pubPrice: pubPrice,
+                adArray: adArray
+            })
+        }
+
+        campaignArray.push({
+            campaignName: campaignName,
+            subAdPrice: subAdPrice,
+            subAdjPrice: subAdjPrice,
+            subTotalPrice: subTotalPrice,
+            pubArray: pubArray,
+        })
+    }
+
+    return campaignArray;
 }
