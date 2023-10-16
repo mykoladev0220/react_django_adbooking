@@ -1,3 +1,7 @@
+body {
+    font-family: "Lato", serif;
+}
+
 h1 {
     font-size: 40px;
     font-weight: 400;
@@ -1348,4 +1352,233 @@ td a:hover {
     hr {
         margin-right: 0 !important;
     }
+}
+
+/*======================= Campaign Detail =============================*/
+
+.detail-back-image {
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 400px;
+    bottom: 0;
+}
+
+.detail-back-image img {
+    width: 100%;
+}
+
+.detail-title-hr {
+    width: 55%;
+    height: 1px;
+    background-color: black;
+    display: inline-block;
+}
+
+.back-link {
+    color: #21215F;
+    cursor: pointer;
+    font-family: "Lato", serif;
+    font-size: 18px;
+    font-weight: 400;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-left: 70px;
+}
+
+.back-link span {
+    text-decoration: underline;
+}
+
+.detail-content {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    margin-top: 5px;
+    justify-content: center;
+}
+
+.detail-card {
+    width: calc(100% - 60px);
+    position: relative;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.detail-card-back-image {
+    width: 100%;
+}
+
+.detail-card-back-image img {
+    width: 100%;
+}
+
+.detail-card-title {
+    width: 100%;
+    color: #000;
+    font-family: "Lato", serif;
+    font-size: 46px;
+    font-weight: 700;
+    position: absolute;
+    top: 80px;
+}
+
+.detail-card-title span {
+    font-size: 32px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.detail-category {
+    width: 100%;
+    color: #000;
+    display: flex;
+    font-size: 18px;
+    font-weight: 400;
+    position: absolute;
+    top: 180px;
+}
+
+.detail-category div {
+    cursor: pointer;
+    margin-right: 60px;
+}
+
+.detail-category div:first-child {
+    margin-left: auto;
+}
+
+.detail-category div:last-child {
+    margin-right: auto;
+}
+
+.detail-category-active {
+    background: rgba(242, 103, 34, 0.50);
+    border-radius: 33px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    color: white;
+    padding: 4px 12px;
+}
+
+.detail-option-list button {
+    height: 25px;
+    border-radius: 4px;
+    color: white;
+    padding: 4px 6px;
+    line-height: 18px;
+    margin-right: 10px;
+}
+
+.detail-option-list button:hover {
+    color: white;
+}
+
+.btn-edit {
+    background: rgba(33, 33, 95, 0.50);
+    margin-left: 55px;
+}
+
+.btn-cancel {
+    background: #B32D2E;
+}
+
+.btn-duplicate {
+    background: #21215F;
+}
+
+.detail-info {
+    margin: 5px 66px 0 37px;
+}
+
+.detail-info-order {
+    padding: 30px 15px 44px;
+}
+
+.detail-info-label {
+    color: #666;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.detail-info-value-large {
+    color: #000;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.detail-info-value-medium {
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.detail-info-value-small {
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+    max-width: 77%;
+    margin-top: 10px;
+}
+
+.detail-info-rate {
+    height: 50%;
+}
+
+.detail-info-rate-title,
+.detail-info-rate-title {
+    width: 100%;
+    border-bottom: 1px solid black;
+    color: #666;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.detail-info-rate-label {
+    color: black;
+    display: flex;
+    font-size: 14px;
+    font-weight: 700;
+    margin-left: 10px;
+    margin-top: 25px;
+}
+
+.detail-info-rate-label div:last-child,
+.detail-info-rate-value div:last-child {
+    margin-left: auto;
+    margin-right: 61px;
+}
+
+.detail-info-rate-value {
+    color: #337AB7;
+    display: flex;
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-top: 16px;
+}
+
+.detail-info-color {
+    height: 50%;
+    margin-top: 10%;
+}
+
+.detail-no-color {
+    color: #666;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.detail-spec {
+    margin: 37px 66px 30px 37px;
+}
+
+.detail-spec .c-m-panel {
+    margin: 0 !important;
+}
+
+.detail-spec .edit-ad-item {
+    width: calc((100% - 45px) / 4) !important;
+    margin-right: 15px !important;
 }
