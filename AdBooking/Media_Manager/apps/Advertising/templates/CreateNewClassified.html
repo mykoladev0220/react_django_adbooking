@@ -273,7 +273,6 @@
 
                     <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
 
-
                     <select id="publication_data" style="display: none">
                         {% for publication in publications %}
                         <option value="{{publication.id}}">{{publication.name}}</option>
@@ -411,7 +410,7 @@
                                 style="width: 25%; background-color: rgb(33,33,95);">Create Another Ad Campaign
                         </button>
 
-                        <a class="btn btn-primary bg-primary campaign-view" href="{% url 'campaign_detail' %}">View Ad Campaign</a>
+                        <a class="btn btn-primary bg-primary campaign-view" onclick="viewCampaign()">View Ad Campaign</a>
 
                         <button class="btn btn-primary bg-primary" onclick="" style="width: 25%;">Print Receipt</button>
                     </div>

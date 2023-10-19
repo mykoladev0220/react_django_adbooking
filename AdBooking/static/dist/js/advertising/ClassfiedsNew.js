@@ -7,6 +7,8 @@ let pub_option_list = document.getElementById("publication_data").innerHTML
 
 let selectedAdjustmentArray = [];
 
+let storedID = "";
+
 function selectAdFormat(public_id) {
     const selected_img = document.getElementById("favoriteIcon_" + public_id);
     const selected_name = document.getElementById("adTypeName_" + public_id).innerText;
@@ -800,42 +802,6 @@ const getCookie = name => {
     return cookie[name];
 }
 
-function summary_next() {
-    const data = {
-        campaignName: document.getElementById("sum-campaign-name").innerText,
-        startDate: document.getElementById("sum-start-date").innerText,
-        endDate: document.getElementById("sum-end-date").innerText,
-        brief: document.getElementById("sum-brief").innerText,
-        advertiserName: document.getElementById("sum-advertiser-name").innerText,
-        advertiserId: document.getElementById("sum-advertiser-id").innerText,
-        salesName: document.getElementById("sum-sales-name").innerText,
-        salesId: document.getElementById("sum-sales-id").innerText,
-        printTotal: document.getElementById("sum-print-total").innerText,
-        adjTotal: document.getElementById("sum-adj-total").innerText,
-        campaignTotal: document.getElementById("sum-campaign-total").innerText,
-        campaignDetail: getCampaignDetail()
-    }
-
-    fetch('/advertising/classifieds/registerCampaign', {
-        method: 'POST',
-        headers: {
-            "X-CSRFToken": getCookie('csrftoken'),
-            "Accept": "application/json",
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Data saved successfully:', data);
-    })
-    .catch(error => {
-        console.error('Error saving data:', error);
-    });
-
-    showSection(6);
-}
-
 function getCampaignDetail() {
     let campaignDetailEle = document.getElementById("sum-ad-details");
     let campaignDetailList = getChildNodeList(campaignDetailEle);
@@ -907,4 +873,44 @@ function getCampaignDetail() {
     }
 
     return campaignArray;
+}
+
+function summary_next() {
+    const data = {
+        campaignName: document.getElementById("sum-campaign-name").innerText,
+        startDate: document.getElementById("sum-start-date").innerText,
+        endDate: document.getElementById("sum-end-date").innerText,
+        brief: document.getElementById("sum-brief").innerText,
+        advertiserName: document.getElementById("sum-advertiser-name").innerText,
+        advertiserId: document.getElementById("sum-advertiser-id").innerText,
+        salesName: document.getElementById("sum-sales-name").innerText,
+        salesId: document.getElementById("sum-sales-id").innerText,
+        printTotal: document.getElementById("sum-print-total").innerText,
+        adjTotal: document.getElementById("sum-adj-total").innerText,
+        campaignTotal: document.getElementById("sum-campaign-total").innerText,
+        campaignDetail: getCampaignDetail()
+    }
+
+    fetch('/advertising/classifieds/registerCampaign', {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken'),
+            "Accept": "application/json",
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        storedID = data.id;
+    })
+    .catch(error => {
+        console.error('Error saving data:', error);
+    });
+
+    showSection(6);
+}
+
+function viewCampaign() {
+    window.location.href = `/advertising/classifieds/detail/?campaignId=${storedID}`;
 }

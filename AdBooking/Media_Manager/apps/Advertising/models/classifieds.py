@@ -49,8 +49,8 @@ class ClassifiedStyling(models.Model):
 
 class ClassifiedCampaignSummary(models.Model):
     campaign_name = models.CharField(max_length=255)
-    start_date = models.DateTimeField(auto_now=False)
-    end_date = models.DateTimeField(auto_now=False)
+    start_date = models.DateField(auto_now=False)
+    end_date = models.DateField(auto_now=False)
     brief = models.CharField(max_length=255)
     advertiser_id = models.IntegerField(null=True)
     advertiser_name = models.CharField(max_length=50, null=True)

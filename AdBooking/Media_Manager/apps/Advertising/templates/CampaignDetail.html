@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block endjs %}
-<script src="{% static "dist/js/advertising/ClassfiedsNew.js" %}"></script>
+<script src="{% static "dist/js/advertising/campaignDetail.js" %}"></script>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -22,7 +22,7 @@
         <hr class="detail-title-hr">
 
         <div style="display: flex">
-            <a class="back-link"><- <span>Back to Ad Campaign</span></a>
+            <a class="back-link" href="{% url 'create_classified_ad' %}"><- <span>Back to Ad Campaign</span></a>
         </div>
 
         <div class="detail-content">
@@ -74,48 +74,48 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="detail-info-label">Campaign Name:</div>
-                                    <div class="detail-info-value-large">Campaign Name goes here</div>
+                                    <div class="detail-info-value-large">{{campaign.campaign_name}}</div>
                                 </div>
 
                                 <div class="col-md-2">
                                     <div class="detail-info-label">Start Date:</div>
-                                    <div class="detail-info-value-medium">5/22/2023</div>
+                                    <div class="detail-info-value-medium">{{campaign.start_date}}</div>
                                 </div>
 
                                 <div class="col-md-2">
                                     <div class="detail-info-label">End Date:</div>
-                                    <div class="detail-info-value-medium">5/27/2023</div>
+                                    <div class="detail-info-value-medium">{{campaign.end_date}}</div>
                                 </div>
                             </div>
 
                             <div style="margin-top: 44px">
                                 <div class="detail-info-label">Brief Description:</div>
                                 <div class="detail-info-value-small">
-                                    Lorem ipsum dolor sit amet, at natum omnes alienum est. Qui ad fabulas deleniti pericula, doming semper ponderum at eam, et vim delectus consequat deterruisset.
+                                    {{campaign.brief}}
                                 </div>
                             </div>
 
                             <div class="row" style="margin-top: 44px">
                                 <div class="col-md-7">
                                     <div class="detail-info-label">Advertiser:</div>
-                                    <div class="detail-info-value-small">Advertiser Name Goes Here</div>
+                                    <div class="detail-info-value-small">{{campaign.advertiser_name}}</div>
                                 </div>
 
                                 <div class="col-md-5">
                                     <div class="detail-info-label">Account*:</div>
-                                    <div class="detail-info-value-small"></div>
+                                    <div class="detail-info-value-small">{{campaign.advertiser_id}}</div>
                                 </div>
                             </div>
 
                             <div class="row" style="margin-top: 44px">
                                 <div class="col-md-7">
                                     <div class="detail-info-label">Sales Contact:</div>
-                                    <div class="detail-info-value-small">Kyle Jernigan</div>
+                                    <div class="detail-info-value-small">{{campaign.sales_contact}}</div>
                                 </div>
 
                                 <div class="col-md-5">
                                     <div class="detail-info-label">Contact ID #:</div>
-                                    <div class="detail-info-value-small"></div>
+                                    <div class="detail-info-value-small">{{campaign.contact_id}}</div>
                                 </div>
                             </div>
                         </div>
@@ -149,10 +149,11 @@
                 </div>
 
                 <div class="detail-spec">
+                    {% for demo in campaign.campaign_detail%}
                     <div class="c-m-panel">
-                        <div class="btn secondary c-section" data-toggle="collapse" data-target="#sum-demo-0"
+                        <div class="btn secondary c-section" data-toggle="collapse" data-target="#sum-demo-{{forloop.counter0}}"
                              onclick="collapseEditSpec(this)">
-                            Selected Ad Format Name
+                            {{demo.campaignName}}
                             <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg" width="24" height="14"
                                  viewBox="0 0 24 14" fill="none">
                                 <path d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97919 22.6066 1.3934C22.0208 0.807611 21.0711 0.807611 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807611 1.97919 0.807611 1.3934 1.3934C0.807611 1.97919 0.807611 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z"
@@ -166,29 +167,31 @@
                             </svg>
                         </div>
 
-                        <div id="sum-demo-0" class="collapse secondary p-2 c-ad-spec">
-                            <div id="sum-spec-item-0">
-                               <div id="sum-ad-spec-item-0-0" class="c-ad-spec-item">
+                        <div id="sum-demo-{{forloop.counter0}}" class="collapse secondary p-2 c-ad-spec">
+                            <div id="sum-spec-item-{{forloop.counter0}}">
+                                {% for pub in demo.pubArray%}
+                                <div id="sum-ad-spec-item-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="c-ad-spec-item">
                                     <div class="c-ad-spec-label">Select Your Publication:</div>
 
                                     <div class="select-publication">
-                                        <span id="sum-select-pub-0-0">Selected Pub name</span>
+                                        <span id="sum-select-pub-{{forloop.parentloop.counter0}}-{{forloop.counter0}}">{{pub.pubName}}</span>
 
-                                        <h4 class="black">$<span id="sum-pub-price-0-0">$250</span></h4>
+                                        <h4 class="black">$<span id="sum-pub-price-{{forloop.parentloop.counter0}}-{{forloop.counter0}}">{{pub.pubPrice}}</span></h4>
                                     </div>
 
                                     <hr class="black">
 
-                                    <div id="sum-edit-ad-0-0" class="edit-ad">
-                                        <div id="sum-edit-ad-item-0-0-0" class="edit-ad-item">
+                                    <div id="sum-edit-ad-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="edit-ad">
+                                        {% for ad in pub.adArray %}
+                                        <div id="sum-edit-ad-item-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="edit-ad-item">
                                             <div class="edit-ad-item-title">
-                                                <span id="sum-ad-name-0-0-0">Ad Name</span>
+                                                <span id="sum-ad-name-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}">{{ad.adName}}</span>
 
                                                 <h6>Qty:</h6>
 
-                                                <h6 id="sum-ad-count-0-0-0" style="margin-left: 5px">2</h6>
+                                                <h6 id="sum-ad-count-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" style="margin-left: 5px">{{ad.adCount}}</h6>
 
-                                                <h4 class="black">$<span id="sum-ad-unit-price-0-0-0">30</span></h4>
+                                                <h4 class="black">$<span id="sum-ad-unit-price-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}">{{ad.adPrice}}</span></h4>
                                             </div>
 
                                             <div class="value-items">
@@ -196,7 +199,7 @@
                                                     <div class="ad-type">
                                                         <div class="ad-type-label">Ad Type:</div>
 
-                                                        <div id="sum-ad-type-0-0-0" class="ad-type-value">Ad Type</div>
+                                                        <div id="sum-ad-type-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="ad-type-value">{{ad.adType}}</div>
                                                     </div>
 
                                                     <div class="ad-date">
@@ -212,13 +215,13 @@
                                                     <div class="ad-type">
                                                         <div class="ad-type-label">Size:</div>
 
-                                                        <div id="sum-ad-size-0-0-0" class="ad-type-value">Ad Size</div>
+                                                        <div id="sum-ad-size-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="ad-type-value">{{ad.adSize}}</div>
                                                     </div>
 
                                                     <div class="ad-date">
                                                         <div class="ad-type-label">Rates:</div>
 
-                                                        <div id="sum-ad-rate-0-0-0" class="ad-type-value">Ad Rate</div>
+                                                        <div id="sum-ad-rate-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="ad-type-value">{{ad.adRate}}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -227,11 +230,13 @@
 
                                             <div class="adjustment-label">Adjustments:</div>
 
-                                            <div id="sum-adjustment-item-0-0-0" class="adjustment-value">
-                                                <div id="sum-ad-adj-item-0-0-0" class="flex-row sel-adjustment">
-                                                    <h5 id="sum-ad-adj-code" class="black">AdjName</h5>
-                                                    <h5 id="sum-ad-adj-amount" class="black">AdjAmount</h5>
+                                            <div id="sum-adjustment-item-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="adjustment-value">
+                                                {% for adj in ad.adjArray %}
+                                                <div id="sum-ad-adj-item-{{forloop.parentloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="flex-row sel-adjustment">
+                                                    <h5 id="sum-ad-adj-code" class="black">{{adj.adjName}}</h5>
+                                                    <h5 id="sum-ad-adj-amount" class="black">{{adj.adjAmount}}</h5>
                                                 </div>
+                                                {% endfor %}
                                             </div>
 
                                             <div class="c-ad-value-description">
@@ -242,7 +247,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="collapse-icon" onclick="collapseEditSpecItem(this, 0, 0, 0, 1)">
+                                                <div class="collapse-icon" onclick="collapseEditSpecItem(this, `{{forloop.parentloop.parentloop.counter0}}`, `{{forloop.parentloop.counter0}}`, `{{forloop.counter0}}`, 1)">
                                                 <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg"
                                                      width="16" height="9" viewBox="0 0 16 9" fill="none">
                                                     <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 6V8H9V6H7Z"
@@ -256,8 +261,10 @@
                                                 </svg>
                                             </div>
                                         </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
+                                {% endfor %}
                             </div>
 
                             <hr class="black mt-1" style="color: #666">
@@ -265,36 +272,37 @@
                             <div class="price-label" style="margin-top: 6px">
                                 <h5>Print Ad Subtotal:</h5>
 
-                                <h5 class="c-mr-50">$<span id="sum-print-ad-price-0" >230</span></h5>
+                                <h5 class="c-mr-50">$<span id="sum-print-ad-price-0" >{{demo.subAdPrice}}</span></h5>
                             </div>
 
                             <div class="price-label">
                                 <h5>Adjustment Total:</h5>
 
-                                <h5 class="c-mr-50">$<span id="sum-print-adj-price-0">280</span></h5>
+                                <h5 class="c-mr-50">$<span id="sum-print-adj-price-0">{{demo.subAdjPrice}}</span></h5>
                             </div>
 
                             <div class="price-label">
                                 <h4>Print Ad(s) Total:</h4>
 
-                                <h4 class="c-mr-50">$<span id="sum-print-total-price-0">540</span></h4>
+                                <h4 class="c-mr-50">$<span id="sum-print-total-price-0">{{demo.subTotalPrice}}</span></h4>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
 
-                <div class="mt-4 text-left" style="margin-left: 37px; margin-right: 66px">
+                <div class="text-left" style="margin: 40px 66px 30px 37px">
                     <div class="flex-row">
                         <div class="campaign-item-label">Subtotal:</div>
                         <div class="campaign-item-value small-value mr-2">
-                            $<span id="sum-print-total">0.00</span>
+                            $<span id="sum-print-total">{{campaign.total_sub}}</span>
                         </div>
                     </div>
 
                     <div class="flex-row">
                         <div class="campaign-item-label">Total Adjustments:</div>
                         <div class="campaign-item-value small-value mr-2">
-                            $<span id="sum-adj-total">0.00</span>
+                            $<span id="sum-adj-total">{{campaign.total_adjustment}}</span>
                         </div>
                     </div>
 
@@ -303,7 +311,7 @@
                     <div class="flex-row mt-4">
                         <div class="campaign-item-label big-campaign-label">Campaign Total:</div>
                         <div class="campaign-item-value big-campaign-label mr-2">
-                            $<span id="sum-campaign-total">0.00</span>
+                            $<span id="sum-campaign-total">{{campaign.total_campaign}}</span>
                         </div>
                     </div>
                 </div>
@@ -311,5 +319,37 @@
         </div>
     </div>
 </div>
+
+<script>
+function collapseEditSpec(clickedButton) {
+    const childElements = clickedButton.childNodes;
+
+    for (var i = 0; i < childElements.length; i++) {
+        var item = childElements[i];
+        if (item.nodeName === "svg") {
+            if (item.classList.contains("c-svg-active")) {
+                item.classList.remove("c-svg-active");
+            } else {
+                item.classList.add("c-svg-active");
+            }
+        }
+    }
+}
+
+function collapseEditSpecItem(clickedButton, demo, publication, ad, type) {
+    collapseEditSpec(clickedButton);
+
+    let elementId = type === 0 ? "edit-ad-item-" : "sum-edit-ad-item-";
+
+    const specItem = document.getElementById(elementId + demo + "-" + publication + "-" + ad);
+    const maxHeight = specItem.style.maxHeight;
+
+    if (maxHeight === "inherit") {
+        specItem.style.maxHeight = "55px";
+    } else {
+        specItem.style.maxHeight = "inherit";
+    }
+}
+</script>
 
 {% endblock %}

@@ -1276,9 +1276,12 @@ def register_campaign(request):
 
         modal.save()
 
-        return JsonResponse({'message': 'Data saved successfully'})
+        latest_data = (ClassifiedCampaignSummary.objects.last()).id
+
+        return JsonResponse({'id': latest_data})
     else:
         return JsonResponse({'error': 'Invalid request'})
+
 
 def campaign_detail(request):
     if request is None or not request.user.is_authenticated:
@@ -1288,8 +1291,15 @@ def campaign_detail(request):
         return render(request, "advertising.html",
                       {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
-    context = {
+    if request.method == 'GET':
+        data = request.GET.get('campaignId')
 
+    campaign = ClassifiedCampaignSummary.objects.get(id=data)
+    # campaignList = serializers.serialize('json', campaign)
+
+    context = {
+        "campaign": campaign,
+        # "campaignList": campaignList,
     }
 
     return render(request, "CampaignDetail.html", context)
