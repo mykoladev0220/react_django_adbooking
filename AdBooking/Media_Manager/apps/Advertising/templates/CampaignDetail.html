@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block endjs %}
-<script src="{% static "dist/js/advertising/campaignDetail.js" %}"></script>
+<!--<script src="{% static "dist/js/advertising/ClassfiedsNew.js" %}"></script>-->
 {% endblock %}
 
 {% block breadcrumb %}
@@ -194,60 +194,62 @@
                                                 <h4 class="black">$<span id="sum-ad-unit-price-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}">{{ad.adPrice}}</span></h4>
                                             </div>
 
-                                            <div class="value-items">
-                                                <div class="value-items-half">
-                                                    <div class="ad-type">
-                                                        <div class="ad-type-label">Ad Type:</div>
+                                            <div id="sum-ad-content-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" style="display: none">
+                                                <div class="value-items">
+                                                    <div class="value-items-half">
+                                                        <div class="ad-type">
+                                                            <div class="ad-type-label">Ad Type:</div>
 
-                                                        <div id="sum-ad-type-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="ad-type-value">{{ad.adType}}</div>
+                                                            <div id="sum-ad-type-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="ad-type-value">{{ad.adType}}</div>
+                                                        </div>
+
+                                                        <div class="ad-date">
+                                                            <div class="ad-type-label">Dates:</div>
+
+                                                            <div class="ad-type-value">9/12/2023,</div>
+                                                            <div class="ad-type-value">9/17/2023,</div>
+                                                            <div class="ad-type-value">10/13/2023,</div>
+                                                        </div>
                                                     </div>
 
-                                                    <div class="ad-date">
-                                                        <div class="ad-type-label">Dates:</div>
+                                                    <div class="value-items-half">
+                                                        <div class="ad-type">
+                                                            <div class="ad-type-label">Size:</div>
 
-                                                        <div class="ad-type-value">9/12/2023,</div>
-                                                        <div class="ad-type-value">9/17/2023,</div>
-                                                        <div class="ad-type-value">10/13/2023,</div>
+                                                            <div id="sum-ad-size-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="ad-type-value">{{ad.adSize}}</div>
+                                                        </div>
+
+                                                        <div class="ad-date">
+                                                            <div class="ad-type-label">Rates:</div>
+
+                                                            <div id="sum-ad-rate-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="ad-type-value">{{ad.adRate}}</div>
+                                                        </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="value-items-half">
-                                                    <div class="ad-type">
-                                                        <div class="ad-type-label">Size:</div>
+                                                <div class="c-calendar">See Calendar</div>
 
-                                                        <div id="sum-ad-size-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="ad-type-value">{{ad.adSize}}</div>
+                                                <div class="adjustment-label">Adjustments:</div>
+
+                                                <div id="sum-adjustment-item-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="adjustment-value">
+                                                    {% for adj in ad.adjArray %}
+                                                    <div id="sum-ad-adj-item-{{forloop.parentloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="flex-row sel-adjustment">
+                                                        <h5 id="sum-ad-adj-code" class="black">{{adj.adjName}}</h5>
+                                                        <h5 id="sum-ad-adj-amount" class="black">{{adj.adjAmount}}</h5>
                                                     </div>
+                                                    {% endfor %}
+                                                </div>
 
-                                                    <div class="ad-date">
-                                                        <div class="ad-type-label">Rates:</div>
+                                                <div class="c-ad-value-description">
+                                                    <div class="adjustment-label">Description:</div>
 
-                                                        <div id="sum-ad-rate-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="ad-type-value">{{ad.adRate}}</div>
+                                                    <div id="sum-ad-brief-0-0-0" class="ad-type-value">
+                                                        Brief NameBrief NameBrief NameBrief NameBrief NameBrief NameBrief Name
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="c-calendar">See Calendar</div>
-
-                                            <div class="adjustment-label">Adjustments:</div>
-
-                                            <div id="sum-adjustment-item-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="adjustment-value">
-                                                {% for adj in ad.adjArray %}
-                                                <div id="sum-ad-adj-item-{{forloop.parentloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.parentloop.counter0}}-{{forloop.parentloop.counter0}}-{{forloop.counter0}}" class="flex-row sel-adjustment">
-                                                    <h5 id="sum-ad-adj-code" class="black">{{adj.adjName}}</h5>
-                                                    <h5 id="sum-ad-adj-amount" class="black">{{adj.adjAmount}}</h5>
-                                                </div>
-                                                {% endfor %}
-                                            </div>
-
-                                            <div class="c-ad-value-description">
-                                                <div class="adjustment-label">Description:</div>
-
-                                                <div id="sum-ad-brief-0-0-0" class="ad-type-value">
-                                                    Brief NameBrief NameBrief NameBrief NameBrief NameBrief NameBrief Name
-                                                </div>
-                                            </div>
-
-                                                <div class="collapse-icon" onclick="collapseEditSpecItem(this, `{{forloop.parentloop.parentloop.counter0}}`, `{{forloop.parentloop.counter0}}`, `{{forloop.counter0}}`, 1)">
+                                            <div class="collapse-icon" onclick="collapseEditSpecItem(this, `{{forloop.parentloop.parentloop.counter0}}`, `{{forloop.parentloop.counter0}}`, `{{forloop.counter0}}`, 1)">
                                                 <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg"
                                                      width="16" height="9" viewBox="0 0 16 9" fill="none">
                                                     <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 6V8H9V6H7Z"
@@ -339,15 +341,26 @@ function collapseEditSpec(clickedButton) {
 function collapseEditSpecItem(clickedButton, demo, publication, ad, type) {
     collapseEditSpec(clickedButton);
 
-    let elementId = type === 0 ? "edit-ad-item-" : "sum-edit-ad-item-";
+    let elementId = type === 0 ? "ad-content-" : "sum-ad-content-";
 
     const specItem = document.getElementById(elementId + demo + "-" + publication + "-" + ad);
-    const maxHeight = specItem.style.maxHeight;
+    const display = specItem.style.display;
+
+    if (display === "none") {
+        specItem.style.display = "block";
+    } else {
+        specItem.style.display = "none";
+    }
+
+    let adElementId = type === 0 ? "edit-ad-item-" : "sum-edit-ad-item-";
+
+    const adSpecItem = document.getElementById(adElementId + demo + "-" + publication + "-" + ad);
+    const maxHeight = adSpecItem.style.maxHeight;
 
     if (maxHeight === "inherit") {
-        specItem.style.maxHeight = "55px";
+        adSpecItem.style.maxHeight = "55px";
     } else {
-        specItem.style.maxHeight = "inherit";
+        adSpecItem.style.maxHeight = "inherit";
     }
 }
 </script>
