@@ -64,7 +64,7 @@ function advertiser_next() {
     var advertiser_id = document.getElementById("search-select").value;
     var advertiser = document.getElementById("select2-search-select-container").innerText;
     if (advertiser_id === "") {
-        alert("Please complete the fields.");
+        $.toastr.warning("please select advertiser");
 
         return;
     }
@@ -79,7 +79,7 @@ function campaign_next() {
     var orderName = document.getElementById("order-name").value;
 
     if (orderName === "") {
-        alert("Please complete the fields.");
+        $.toastr.warning("Please complete the fields");
         return;
     } else {
         document.getElementById("sum-campaign-name").innerText = orderName;
@@ -88,7 +88,7 @@ function campaign_next() {
     let salesContact_id = document.getElementById("sales-contact").value;
 
     if (salesContact_id === "") {
-        alert("Please complete the fields.");
+        $.toastr.warning("Please complete the fields");
         return;
     } else {
         let salesContact_name = '';
@@ -105,7 +105,7 @@ function campaign_next() {
     var startDate = document.getElementById("start-date").value;
 
     if (startDate === "") {
-        alert("Please complete the fields.");
+        $.toastr.warning("Please complete the fields");
         return;
     } else {
         document.getElementById("sum-start-date").innerText = startDate;
@@ -953,9 +953,10 @@ function summary_next() {
     .then(response => response.json())
     .then(data => {
         storedID = data.id;
+        $.toastr.success('Saved Success');
     })
     .catch(error => {
-        console.error('Error saving data:', error);
+        $.toastr.error("Saved failure");
     });
 
     showSection(6);
@@ -1028,3 +1029,8 @@ function deleteAdItem(demo, pub, ad) {
 
     parentItem.removeChild(removeItem);
 }
+
+$.toastr.config({
+    time: 3000,
+    position: "top-center"
+});

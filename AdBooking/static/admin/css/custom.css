@@ -93,6 +93,18 @@ h5 {
     scrollbar-track-color: #e7e7e7;
 }
 
+.toastr-container ul li {
+    width: auto !important;
+    font-size: 18px !important;
+    font-family: "Lato", serif !important;
+    padding: 15px 30px 20px 50px !important;
+    line-height: 18px;
+}
+
+.toastr-container ul li:before {
+    font-size: 30px !important;
+}
+
 .advertising-back-image {
     width: 130%;
     position: absolute;
