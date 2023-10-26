@@ -1032,5 +1032,11 @@ function deleteAdItem(demo, pub, ad) {
     let parentItem = document.getElementById("edit-ad-" + demo + "-" + pub);
     let removeItem = document.getElementById("edit-ad-item-" + demo + "-" + pub + "-" + ad);
 
+    let pubPriceEle = document.getElementById("pub-price-" + demo + "-" + pub);
+    let pubPrice = pubPriceEle.innerHTML;
+    let adPrice = document.getElementById("ad-unit-price-" + demo + "-" + pub + "-" + ad).innerHTML;
+
+    pubPriceEle.innerHTML = (parseFloat(pubPrice) - parseFloat(adPrice)).toString();
+
     parentItem.removeChild(removeItem);
 }
