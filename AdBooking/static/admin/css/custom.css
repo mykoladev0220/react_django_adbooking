@@ -105,6 +105,26 @@ h5 {
     font-size: 30px !important;
 }
 
+#demo-mobile-picker-inline {
+    border: 1px solid #666 !important;
+    margin-top: 5px !important;
+}
+
+.mbsc-calendar-title,
+.mbsc-button-icon {
+    color: black !important;
+    font-weight: 700 !important;
+}
+
+.mbsc-calendar-week-day {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+}
+
+.mbsc-calendar-cell-text {
+    border-radius: 2px !important;
+}
+
 .advertising-back-image {
     width: 130%;
     position: absolute;
@@ -1087,11 +1107,11 @@ td a:hover {
 
 .ad-adjustment-calender .ad-adjustment,
 .ad-adjustment-calender .ad-calender {
-    width: calc((100% - 10px) / 2);
+    width: calc((100% - 30px) / 2);
 }
 
 .ad-adjustment-calender .ad-calender {
-    margin-left: 10px;
+    margin-left: 30px;
 }
 
 .create-btn {

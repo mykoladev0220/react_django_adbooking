@@ -1034,3 +1034,13 @@ $.toastr.config({
     time: 3000,
     position: "top-center"
 });
+
+mobiscroll.setOptions({
+    theme: 'ios',
+    themeVariant: 'light'
+});
+
+mobiscroll.datepicker('#demo-mobile-picker-inline', {
+        controls: ['calendar'],       // More info about controls: https://docs.mobiscroll.com/5-27-2/javascript/calendar#opt-controls
+        display: 'inline'             // Specify display mode like: display: 'bottom' or omit setting to use default
+    });
