@@ -93,6 +93,46 @@ h5 {
     scrollbar-track-color: #e7e7e7;
 }
 
+.hide {
+        display: none;
+}
+
+.time-line-box .status span {
+    padding-top: 8px;
+}
+
+.time-line-box .status span:before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 30px;
+    border: 2px solid #ccc;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    transition: all 200ms ease-in;
+}
+
+.time-line-box .status.active span:before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    background-color: #F26722;
+    border-radius: 30px;
+    border: 2px solid #F26722;
+    position: absolute;
+    left: 50%;
+    top: 0%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    transition: all 200ms ease-in;
+}
+
 .toastr-container ul li {
     width: auto !important;
     font-size: 18px !important;
@@ -105,24 +145,70 @@ h5 {
     font-size: 30px !important;
 }
 
-#demo-mobile-picker-inline {
+#color-calendar {
     border: 1px solid #666 !important;
     margin-top: 5px !important;
 }
 
-.mbsc-calendar-title,
-.mbsc-button-icon {
-    color: black !important;
-    font-weight: 700 !important;
+/*#demo-mobile-picker-inline {*/
+/*    border: 1px solid #666 !important;*/
+/*    margin-top: 5px !important;*/
+/*}*/
+
+/*.mbsc-calendar-title,*/
+/*.mbsc-button-icon {*/
+/*    color: black !important;*/
+/*    font-weight: 700 !important;*/
+/*}*/
+
+/*.mbsc-calendar-week-day {*/
+/*    font-size: 16px !important;*/
+/*    font-weight: 700 !important;*/
+/*}*/
+
+/*.mbsc-calendar-cell-text {*/
+/*    border-radius: 2px !important;*/
+/*}*/
+
+.calendar__header,
+.calendar__monthyear {
+    font-size: 18px !important;
 }
 
-.mbsc-calendar-week-day {
+.calendar__weekdays {
     font-size: 16px !important;
-    font-weight: 700 !important;
 }
 
-.mbsc-calendar-cell-text {
-    border-radius: 2px !important;
+.calendar__weekdays .calendar__weekday {
+    font-weight: 600 !important;
+    opacity: 1 !important;
+}
+
+.calendar__days {
+    font-size: 16px !important;
+}
+
+.calendar__day-other {
+    opacity: 0.7 !important;
+}
+
+.calendar__day-selected .calendar__day-box {
+    background-color: #0b93ff !important;
+}
+
+.calendar__picker-month,
+.calendar__picker-year {
+    font-size: 16px !important;
+}
+
+.calendar__picker-month-selected,
+.calendar__picker-year-selected {
+    background-color: #0b93ff !important;
+}
+
+.calendar__picker-year-today,
+.calendar__picker-month-today {
+    border: 1px solid #0b93ff !important;
 }
 
 .advertising-back-image {

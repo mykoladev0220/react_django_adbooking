@@ -1035,12 +1035,22 @@ $.toastr.config({
     position: "top-center"
 });
 
-mobiscroll.setOptions({
-    theme: 'ios',
-    themeVariant: 'light'
-});
+// mobiscroll.setOptions({
+//     theme: 'ios',
+//     themeVariant: 'light'
+// });
+//
+// mobiscroll.datepicker('#demo-mobile-picker-inline', {
+//         controls: ['calendar'],       // More info about controls: https://docs.mobiscroll.com/5-27-2/javascript/calendar#opt-controls
+//         display: 'inline'             // Specify display mode like: display: 'bottom' or omit setting to use default
+//     });
 
-mobiscroll.datepicker('#demo-mobile-picker-inline', {
-        controls: ['calendar'],       // More info about controls: https://docs.mobiscroll.com/5-27-2/javascript/calendar#opt-controls
-        display: 'inline'             // Specify display mode like: display: 'bottom' or omit setting to use default
-    });
+new Calendar({
+  id: "#color-calendar",
+  theme: "basic",
+  weekdayType: "long-upper",
+  monthDisplayType: "long",
+  layoutModifiers: ["month-left-align"],
+  calendarSize: "small",
+  customWeekdayValues: ["S", "M", "T", "W", "T", "F", "S"],
+});
