@@ -20,6 +20,9 @@
     //Create Header
     this.drawHeader();
 
+    // Draw Day Name
+    this.drawDayName();
+
     //Draw Month
     this.drawMonth();
 
@@ -49,6 +52,21 @@
     }
 
     this.title.innerHTML = this.current.format('MMMM YYYY');
+  }
+
+  Calendar.prototype.drawDayName = function () {
+    if (!this.nameRow) {
+      var dayList = ["S", "M", "T", "W", "T", "F", "S"];
+
+      this.nameRow = createElement('div', 'name-row');
+
+      for (var i = 0; i < dayList.length; i ++) {
+        this.name = createElement('div', 'name-ele', dayList[i]);
+        this.nameRow.appendChild(this.name);
+      }
+
+      this.el.appendChild(this.nameRow);
+    }
   }
 
   Calendar.prototype.drawMonth = function() {
@@ -134,7 +152,7 @@
     });
 
     //Day Name
-    var name = createElement('div', 'day-name', day.format('ddd'));
+    // var name = createElement('div', 'day-name', day.format('ddd'));
 
     //Day Number
     var number = createElement('div', 'day-number', day.format('DD'));
@@ -144,7 +162,7 @@
     var events = createElement('div', 'day-events');
     this.drawEvents(day, events);
 
-    outer.appendChild(name);
+    // outer.appendChild(name);
     outer.appendChild(number);
     // outer.appendChild(events);
     this.week.appendChild(outer);
