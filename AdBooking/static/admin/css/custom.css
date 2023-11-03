@@ -150,67 +150,6 @@ h5 {
     margin-top: 5px !important;
 }
 
-/*#demo-mobile-picker-inline {*/
-/*    border: 1px solid #666 !important;*/
-/*    margin-top: 5px !important;*/
-/*}*/
-
-/*.mbsc-calendar-title,*/
-/*.mbsc-button-icon {*/
-/*    color: black !important;*/
-/*    font-weight: 700 !important;*/
-/*}*/
-
-/*.mbsc-calendar-week-day {*/
-/*    font-size: 16px !important;*/
-/*    font-weight: 700 !important;*/
-/*}*/
-
-/*.mbsc-calendar-cell-text {*/
-/*    border-radius: 2px !important;*/
-/*}*/
-
-.calendar__header,
-.calendar__monthyear {
-    font-size: 18px !important;
-}
-
-.calendar__weekdays {
-    font-size: 16px !important;
-}
-
-.calendar__weekdays .calendar__weekday {
-    font-weight: 600 !important;
-    opacity: 1 !important;
-}
-
-.calendar__days {
-    font-size: 16px !important;
-}
-
-.calendar__day-other {
-    opacity: 0.7 !important;
-}
-
-.calendar__day-selected .calendar__day-box {
-    background-color: #0b93ff !important;
-}
-
-.calendar__picker-month,
-.calendar__picker-year {
-    font-size: 16px !important;
-}
-
-.calendar__picker-month-selected,
-.calendar__picker-year-selected {
-    background-color: #0b93ff !important;
-}
-
-.calendar__picker-year-today,
-.calendar__picker-month-today {
-    border: 1px solid #0b93ff !important;
-}
-
 .advertising-back-image {
     width: 130%;
     position: absolute;
