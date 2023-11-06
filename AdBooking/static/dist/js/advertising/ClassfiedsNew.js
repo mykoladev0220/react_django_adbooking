@@ -438,8 +438,6 @@ function adFormat_next() {
                                             </button>
 
                                             <h4 class="black">$<span id="pub-price-` + index + `-0">0.00</span></h4>
-                                            
-                                            <div id="pub-del-` + index + `-0" class="pub-del" onclick="deletePublication(` + index + `, 0)"><i class="fa fa-trash"></i></div>
                                         </div>
 
                                         <hr class="black">
@@ -558,6 +556,8 @@ function createAdItem() {
         document.getElementById("ad-size-" + demo_index + "-" + pub_index + "-" + editAdSel).innerHTML = adSize;
         document.getElementById("ad-rate-" + demo_index + "-" + pub_index + "-" + editAdSel).innerHTML = adRate;
         document.getElementById("adjustment-item-" + demo_index + "-" + pub_index + "-" + editAdSel).innerHTML = adjustmentListText;
+
+        getUpdatedPublicationTotalPrice(demo_index, pub_index);
     } else {
         innerHtml += `<div id="edit-ad-item-` + demo_index + `-` + pub_index + `-` + nextAdItemId + `" class="edit-ad-item">
                             <div class="edit-ad-item-title">
@@ -665,6 +665,36 @@ function createAdItem() {
     selectedAdjustmentList.forEach(row => {
         row.style.visibility = "hidden";
     });
+}
+
+function getUpdatedPublicationTotalPrice(demo, pub) {
+    let pubEle = document.getElementById("pub-price-" + demo + "-" + pub);
+    let AdList = getChildNodeList(pubEle);
+
+    let pubTotalPrice = 0;
+    for (let i = 0; i < AdList.length; i ++) {
+        let tempAdItemId = AdList[i].id;
+        let AdIdx = tempAdItemId.charAt(tempAdItemId.length - 1);
+
+        let count = parseInt(document.getElementById("ad-count-" + demo + "-" + pub + "-" + AdIdx).value);
+        let price = parseInt(document.getElementById("ad-unit-price-" + demo + "-" + pub + "-" + AdIdx).innerText);
+        let adPrice = count * price;
+
+        let adjEle = document.getElementById("adjustment-item-" + demo + "-" + pub + "-" + AdIdx);
+        let adjList = getChildNodeList(adjEle);
+
+        let adjTotalPrice = 0;
+        for (let j = 0; j < adjList.length; j ++) {
+            let adjItemEle = adjList[j];
+            let adjPrice = parseInt(adjItemEle.querySelector("#adj-amount").innerText.slice(1));
+
+            adjTotalPrice += adjPrice;
+        }
+
+        pubTotalPrice = adPrice + adjTotalPrice;
+    }
+
+    pubEle.innerText = pubTotalPrice.toString();
 }
 
 function createNewPub(index) {
@@ -781,18 +811,22 @@ function updateTotal(demo_index) {
         let tempSpecId = specList[i].id;
         let tempSpecIdx = tempSpecId.charAt(tempSpecId.length - 1);
 
-        // calculate the print ad price
-        let pubPrice = document.getElementById("pub-price-" + demo_index + "-" + tempSpecIdx).innerText;
-        printAdPrice += parseFloat(pubPrice);
-
         // calculate the adjustments price
         let pubItem = document.getElementById("edit-ad-" + demo_index + "-" + tempSpecIdx);
         let pubItemList = getChildNodeList(pubItem);
-        let adjAmount = 0;
 
+        let adPrice = 0;
+        let adjAmount = 0;
         for (let j = 0; j < pubItemList.length; j ++) {
             let tempId = pubItemList[j].id;
             let tempIdx = tempId.charAt(tempId.length - 1);
+
+            let count = document.getElementById("ad-count-" + demo_index + "-" + tempSpecIdx + "-" + tempIdx).value;
+            let adPrice = parseInt(document.getElementById("ad-unit-price-" + demo_index + "-" + tempSpecIdx + "-" + tempIdx).innerText);
+            adPrice = parseInt(count) * adPrice;
+
+            printAdPrice += adPrice;
+
             let adjItemElement = document.querySelector("#adjustment-item-" + demo_index + "-" + tempSpecIdx + "-" + tempIdx);
             let adjItemElementList = getChildNodeList(adjItemElement);
 
@@ -802,7 +836,7 @@ function updateTotal(demo_index) {
                 adjAmount = adjAmount + parseFloat(tempAmount.replace(/\$/g, ""));
             }
         }
-
+        
         printAdjPrice += adjAmount;
     }
 
