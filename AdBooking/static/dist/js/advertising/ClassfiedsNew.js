@@ -668,8 +668,8 @@ function createAdItem() {
 }
 
 function getUpdatedPublicationTotalPrice(demo, pub) {
-    let pubEle = document.getElementById("pub-price-" + demo + "-" + pub);
-    let AdList = getChildNodeList(pubEle);
+    let AdEle = document.getElementById("edit-ad-" + demo + "-" + pub);
+    let AdList = getChildNodeList(AdEle);
 
     let pubTotalPrice = 0;
     for (let i = 0; i < AdList.length; i ++) {
@@ -694,7 +694,7 @@ function getUpdatedPublicationTotalPrice(demo, pub) {
         pubTotalPrice = adPrice + adjTotalPrice;
     }
 
-    pubEle.innerText = pubTotalPrice.toString();
+    document.getElementById("pub-price-" + demo + "-" + pub).innerText = pubTotalPrice.toString();
 }
 
 function createNewPub(index) {
@@ -836,7 +836,7 @@ function updateTotal(demo_index) {
                 adjAmount = adjAmount + parseFloat(tempAmount.replace(/\$/g, ""));
             }
         }
-        
+
         printAdjPrice += adjAmount;
     }
 
@@ -1086,13 +1086,9 @@ function deleteAdItem(demo, pub, ad) {
     let parentItem = document.getElementById("edit-ad-" + demo + "-" + pub);
     let removeItem = document.getElementById("edit-ad-item-" + demo + "-" + pub + "-" + ad);
 
-    let pubPriceEle = document.getElementById("pub-price-" + demo + "-" + pub);
-    let pubPrice = pubPriceEle.innerHTML;
-    let adPrice = document.getElementById("ad-unit-price-" + demo + "-" + pub + "-" + ad).innerHTML;
-
-    pubPriceEle.innerHTML = (parseFloat(pubPrice) - parseFloat(adPrice)).toString();
-
     parentItem.removeChild(removeItem);
+
+    getUpdatedPublicationTotalPrice(demo, pub);
 }
 
 function deletePublication(demo, pub) {
