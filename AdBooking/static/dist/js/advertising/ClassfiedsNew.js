@@ -527,14 +527,16 @@ function createAdItem() {
     let elePubPrice = document.getElementById("pub-price-" + demo_index + "-" + pub_index);
     let pubPrice = elePubPrice.innerHTML;
     pubPrice = parseFloat(pubPrice) + parseFloat(adUnitPrice);
-    elePubPrice.innerHTML = pubPrice;
 
     let adjustmentListText = "";
+    let adjustmentPrice = 0;
     for (let j = 0; j < selectedAdjustmentArray.length; j ++) {
         let adjustmentItem = document.getElementById("adjustments_list-" + selectedAdjustmentArray[j]);
         let adjCode = adjustmentItem.querySelector("#ad-adj-code").innerText;
         let adjAmount = adjustmentItem.querySelector("#ad-adj-amount").innerText;
         let adjId = adjustmentItem.querySelector("#ad-adj-id").value;
+
+        adjustmentPrice += parseInt(adjAmount.slice(1));
 
         let ad_index = "";
         ad_index = editAdFlag ? ad_index = editAdSel : nextAdItemId;
@@ -546,6 +548,8 @@ function createAdItem() {
                                 <input id="adj-id" type="hidden" value="` + adjId + `">
                                </div>`;
     }
+
+    elePubPrice.innerHTML = pubPrice + adjustmentPrice;
 
     if (editAdFlag) {
         document.getElementById("ad-name-" + demo_index + "-" + pub_index + "-" + editAdSel).innerHTML = adName;
@@ -736,18 +740,28 @@ function updatePublicationPrice (event, demo, pub, ad) {
     let elePubPrice = document.getElementById("pub-price-" + demo + "-" + pub);
     let pubPrice = "0.00";
 
-    let adList = document.getElementById("edit-ad-" + demo + "-" + pub).childNodes;
-    for (let j = 0; j < adList.length; j ++) {
-        if (adList[j].tagName !== "DIV") {
-            document.getElementById("edit-ad-" + demo + "-" + pub).removeChild(adList[j]);
-        }
-    }
+    let adListEle = document.getElementById("edit-ad-" + demo + "-" + pub);
+    let adList = getChildNodeList(adListEle);
 
     for (let i = 0; i < adList.length; i ++) {
-        let unitPrice = document.getElementById("ad-unit-price-" + demo + "-" + pub + "-" + i).innerText;
-        let count = document.getElementById("ad-count-" + demo + "-" + pub + "-" + i).value;
+        let adItemId = adList[i].id;
+        let adItemIndex = adItemId.charAt(adItemId.length - 1);
 
-        pubPrice = parseFloat(pubPrice) + parseFloat(count) * parseFloat(unitPrice);
+        let unitPrice = document.getElementById("ad-unit-price-" + demo + "-" + pub + "-" + adItemIndex).innerText;
+        let count = document.getElementById("ad-count-" + demo + "-" + pub + "-" + adItemIndex).value;
+
+        let adjustmentEle = document.getElementById("adjustment-item-" + demo + "-" + pub + "-" + adItemIndex);
+        let adjustmentList = getChildNodeList(adjustmentEle);
+
+        let adjustmentPrice = 0;
+        for (let j = 0; j < adjustmentList.length; j ++) {
+            let adjustmentItem = adjustmentList[j];
+            let adjustmentAmount = adjustmentItem.querySelector("#adj-amount").innerHTML.slice(1);
+
+            adjustmentPrice += parseInt(adjustmentAmount);
+        }
+
+        pubPrice = parseFloat(pubPrice) + parseFloat(count) * parseFloat(unitPrice) + adjustmentPrice;
     }
 
     elePubPrice.innerHTML = pubPrice;
