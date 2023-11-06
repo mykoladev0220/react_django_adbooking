@@ -761,6 +761,19 @@ td a:hover {
     margin-right: 20px;
 }
 
+.pub-del {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #B32D2E;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2.5px;
+}
+
 .c-ad-spec-label {
     color: #666;
     font-size: 12px;

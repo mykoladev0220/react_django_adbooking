@@ -137,22 +137,25 @@ function publication_next() {
 
         let sumPubItemListEle = "";
         for (let pub_idx = 0; pub_idx < pubItemList.length; pub_idx ++) {
-            let adEle = document.getElementById("edit-ad-" + demo_idx + "-" + pub_idx);
+            let tempPubId = pubItemList[pub_idx].id;
+            let tempPubIndex = tempPubId.charAt(tempPubId.length - 1);
+
+            let adEle = document.getElementById("edit-ad-" + demo_idx + "-" + tempPubIndex);
             let adItemList = getChildNodeList(adEle);
 
             let sumAdItemListEle = "";
             for (let ad_idx = 0; ad_idx < adItemList.length; ad_idx ++) {
-                let tempId = adItemList[ad_idx].id; ``
+                let tempId = adItemList[ad_idx].id;
                 let tempAdIndex = tempId.charAt(tempId.length - 1);
-                let adName = document.getElementById("ad-name-" + demo_idx + "-" + pub_idx + "-" + tempAdIndex).innerHTML;
-                let adCount = document.getElementById("ad-count-" + demo_idx + "-" + pub_idx + "-" + tempAdIndex).value;
-                let adUnitPrice = document.getElementById("ad-unit-price-" + demo_idx + "-" + pub_idx + "-" + tempAdIndex).innerHTML;
-                let adType = document.getElementById("ad-type-" + demo_idx + "-" + pub_idx + "-" + tempAdIndex).innerHTML;
-                let adSize = document.getElementById("ad-size-" + demo_idx + "-" + pub_idx + "-" + tempAdIndex).innerHTML;
-                let adRate = document.getElementById("ad-rate-" + demo_idx + "-" + pub_idx + "-" + tempAdIndex).innerHTML;
-                let adBrief = document.getElementById("ad-brief-" + demo_idx + "-" + pub_idx + "-" + tempAdIndex).innerHTML;
+                let adName = document.getElementById("ad-name-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIndex).innerHTML;
+                let adCount = document.getElementById("ad-count-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIndex).value;
+                let adUnitPrice = document.getElementById("ad-unit-price-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIndex).innerHTML;
+                let adType = document.getElementById("ad-type-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIndex).innerHTML;
+                let adSize = document.getElementById("ad-size-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIndex).innerHTML;
+                let adRate = document.getElementById("ad-rate-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIndex).innerHTML;
+                let adBrief = document.getElementById("ad-brief-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIndex).innerHTML;
 
-                let adjEle = document.getElementById("adjustment-item-" + demo_idx + "-" + pub_idx + "-" + tempAdIndex);
+                let adjEle = document.getElementById("adjustment-item-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIndex);
                 let adjEleList = getChildNodeList(adjEle);
 
                 let sumAdjItemListEle = "";
@@ -161,30 +164,30 @@ function publication_next() {
                     let adjName = temp.querySelector("#adj-name").innerText;
                     let adjAmount = temp.querySelector("#adj-amount").innerText;
 
-                    sumAdjItemListEle += `<div id="sum-ad-adj-item-` + demo_idx + `-` + pub_idx + `-` + tempAdIndex + `-` + adj_idx + `" class="flex-row sel-adjustment">
+                    sumAdjItemListEle += `<div id="sum-ad-adj-item-` + demo_idx + `-` + tempPubIndex + `-` + tempAdIndex + `-` + adj_idx + `" class="flex-row sel-adjustment">
                                             <h5 id="sum-ad-adj-code" class="black">` + adjName + `</h5>
                                             <h5 id="sum-ad-adj-amount" class="black">` + adjAmount + `</h5>
                                           </div>`;
                 }
 
-                sumAdItemListEle += `<div id="sum-edit-ad-item-` + demo_idx + `-` + pub_idx + `-` + tempAdIndex + `" class="edit-ad-item">
+                sumAdItemListEle += `<div id="sum-edit-ad-item-` + demo_idx + `-` + tempPubIndex + `-` + tempAdIndex + `" class="edit-ad-item">
                                             <div class="edit-ad-item-title">
-                                                <span id="sum-ad-name-` + demo_idx + `-` + pub_idx + `-` + tempAdIndex + `">` + adName + `</span>
+                                                <span id="sum-ad-name-` + demo_idx + `-` + tempPubIndex + `-` + tempAdIndex + `">` + adName + `</span>
             
                                                 <h6>Qty:</h6>
                                                     
-                                                <h6 id="sum-ad-count-` + demo_idx + `-` + pub_idx + `-` + tempAdIndex + `" style="margin-left: 5px">` + adCount + `</h6>
+                                                <h6 id="sum-ad-count-` + demo_idx + `-` + tempPubIndex + `-` + tempAdIndex + `" style="margin-left: 5px">` + adCount + `</h6>
             
-                                                <h4 class="black">$<span id="sum-ad-unit-price-` + demo_idx + `-` + pub_idx + `-` + tempAdIndex + `">` + adUnitPrice + `</span></h4>
+                                                <h4 class="black">$<span id="sum-ad-unit-price-` + demo_idx + `-` + tempPubIndex + `-` + tempAdIndex + `">` + adUnitPrice + `</span></h4>
                                             </div>
             
-                                            <div id="sum-ad-content-` + demo_idx + `-` + pub_idx + `-` + tempAdIndex + `" style="display: none">
+                                            <div id="sum-ad-content-` + demo_idx + `-` + tempPubIndex + `-` + tempAdIndex + `" style="display: none">
                                                 <div class="value-items">
                                                     <div class="value-items-half">
                                                         <div class="ad-type">
                                                             <div class="ad-type-label">Ad Type:</div>
                 
-                                                            <div id="sum-ad-type-` + demo_idx + `-` + pub_idx + `-` + tempAdIndex + `" class="ad-type-value">` + adType + `</div>
+                                                            <div id="sum-ad-type-` + demo_idx + `-` + tempPubIndex + `-` + tempAdIndex + `" class="ad-type-value">` + adType + `</div>
                                                         </div>
                 
                                                         <div class="ad-date">
@@ -200,13 +203,13 @@ function publication_next() {
                                                         <div class="ad-type">
                                                             <div class="ad-type-label">Size:</div>
                 
-                                                            <div id="sum-ad-size-` + demo_idx + `-` + pub_idx + `-` + tempAdIndex + `" class="ad-type-value">` + adSize + `</div>
+                                                            <div id="sum-ad-size-` + demo_idx + `-` + tempPubIndex + `-` + tempAdIndex + `" class="ad-type-value">` + adSize + `</div>
                                                         </div>
                 
                                                         <div class="ad-date">
                                                             <div class="ad-type-label">Rates:</div>
                 
-                                                            <div id="sum-ad-rate-` + demo_idx + `-` + pub_idx + `-` + tempAdIndex + `" class="ad-type-value">` + adRate + `</div>
+                                                            <div id="sum-ad-rate-` + demo_idx + `-` + tempPubIndex + `-` + tempAdIndex + `" class="ad-type-value">` + adRate + `</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -215,20 +218,20 @@ function publication_next() {
                 
                                                 <div class="adjustment-label">Adjustments:</div>
                 
-                                                <div id="sum-adjustment-item-` + demo_idx + `-` + pub_idx + `-` + tempAdIndex + `" class="adjustment-value">
+                                                <div id="sum-adjustment-item-` + demo_idx + `-` + tempPubIndex + `-` + tempAdIndex + `" class="adjustment-value">
                                                     ` + sumAdjItemListEle + `
                                                 </div>
                 
                                                 <div class="c-ad-value-description">
                                                     <div class="adjustment-label">Description:</div>
                 
-                                                    <div id="sum-ad-brief-` + demo_idx + `-` + pub_idx + `-` + tempAdIndex + `" class="ad-type-value">
+                                                    <div id="sum-ad-brief-` + demo_idx + `-` + tempPubIndex + `-` + tempAdIndex + `" class="ad-type-value">
                                                         ` + adBrief + `
                                                     </div>
                                                 </div>
                                             </div>
             
-                                            <div class="collapse-icon" onclick="collapseEditSpecItem(this, ` + demo_idx + `, ` + pub_idx + `, ` + tempAdIndex + `, 1)">
+                                            <div class="collapse-icon" onclick="collapseEditSpecItem(this, ` + demo_idx + `, ` + tempPubIndex + `, ` + tempAdIndex + `, 1)">
                                                 <svg class="c-svg-active" xmlns="http://www.w3.org/2000/svg"
                                                      width="16" height="9" viewBox="0 0 16 9" fill="none">
                                                     <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 6V8H9V6H7Z"
@@ -244,9 +247,9 @@ function publication_next() {
                                         </div>`;
             }
 
-            let selectedPubId = document.getElementById("select-pub-" + demo_idx + "-" + pub_idx).value;
+            let selectedPubId = document.getElementById("select-pub-" + demo_idx + "-" + tempPubIndex).value;
             let selectedPubName = "";
-            let selectedPubPrice = document.getElementById("pub-price-" + demo_idx + "-" + pub_idx).innerHTML;
+            let selectedPubPrice = document.getElementById("pub-price-" + demo_idx + "-" + tempPubIndex).innerHTML;
 
             for (let item in publicationsList) {
                 if (publicationsList[item].pk == selectedPubId) {
@@ -254,16 +257,16 @@ function publication_next() {
                 }
             }
 
-            sumPubItemListEle += `<div id="sum-ad-spec-item-` + demo_idx + `-` + pub_idx + `" class="c-ad-spec-item">
+            sumPubItemListEle += `<div id="sum-ad-spec-item-` + demo_idx + `-` + tempPubIndex + `" class="c-ad-spec-item">
                                         <div class="select-publication">
-                                            <span id="sum-select-pub-` + demo_idx + `-` + pub_idx + `">` + selectedPubName + `</span>
+                                            <span id="sum-select-pub-` + demo_idx + `-` + tempPubIndex + `">` + selectedPubName + `</span>
             
-                                            <h4 class="black">$<span id="sum-pub-price-` + demo_idx + `-` + pub_idx + `">` + selectedPubPrice + `</span></h4>
+                                            <h4 class="black">$<span id="sum-pub-price-` + demo_idx + `-` + tempPubIndex + `">` + selectedPubPrice + `</span></h4>
                                         </div>
             
                                         <hr class="black">
             
-                                        <div id="sum-edit-ad-` + demo_idx + `-` + pub_idx + `" class="edit-ad">
+                                        <div id="sum-edit-ad-` + demo_idx + `-` + tempPubIndex + `" class="edit-ad">
                                             ` + sumAdItemListEle + `
                                         </div>
                                     </div>`;
@@ -335,6 +338,7 @@ function getChildNodeList(element) {
     for (let index = 0; index < elementList.length; index ++) {
         if (elementList[index].tagName !== "DIV") {
             element.removeChild(elementList[index]);
+            index --;
         }
     }
 
@@ -434,6 +438,8 @@ function adFormat_next() {
                                             </button>
 
                                             <h4 class="black">$<span id="pub-price-` + index + `-0">0.00</span></h4>
+                                            
+                                            <div id="pub-del-` + index + `-0" class="pub-del" onclick="deletePublication(` + index + `, 0)"><i class="fa fa-trash"></i></div>
                                         </div>
 
                                         <hr class="black">
@@ -661,32 +667,34 @@ function createNewPub(index) {
     let specItemArea = document.getElementById("spec-item-" + index);
     let innerHtml = document.getElementById("spec-item-" + index).innerHTML;
 
-    let specItems = document.querySelector("#spec-item-" + index).childNodes;
-    let specItemCount = 0;
-    for (let i = 0; i < specItems.length; i ++) {
-        if (specItems[i].tagName === "DIV") {
-            specItemCount ++;
-        }
-    }
+    let specItemEle = document.getElementById("spec-item-" + index);
+    let specItems = getChildNodeList(specItemEle);
+    let specLastItemId = specItems[specItems.length - 1].id;
+    let newItemIdx = parseInt(specLastItemId.charAt(specLastItemId.length - 1)) + 1;
 
-    innerHtml += `<div id="ad-spec-item-` + index + `-` + specItemCount + `" class="c-ad-spec-item">
+    innerHtml += `<div id="ad-spec-item-` + index + `-` + newItemIdx + `" class="c-ad-spec-item">
                             <div class="c-ad-spec-label">Select Your Publication:</div>
                             
                             <div class="select-publication">
-                                <select class="form-control" id="select-pub-` + index + `-` + specItemCount + `">
-                                    ` + pub_option_list +`
+                                <select class="form-control" id="select-pub-` + index + `-` + newItemIdx + `">
+                                    ` + pub_option_list + `
                                 </select>
 
-                                <button onclick="showAdItemModal(` + index + `, ` + specItemCount + `)" data-target="#create-ad" data-toggle="modal">
+                                <button onclick="showAdItemModal(` + index + `, ` + newItemIdx + `)" data-target="#create-ad" data-toggle="modal">
                                     + Start An Ad For This Publication
                                 </button>
 
-                                <h4 class="black">$<span id="pub-price-` + index + `-` + specItemCount + `">0.00</span></h4>
+                                <h4 class="black">$<span id="pub-price-` + index + `-` + newItemIdx + `">0.00</span></h4>
+                                
+                                <div id="pub-del-` + index + `-` + newItemIdx + `" class="pub-del" 
+                                    onclick="deletePublication(` + index + `, ` + newItemIdx + `)">
+                                    <i class="fa fa-trash"></i>
+                                </div>
                             </div>
 
                             <hr class="black">
 
-                            <div id="edit-ad-` + index + `-` + specItemCount + `" class="edit-ad">
+                            <div id="edit-ad-` + index + `-` + newItemIdx + `" class="edit-ad">
                                 
                             </div>
                         </div>`;
@@ -756,23 +764,26 @@ function updateTotal(demo_index) {
     let printAdjPrice = 0;
 
     for (let i = 0; i < specList.length; i ++) {
+        let tempSpecId = specList[i].id;
+        let tempSpecIdx = tempSpecId.charAt(tempSpecId.length - 1);
+
         // calculate the print ad price
-        let pubPrice = document.getElementById("pub-price-" + demo_index + "-" + i).innerText;
+        let pubPrice = document.getElementById("pub-price-" + demo_index + "-" + tempSpecIdx).innerText;
         printAdPrice += parseFloat(pubPrice);
 
         // calculate the adjustments price
-        let pubItem = document.getElementById("edit-ad-" + demo_index + "-" + i);
+        let pubItem = document.getElementById("edit-ad-" + demo_index + "-" + tempSpecIdx);
         let pubItemList = getChildNodeList(pubItem);
         let adjAmount = 0;
 
         for (let j = 0; j < pubItemList.length; j ++) {
             let tempId = pubItemList[j].id;
-            let tmepIdx = tempId.charAt(tempId.length - 1);
-            let adjItemElement = document.querySelector("#adjustment-item-" + demo_index + "-" + i + "-" + tmepIdx);
+            let tempIdx = tempId.charAt(tempId.length - 1);
+            let adjItemElement = document.querySelector("#adjustment-item-" + demo_index + "-" + tempSpecIdx + "-" + tempIdx);
             let adjItemElementList = getChildNodeList(adjItemElement);
 
             for (let adj_idx = 0; adj_idx < adjItemElementList.length; adj_idx ++) {
-                let temp = document.getElementById("ad-adj-item-" + demo_index + "-" + i + "-" + tmepIdx + "-" + adj_idx);
+                let temp = document.getElementById("ad-adj-item-" + demo_index + "-" + tempSpecIdx + "-" + tempIdx + "-" + adj_idx);
                 let tempAmount = temp.querySelector("#adj-amount").innerText;
                 adjAmount = adjAmount + parseFloat(tempAmount.replace(/\$/g, ""));
             }
@@ -866,25 +877,28 @@ function getCampaignDetail() {
         let cdPubEle = document.getElementById("sum-spec-item-" + demo_idx);
         let cdPubList = getChildNodeList(cdPubEle);
         for (let pub_idx = 0; pub_idx < cdPubList.length; pub_idx ++) {
-            let pubName = document.getElementById("sum-select-pub-" + demo_idx + "-" + pub_idx).innerText;
-            let pubPrice = document.getElementById("sum-pub-price-" + demo_idx + "-" + pub_idx).innerText;
+            let tempPubId = cdPubList[pub_idx].id;
+            let tempPubIndex = tempPubId.charAt(tempPubId.length - 1);
+
+            let pubName = document.getElementById("sum-select-pub-" + demo_idx + "-" + tempPubIndex).innerText;
+            let pubPrice = document.getElementById("sum-pub-price-" + demo_idx + "-" + tempPubIndex).innerText;
             let adArray = [];
 
-            let cdAdEle = document.getElementById("sum-edit-ad-" + demo_idx + "-" + pub_idx);
+            let cdAdEle = document.getElementById("sum-edit-ad-" + demo_idx + "-" + tempPubIndex);
             let dAdList = getChildNodeList(cdAdEle);
             for (let ad_idx = 0; ad_idx < dAdList.length; ad_idx ++) {
                 let tempId = dAdList[ad_idx].id;
                 let tempAdIdx = tempId.charAt(tempId.length - 1);
 
-                let adName = document.getElementById("sum-ad-name-" + demo_idx + "-" + pub_idx + "-" + tempAdIdx).innerText;
-                let adCount = document.getElementById("sum-ad-count-" + demo_idx + "-" + pub_idx + "-" + tempAdIdx).innerText;
-                let adPrice = document.getElementById("sum-ad-unit-price-" + demo_idx + "-" + pub_idx + "-" + tempAdIdx).innerText;
-                let adType = document.getElementById("sum-ad-type-" + demo_idx + "-" + pub_idx + "-" + tempAdIdx).innerText;
-                let adSize = document.getElementById("sum-ad-size-" + demo_idx + "-" + pub_idx + "-" + tempAdIdx).innerText;
-                let adRate = document.getElementById("sum-ad-rate-" + demo_idx + "-" + pub_idx + "-" + tempAdIdx).innerText;
+                let adName = document.getElementById("sum-ad-name-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIdx).innerText;
+                let adCount = document.getElementById("sum-ad-count-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIdx).innerText;
+                let adPrice = document.getElementById("sum-ad-unit-price-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIdx).innerText;
+                let adType = document.getElementById("sum-ad-type-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIdx).innerText;
+                let adSize = document.getElementById("sum-ad-size-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIdx).innerText;
+                let adRate = document.getElementById("sum-ad-rate-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIdx).innerText;
                 let adjArray = [];
 
-                let cdAdjEle = document.getElementById("sum-adjustment-item-" + demo_idx + "-" + pub_idx + "-" + tempAdIdx);
+                let cdAdjEle = document.getElementById("sum-adjustment-item-" + demo_idx + "-" + tempPubIndex + "-" + tempAdIdx);
                 let cdAdjList = getChildNodeList(cdAdjEle);
                 for (let adj_idx = 0; adj_idx < cdAdjList.length; adj_idx ++) {
                     let adjItem = cdAdjList[adj_idx];
@@ -992,6 +1006,7 @@ function editAdItem(demo, pub, ad) {
         innerHtml += `<div id="adjustments_list-` + id + `" class="mt-1 flex-row sel-adjustment">
                         <h5 id="ad-adj-code" class="black">` + code + `</h5>
                         <h5 id="ad-adj-amount" class="black">` + amount + `</h5>
+                        <input id="ad-adj-id" type="hidden" value="` + id + `">
                       </div>`;
 
         selectedAdjustmentArray.push(id);
@@ -1030,6 +1045,13 @@ function deleteAdItem(demo, pub, ad) {
     pubPriceEle.innerHTML = (parseFloat(pubPrice) - parseFloat(adPrice)).toString();
 
     parentItem.removeChild(removeItem);
+}
+
+function deletePublication(demo, pub) {
+    let publicationEle = document.getElementById("spec-item-" + demo);
+    let selPublication = document.getElementById("ad-spec-item-" + demo + "-" + pub);
+
+    publicationEle.removeChild(selPublication);
 }
 
 $.toastr.config({
