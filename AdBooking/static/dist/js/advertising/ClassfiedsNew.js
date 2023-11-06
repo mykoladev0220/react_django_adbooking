@@ -17,7 +17,7 @@ function selectAdFormat(public_id) {
     const selected_img = document.getElementById("favoriteIcon_" + public_id);
     const selected_name = document.getElementById("adTypeName_" + public_id).innerText;
 
-    let adFormatHoverEle = document.getElementById("ad-format-hover");
+    let adFormatHoverEle = document.getElementById("ad-format-hover-" + public_id);
 
     const visibility = selected_img.style.visibility;
 
