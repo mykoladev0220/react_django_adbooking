@@ -17,6 +17,8 @@ function selectAdFormat(public_id) {
     const selected_img = document.getElementById("favoriteIcon_" + public_id);
     const selected_name = document.getElementById("adTypeName_" + public_id).innerText;
 
+    let adFormatHoverEle = document.getElementById("ad-format-hover");
+
     const visibility = selected_img.style.visibility;
 
     if (visibility === 'visible') {
@@ -24,9 +26,11 @@ function selectAdFormat(public_id) {
         const index = selectedAdFormatsName.indexOf(selected_name);
         if (index !== -1)
             selectedAdFormatsName.splice(index, 1);
+        adFormatHoverEle.innerHTML = "Add to <br> Campaign!";
     } else {
         selected_img.style.visibility = 'visible';
         selectedAdFormatsName.push(selected_name);
+        adFormatHoverEle.innerHTML = "Added to <br> Campaign!";
     }
 }
 
