@@ -20,361 +20,359 @@
     <div class="content text-center">
         <h1 style="margin-bottom: 95px; margin-top: 32px">New Ad Campaign</h1>
         <div class="card c-card">
-            <div>
-                <div class="progress-icons">
-                    <div id="progress_0" class="progress-active"></div>
-                    <div id="progress_1"></div>
-                    <div id="progress_2"></div>
-                    <div id="progress_3"></div>
-                    <div id="progress_4"></div>
-                    <div id="progress_5"></div>
-                </div>
+            <div class="progress-icons">
+                <div id="progress_0" class="progress-active"></div>
+                <div id="progress_1"></div>
+                <div id="progress_2"></div>
+                <div id="progress_3"></div>
+                <div id="progress_4"></div>
+                <div id="progress_5"></div>
+            </div>
 
-                <div class="col-md-12" id="section1">
-                    <h2 class="sub-title" style="margin-top: 56px">Select An Advertiser</h2>
+            <div class="col-md-12" id="section1">
+                <h2 class="sub-title" style="margin-top: 25px">Select An Advertiser</h2>
 
-                    <div style="margin-top: 69px">
-                        <select id="search-select" class="form-control shadow" style="width: 50%">
-                            <option value="" disabled selected>
-                                Select an Advertiser
-                            </option>
-                            {% for account in accounts %}
-                            <option value="{{ account.id }}">
-                                {{ account.submitter }}
-                            </option>
-                            {% endfor %}
-                        </select>
-
-                        <span class="text-right"
-                              style="width: 50%; display: block; margin: auto; margin-top: 5px !important; color: black">
-                            Don't see your advertiser?
-                            <a style="cursor: pointer; color: #21215f; text-decoration: underline;" data-toggle="modal"
-                               data-target="#createAdvertiseModal">
-                                Click here to create one!
-                            </a>
-                        </span>
-                    </div>
-
-                    <div class="text-right" style="margin-top: 77px">
-                        <button class="btn btn-primary bg-primary shadow c-option-btn" onclick="advertiser_next()">
-                            Next
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"
-                                 fill="none">
-                                <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z"
-                                      fill="white"/>
-                            </svg>
-                        </button>
-                    </div>
-
-                    <img class="mt-2 c-background2" src="{% static 'svg/Ellipse 9.svg' %}">
-                </div>
-
-                <div class="col-md-12 hide" id="section2">
-                    <h2 class="mt-4 sub-title">Ad Campaign Info</h2>
-                    <div class="m-2">
-                        <form class="text-left c-form" action="#">
-                            <div class="form-group">
-                                <label for="orderName">*Order Name:</label>
-
-                                <input type="text" id="order-name" class="form-control shadow"
-                                       placeholder="Enter Order Name" name="orderName">
-                            </div>
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="sel1">*Sales Contact:</label>
-
-                                            <select class="form-control shadow" id="sales-contact" style="border-radius: 4px">
-                                                <option>Select a Salesperson</option>
-                                                {% for salesPerson in salesPersonQuery %}
-                                                <option value="{{ salesPerson.id }}">
-                                                    {{ salesPerson.first_name }} {{ salesPerson.last_name}}
-                                                </option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="start-date">*Start Date:</label>
-
-                                            <input type="date" id="start-date" style="border-radius: 4px;"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="end-date">End Date(optional):</label>
-
-                                            <input type="date" id="end-date" style="border-radius: 4px;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="brief">Brief Description(optional)</label>
-
-                                <textarea class="form-control shadow" rows="5" id="brief"
-                                          style="resize: none; border-radius: 4px;"></textarea>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="flex-row">
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(1)"
-                                style="width: 40%;">
-                            Previous
-                        </button>
-
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="campaign_next()"
-                                style="width: 40%;">
-                            Next
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"
-                                 fill="none">
-                                <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z"
-                                      fill="white"/>
-                            </svg>
-                        </button>
-                    </div>
-
-                    <img src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
-                </div>
-
-                <div class="col-md-12 hide" id="section3">
-                    <h2 class="mt-4 sub-title">Select Your Ad Format(s)</h2>
-
-                    <div class="flex-row c-p-adFormat">
-                        <button class="btn btn-primary bg-primary c-filter" onclick="filterAdFormats()">
-                            <img src={% static "svg/Vector (1).svg" %}>
-                            Filter
-                        </button>
-
-                        <div class="input-group-rounded" style="width:300px;float: right;">
-                            <input id="search-pub" type="text" class="form-control" placeholder="Search"/>
-
-                            <span class="input-group-mark">
-                                <i class="glyphicon glyphicon-search mr-1 primary"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="card scrollbar text-left c-adFormat" id="scrollbar1">
-                        <div id="ad-format" class="publication">
-                            {% for adType in adTypes %}
-                            <div id="ad_{{adType.id}}" class="col-md-4 pub_ele">
-                                <div class="flex-col pub-card">
-                                    <div class="c-ad-name">
-                                        <h3 id="adTypeName_{{adType.id}}" class="pub_name">{{adType.name}}</h3>
-                                    </div>
-
-                                    <div class="flex-row content-left c-ml-10" onclick="selectStar({{adType.id}})">
-                                        <img id="star_{{adType.id}}" src="{% static "svg/Star-white.svg" %}"
-                                        style="height: 18px;">&nbsp;
-
-                                        <h4 class="c-favorite" style="line-height: 20px;">Add to Favorites</h4>
-                                    </div>
-
-                                    <div class="c-adType-hover" onclick="selectAdFormat({{adType.id}})">
-                                        Added to <br> Campaign!
-                                    </div>
-                                </div>
-
-                                <div id="favoriteIcon_{{adType.id}}" class="text-center pub-mark">
-                                    <img src="{% static "svg/Vector (2).svg" %}" style="height: 15px; margin-top:8px;">
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-
-                    <div class="flex-row">
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(2)"
-                                style="width:40%;">
-                            Previous
-                        </button>
-
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="adFormat_next()"
-                                style="width:40%;">
-                            Next
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"
-                                 fill="none">
-                                <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z"
-                                      fill="white"/>
-                            </svg>
-                        </button>
-                    </div>
-
-                    <img src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
-                </div>
-
-                <div class="col-md-12 hide" id="section4">
-                    <h2 class="mt-4 sub-title">Select Your Ad Specs</h2>
-
-                    <div id="spec-area">
-
-                    </div>
-
-
-                    <div class="flex-row mt-4">
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(3)">
-                            Previous
-                        </button>
-
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="publication_next()">
-                            Next
-                        </button>
-                    </div>
-
-                    <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
-
-                    <select id="publication_data" style="display: none">
-                        {% for publication in publications %}
-                        <option value="{{publication.id}}">{{publication.name}}</option>
+                <div style="margin-top: 69px">
+                    <select id="search-select" class="form-control shadow" style="width: 50%">
+                        <option value="" disabled selected>
+                            Select an Advertiser
+                        </option>
+                        {% for account in accounts %}
+                        <option value="{{ account.id }}">
+                            {{ account.submitter }}
+                        </option>
                         {% endfor %}
                     </select>
+
+                    <span class="text-right"
+                          style="width: 50%; display: block; margin: auto; margin-top: 5px !important; color: black">
+                        Don't see your advertiser?
+                        <a style="cursor: pointer; color: #21215f; text-decoration: underline;" data-toggle="modal"
+                           data-target="#createAdvertiseModal">
+                            Click here to create one!
+                        </a>
+                    </span>
                 </div>
 
-                <div class="col-md-12 hide" id="section5">
-                    <div class="campaign-title">Campaign Summary</div>
+                <div class="text-right" style="margin-top: 77px">
+                    <button class="btn btn-primary bg-primary shadow c-option-btn" onclick="advertiser_next()">
+                        Next
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"
+                             fill="none">
+                            <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z"
+                                  fill="white"/>
+                        </svg>
+                    </button>
+                </div>
 
-                    <div class="text-left campaign-area">
-                        <div class="campaign-detail-label">Campaign Details</div>
+                <img class="mt-2 c-background2" src="{% static 'svg/Ellipse 9.svg' %}">
+            </div>
 
-                        <hr class="campaign-hr">
+            <div class="col-md-12 hide" id="section2">
+                <h2 class="mt-4 sub-title">Ad Campaign Info</h2>
+                <div class="m-2">
+                    <form class="text-left c-form" action="#">
+                        <div class="form-group">
+                            <label for="orderName">*Order Name:</label>
 
-                        <div class="row">
-                            <div class="col-md-6">
+                            <input type="text" id="order-name" class="form-control shadow"
+                                   placeholder="Enter Order Name" name="orderName">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="sel1">*Sales Contact:</label>
+
+                                        <select class="form-control shadow" id="sales-contact" style="border-radius: 4px">
+                                            <option>Select a Salesperson</option>
+                                            {% for salesPerson in salesPersonQuery %}
+                                            <option value="{{ salesPerson.id }}">
+                                                {{ salesPerson.first_name }} {{ salesPerson.last_name}}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="start-date">*Start Date:</label>
+
+                                        <input type="date" id="start-date" style="border-radius: 4px;"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="end-date">End Date(optional):</label>
+
+                                        <input type="date" id="end-date" style="border-radius: 4px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="brief">Brief Description(optional)</label>
+
+                            <textarea class="form-control shadow" rows="5" id="brief"
+                                      style="resize: none; border-radius: 4px;"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="flex-row">
+                    <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(1)"
+                            style="width: 40%;">
+                        Previous
+                    </button>
+
+                    <button class="btn btn-primary bg-primary c-option-btn" onclick="campaign_next()"
+                            style="width: 40%;">
+                        Next
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"
+                             fill="none">
+                            <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z"
+                                  fill="white"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <img src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
+            </div>
+
+            <div class="col-md-12 hide" id="section3">
+                <h2 class="mt-4 sub-title">Select Your Ad Format(s)</h2>
+
+                <div class="flex-row c-p-adFormat">
+                    <button class="btn btn-primary bg-primary c-filter" onclick="filterAdFormats()">
+                        <img src={% static "svg/Vector (1).svg" %}>
+                        Filter
+                    </button>
+
+                    <div class="input-group-rounded" style="width:300px;float: right;">
+                        <input id="search-pub" type="text" class="form-control" placeholder="Search"/>
+
+                        <span class="input-group-mark">
+                            <i class="glyphicon glyphicon-search mr-1 primary"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card scrollbar text-left c-adFormat" id="scrollbar1">
+                    <div id="ad-format" class="publication">
+                        {% for adType in adTypes %}
+                        <div id="ad_{{adType.id}}" class="col-md-4 pub_ele">
+                            <div class="flex-col pub-card">
+                                <div class="c-ad-name">
+                                    <h3 id="adTypeName_{{adType.id}}" class="pub_name">{{adType.name}}</h3>
+                                </div>
+
+                                <div class="flex-row content-left c-ml-10" onclick="selectStar({{adType.id}})">
+                                    <img id="star_{{adType.id}}" src="{% static "svg/Star-white.svg" %}"
+                                    style="height: 18px;">&nbsp;
+
+                                    <h4 class="c-favorite" style="line-height: 20px;">Add to Favorites</h4>
+                                </div>
+
+                                <div class="c-adType-hover" onclick="selectAdFormat({{adType.id}})">
+                                    Added to <br> Campaign!
+                                </div>
+                            </div>
+
+                            <div id="favoriteIcon_{{adType.id}}" class="text-center pub-mark">
+                                <img src="{% static "svg/Vector (2).svg" %}" style="height: 15px; margin-top:8px;">
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="flex-row">
+                    <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(2)"
+                            style="width:40%;">
+                        Previous
+                    </button>
+
+                    <button class="btn btn-primary bg-primary c-option-btn" onclick="adFormat_next()"
+                            style="width:40%;">
+                        Next
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"
+                             fill="none">
+                            <path d="M19.7071 8.70711C20.0976 8.31658 20.0976 7.68342 19.7071 7.29289L13.3431 0.928932C12.9526 0.538408 12.3195 0.538408 11.9289 0.928932C11.5384 1.31946 11.5384 1.95262 11.9289 2.34315L17.5858 8L11.9289 13.6569C11.5384 14.0474 11.5384 14.6805 11.9289 15.0711C12.3195 15.4616 12.9526 15.4616 13.3431 15.0711L19.7071 8.70711ZM0 9L19 9V7L0 7L0 9Z"
+                                  fill="white"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <img src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
+            </div>
+
+            <div class="col-md-12 hide" id="section4">
+                <h2 class="mt-4 sub-title">Select Your Ad Specs</h2>
+
+                <div id="spec-area">
+
+                </div>
+
+
+                <div class="flex-row mt-4">
+                    <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(3)">
+                        Previous
+                    </button>
+
+                    <button class="btn btn-primary bg-primary c-option-btn" onclick="publication_next()">
+                        Next
+                    </button>
+                </div>
+
+                <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
+
+                <select id="publication_data" style="display: none">
+                    {% for publication in publications %}
+                    <option value="{{publication.id}}">{{publication.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-12 hide" id="section5">
+                <div class="campaign-title">Campaign Summary</div>
+
+                <div class="text-left campaign-area">
+                    <div class="campaign-detail-label">Campaign Details</div>
+
+                    <hr class="campaign-hr">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="campaign-item">
+                                <div class="campaign-item-label">Campaign Name</div>
+
+                                <div id="sum-campaign-name" class="campaign-name">Campaign Name Goes Here</div>
+                            </div>
+
+                            <div class="campaign-item">
+                                <div class="campaign-item-label">Brief Descriptions</div>
+
+                                <div id="sum-brief" class="campaign-brief">
+                                    Lorem ipsum dolor sit amet, at natum omnes alienum est. Qui ad fabulas deleniti
+                                    pericula, doming semper ponderum at eam, et vim delectus consequat deterruisset.
+                                    Ne possim equidem pertinax eam, essent conclusionemque vim et. Usu ut vocent
+                                    fastidii, dicant apeirian vim ne, vis ex minimum lobortis consectetuer. Usu id
+                                    vero autem delicata, zril incorrupte et est. Est no soleat alienum.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="" style="display: flex; margin-left: 15px">
                                 <div class="campaign-item">
-                                    <div class="campaign-item-label">Campaign Name</div>
-
-                                    <div id="sum-campaign-name" class="campaign-name">Campaign Name Goes Here</div>
+                                    <div class="campaign-item-label">Start Date:</div>
+                                    <div class="campaign-item-value" id="sum-start-date">5/22/2023</div>
                                 </div>
 
-                                <div class="campaign-item">
-                                    <div class="campaign-item-label">Brief Descriptions</div>
-
-                                    <div id="sum-brief" class="campaign-brief">
-                                        Lorem ipsum dolor sit amet, at natum omnes alienum est. Qui ad fabulas deleniti
-                                        pericula, doming semper ponderum at eam, et vim delectus consequat deterruisset.
-                                        Ne possim equidem pertinax eam, essent conclusionemque vim et. Usu ut vocent
-                                        fastidii, dicant apeirian vim ne, vis ex minimum lobortis consectetuer. Usu id
-                                        vero autem delicata, zril incorrupte et est. Est no soleat alienum.
-                                    </div>
+                                <div class="campaign-item" style="margin-left: 25px">
+                                    <div class="campaign-item-label">End Date:</div>
+                                    <div class="campaign-item-value" id="sum-end-date">5/25/2023</div>
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="" style="display: flex; margin-left: 15px">
-                                    <div class="campaign-item">
-                                        <div class="campaign-item-label">Start Date:</div>
-                                        <div class="campaign-item-value" id="sum-start-date">5/22/2023</div>
-                                    </div>
-
-                                    <div class="campaign-item" style="margin-left: 25px">
-                                        <div class="campaign-item-label">End Date:</div>
-                                        <div class="campaign-item-value" id="sum-end-date">5/25/2023</div>
-                                    </div>
+                            <div style="display: flex">
+                                <div class="col-md-6 campaign-item">
+                                    <div class="campaign-item-label">Advertiser:</div>
+                                    <div id="sum-advertiser-name" class="campaign-item-value small-value">Advertiser Name Goes Here:</div>
                                 </div>
 
-                                <div style="display: flex">
-                                    <div class="col-md-6 campaign-item">
-                                        <div class="campaign-item-label">Advertiser:</div>
-                                        <div id="sum-advertiser-name" class="campaign-item-value small-value">Advertiser Name Goes Here:</div>
-                                    </div>
-
-                                    <div class="col-md-6 campaign-item">
-                                        <div class="campaign-item-label">Account #:</div>
-                                        <div id="sum-advertiser-id" class="campaign-item-value small-value">Account Goes Here:</div>
-                                    </div>
-                                </div>
-
-                                <div style="display: flex">
-                                    <div class="col-md-6 campaign-item">
-                                        <div class="campaign-item-label">Sales Contact:</div>
-                                        <div id="sum-sales-name" class="campaign-item-value small-value">Kyle Jerming</div>
-                                    </div>
-
-                                    <div class="col-md-6 campaign-item">
-                                        <div class="campaign-item-label">Contact ID #:</div>
-                                        <div id="sum-sales-id" class="campaign-item-value small-value">Account Goes Here:</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <div class="campaign-detail-label">Ad Details</div>
-
-                            <hr class="ad-hr">
-
-                            <div id="sum-ad-details"></div>
-                        </div>
-
-                        <div class="mt-4">
-                            <div class="flex-row">
-                                <div class="campaign-item-label">Subtotal:</div>
-                                <div class="campaign-item-value small-value mr-2">
-                                    $<span id="sum-print-total">0.00</span>
+                                <div class="col-md-6 campaign-item">
+                                    <div class="campaign-item-label">Account #:</div>
+                                    <div id="sum-advertiser-id" class="campaign-item-value small-value">Account Goes Here:</div>
                                 </div>
                             </div>
 
-                            <div class="flex-row">
-                                <div class="campaign-item-label">Total Adjustments:</div>
-                                <div class="campaign-item-value small-value mr-2">
-                                    $<span id="sum-adj-total">0.00</span>
+                            <div style="display: flex">
+                                <div class="col-md-6 campaign-item">
+                                    <div class="campaign-item-label">Sales Contact:</div>
+                                    <div id="sum-sales-name" class="campaign-item-value small-value">Kyle Jerming</div>
                                 </div>
-                            </div>
 
-                            <hr>
-
-                            <div class="flex-row mt-4">
-                                <div class="campaign-item-label big-campaign-label">Campaign Total:</div>
-                                <div class="campaign-item-value big-campaign-label mr-2">
-                                    $<span id="sum-campaign-total">0.00</span>
+                                <div class="col-md-6 campaign-item">
+                                    <div class="campaign-item-label">Contact ID #:</div>
+                                    <div id="sum-sales-id" class="campaign-item-value small-value">Account Goes Here:</div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="mt-2">
+                        <div class="campaign-detail-label">Ad Details</div>
 
-                    <div class="flex-row" style="margin-top: 40px">
-                        <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(4)"
-                                style="margin: 0">
-                            Previous
-                        </button>
+                        <hr class="ad-hr">
 
-                        <button class="btn btn-primary origin c-option-btn" onclick="summary_next()" style="margin: 0">
-                            Create
-                            Campaign!
-                        </button>
+                        <div id="sum-ad-details"></div>
                     </div>
 
-                    <img class="mt-2 campaign-summary-back" src="{% static "svg/Ellipse 9 (1).svg" %}">
+                    <div class="mt-4">
+                        <div class="flex-row">
+                            <div class="campaign-item-label">Subtotal:</div>
+                            <div class="campaign-item-value small-value mr-2">
+                                $<span id="sum-print-total">0.00</span>
+                            </div>
+                        </div>
+
+                        <div class="flex-row">
+                            <div class="campaign-item-label">Total Adjustments:</div>
+                            <div class="campaign-item-value small-value mr-2">
+                                $<span id="sum-adj-total">0.00</span>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="flex-row mt-4">
+                            <div class="campaign-item-label big-campaign-label">Campaign Total:</div>
+                            <div class="campaign-item-value big-campaign-label mr-2">
+                                $<span id="sum-campaign-total">0.00</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="col-md-12 hide" id="section6">
-                    <div class="m-2 text-center">
-                        <div class="success-label">Ad Campaign Created!</div>
+                <div class="flex-row" style="margin-top: 40px">
+                    <button class="btn btn-primary bg-primary c-option-btn" onclick="showSection(4)"
+                            style="margin: 0">
+                        Previous
+                    </button>
 
-                        <div id="favoriteIcon1" class="mt-2 adsuccess-mark">
-                            <img src="{% static "svg/Vector (2).svg" %}" style="height: 140px; margin-top: 35px;">
-                        </div>
-                    </div>
-
-                    <div class="flex-row m-2 ad-success-btn" style="justify-content: space-evenly">
-                        <button class="btn btn-primary" onclick="showSection(5)"
-                                style="width: 25%; background-color: rgb(33,33,95);">Create Another Ad Campaign
-                        </button>
-
-                        <a class="btn btn-primary bg-primary campaign-view" onclick="viewCampaign()">View Ad Campaign</a>
-
-                        <button class="btn btn-primary bg-primary" onclick="" style="width: 25%;">Print Receipt</button>
-                    </div>
-
-                    <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
+                    <button class="btn btn-primary origin c-option-btn" onclick="summary_next()" style="margin: 0">
+                        Create
+                        Campaign!
+                    </button>
                 </div>
+
+                <img class="mt-2 campaign-summary-back" src="{% static "svg/Ellipse 9 (1).svg" %}">
+            </div>
+
+            <div class="col-md-12 hide" id="section6">
+                <div class="m-2 text-center">
+                    <div class="success-label">Ad Campaign Created!</div>
+
+                    <div id="favoriteIcon1" class="mt-2 adsuccess-mark">
+                        <img src="{% static "svg/Vector (2).svg" %}" style="height: 140px; margin-top: 35px;">
+                    </div>
+                </div>
+
+                <div class="flex-row m-2 ad-success-btn" style="justify-content: space-evenly">
+                    <button class="btn btn-primary" onclick="showSection(5)"
+                            style="width: 25%; background-color: rgb(33,33,95);">Create Another Ad Campaign
+                    </button>
+
+                    <a class="btn btn-primary bg-primary campaign-view" onclick="viewCampaign()">View Ad Campaign</a>
+
+                    <button class="btn btn-primary bg-primary" onclick="" style="width: 25%;">Print Receipt</button>
+                </div>
+
+                <img class="mt-2" src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
             </div>
         </div>
     </div>
