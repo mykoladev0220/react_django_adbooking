@@ -776,7 +776,7 @@ td a:hover {
     max-height: 55px;
     margin-right: 15px;
     margin-bottom: 15px;
-    background: #FFF;
+    background: #f3f3f3;
     border-radius: 4px;
     border: 1px solid #000;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
@@ -840,7 +840,7 @@ td a:hover {
 
 .ad-delete-item {
     background: #B32D2E;
-    bottom: -10px;
+    top: 40px;
 }
 
 .value-items {

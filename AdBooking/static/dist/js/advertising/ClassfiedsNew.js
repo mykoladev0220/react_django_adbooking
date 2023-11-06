@@ -255,8 +255,6 @@ function publication_next() {
             }
 
             sumPubItemListEle += `<div id="sum-ad-spec-item-` + demo_idx + `-` + pub_idx + `" class="c-ad-spec-item">
-                                        <div class="c-ad-spec-label">Select Your Publication:</div>
-                                        
                                         <div class="select-publication">
                                             <span id="sum-select-pub-` + demo_idx + `-` + pub_idx + `">` + selectedPubName + `</span>
             
@@ -303,7 +301,7 @@ function publication_next() {
                                         <hr class="black mt-1" style="color: #666">
         
                                         <div class="price-label" style="margin-top: 6px">
-                                            <h5>Print Ad Subtotal:</h5>
+                                            <h5>` + selectedAdFormatsName[demo_idx] + ` Ad(s) Subtotal:</h5>
         
                                             <h5 class="c-mr-50">$<span id="sum-print-ad-price-` + demo_idx + `" >` + printAdPrice + `</span></h5>
                                         </div>
@@ -315,7 +313,7 @@ function publication_next() {
                                         </div>
         
                                         <div class="price-label">
-                                            <h4>Print Ad(s) Total:</h4>
+                                            <h4>` + selectedAdFormatsName[demo_idx] + ` Ad(s) Total:</h4>
         
                                             <h4 class="c-mr-50">$<span id="sum-print-total-price-` + demo_idx + `">` + printTotalPrice + `</span></h4>
                                         </div>
@@ -448,7 +446,7 @@ function adFormat_next() {
 
                                 <div class="ad-option-button">
                                     <div id="new-pub-` + index + `" class="ad-option-button-item" onclick="createNewPub(` + index + `)">
-                                        + Start A New Publication Ad
+                                        + Add a publication
                                     </div>
 
                                     <div class="ad-option-button-item update-button" onclick="updateTotal(` + index + `)">Update Total</div>
@@ -457,7 +455,7 @@ function adFormat_next() {
                                 <hr class="black mt-1" style="color: #666">
 
                                 <div class="price-label" style="margin-top: 6px">
-                                    <h5>Print Ad Subtotal:</h5>
+                                    <h5>` + selectedAdFormatsName[index] + ` Ad(s) Subtotal:</h5>
 
                                     <h5 class="c-mr-50">$<span id="print-ad-price-` + index + `" >0.00</span></h5>
                                 </div>
@@ -469,7 +467,7 @@ function adFormat_next() {
                                 </div>
 
                                 <div class="price-label">
-                                    <h4>Print Ad(s) Total:</h4>
+                                    <h4>` + selectedAdFormatsName[index] + ` Ad(s) Total:</h4>
 
                                     <h4 class="c-mr-50">$<span id="print-total-price-` + index + `">0.00</span></h4>
                                 </div>
