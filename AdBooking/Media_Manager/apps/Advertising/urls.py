@@ -163,6 +163,8 @@ urlpatterns = [
     path('admin/company/access/', views.view_user_company_access, name='view_user_company_access'),
     path('admin/company/user-access/', views.get_user_company_access, name='get_user_company_access'),
 
+	path('new-advertiser/', views.create_advertiser, name='create_advertiser'),
+
 	# Classifieds Routes
 	path('classifieds/', views.list_classifieds, name='list_classifieds'),
 	path('classifieds/new/', views.create_classified_ad, name='create_classified_ad'),

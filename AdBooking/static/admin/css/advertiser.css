@@ -1,0 +1,233 @@
+.advertiser-back-image {
+    width: 130%;
+    position: absolute;
+    top: 470px;
+    left: -300px;
+}
+
+.advertiser-back-image img {
+    width: 100%;
+}
+
+#advertiser-content {
+    margin: 65px 50px 0;
+}
+
+.advertiser-logo {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.advertiser-logo img {
+    width: 80px;
+    height: 75px;
+}
+
+.advertiser-title {
+    display: flex;
+    justify-content: center;
+    margin-top: 13px;
+}
+
+.advertiser-title span {
+    color: black;
+    font-size: 35px;
+    font-weight: 700;
+    text-align: center;
+    padding: 0 60px 15px 60px;
+    border-bottom: 3px solid #F26722;
+}
+
+.advertiser-info {
+    display: flex;
+    padding: 26px 35px 0;
+    margin: 40px;
+}
+
+.info-left,
+.info-right {
+    width: 50%;
+}
+
+.info-left {
+    padding-right: 120px;
+}
+
+.advertiser-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 36px;
+}
+
+.advertiser-item label {
+    color: black !important;
+    font-size: 18px !important;
+    font-weight: 700;
+    margin-bottom: 10px !important;
+}
+
+.advertiser-item-input {
+    width: 100%;
+    height: 35px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    color: black;
+    font-size: 18px !important;
+    padding-left: 10px !important;
+}
+
+.advertiser-item div {
+    width: 100%;
+    display: flex;
+}
+
+.advertiser-item div .advertiser-item-input {
+    width: calc((100% - 25px) / 2) !important;
+}
+
+.advertiser-item div .advertiser-item-input:first-child {
+    margin-right: 25px;
+}
+
+.advertiser-item-group {
+    display: flex;
+}
+
+.advertiser-item-group .advertiser-item {
+    width: calc((100% - 25px) / 2);
+}
+
+.advertiser-item-group .advertiser-item:first-child {
+    margin-right: 25px;
+}
+
+.advertiser-item label img {
+    margin-right: 4px;
+    margin-bottom: 5px;
+}
+
+.market {
+    width: 40% !important;
+    margin-right: 50px !important;
+}
+
+.sales {
+    width: calc(60% - 50px) !important;
+}
+
+.submitter {
+    width: 60% !important;
+    margin-right: 50px !important;
+}
+
+.legacy {
+    width: calc(40% - 50px) !important;
+}
+
+.legacy span {
+    color: rgba(102, 102, 102, 0.70) !important;
+    font-family: "Lato", serif;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.advertiser-billing-area {
+    margin-top: 28px;
+    margin-right: 46px;
+}
+
+.advertiser-billing-title {
+    border-bottom: 4px solid #F26722;
+    color: #21215F;
+    font-family: "Lato", serif;
+    font-size: 26px;
+    font-weight: 700;
+    padding-bottom: 11px;
+    margin-bottom: 24.25px;
+}
+
+.advertiser-address-type {
+    display: flex;
+    margin-bottom: 29px;
+}
+
+.advertiser-type-item {
+    height: 39px;
+    align-items: center;
+    border-radius: 18px;
+    display: flex;
+    padding-left: 13px;
+    padding-right: 13px;
+}
+
+.selected-radio {
+    background: rgba(33, 33, 95, 0.20);
+}
+
+.selected-radio .radio-button {
+    background-color: #F26722;
+}
+
+.advertiser-type-item:first-child {
+    margin-right: 20px;
+}
+
+.advertiser-type-item .radio-button {
+    width: 15px;
+    height: 15px;
+    border: .5px solid black;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-top: 0 !important;
+}
+
+.advertiser-type-item label {
+    margin-bottom: 0 !important;
+    color: black;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.state,
+.zipCode {
+    width: calc((100% - 300px) / 2) !important;
+    margin-bottom: 78px !important;
+}
+
+.state {
+    margin-right: 100px !important;
+}
+
+.zipCode {
+    margin-right: 200px !important;
+}
+
+.advertiser-option {
+    display: flex;
+    padding: 0 20% 0 7px;
+}
+
+.advertiser-option div {
+    border-radius: 5px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    color: #FFF;
+    font-family: "Lato", serif;
+    font-size: 25px;
+    font-weight: 400;
+    padding-left: 18px;
+    padding-right: 30px;
+}
+
+.advertiser-cancel {
+    background: #DF0000;
+}
+
+.advertiser-create {
+    background-color: #21215F;
+    margin-left: auto;
+}

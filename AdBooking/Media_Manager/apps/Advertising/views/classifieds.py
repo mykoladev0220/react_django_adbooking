@@ -84,6 +84,20 @@ def list_classifieds(request):
 
     return render(request, "classifieds/ListClassifieds.html", context)
 
+def create_advertiser(request):
+    if request is None or not request.user.is_authenticated:
+        return redirect(login_redirect + "advertising")
+
+    if not request.user.has_perm('BI.advertising_access'):
+        return render(request, "advertising.html",
+                      {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+
+    context = {
+
+    }
+
+    return render(request, "CreateNewAdvertiser.html", context)
+
 
 def create_classified_ad(request):
     if request is None or not request.user.is_authenticated:
