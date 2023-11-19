@@ -209,18 +209,20 @@
 
 .advertiser-option {
     display: flex;
-    padding: 0 20% 0 7px;
+    padding: 0 15% 0 7px;
 }
 
 .advertiser-option div {
+    height: 53px;
     border-radius: 5px;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     color: #FFF;
     font-family: "Lato", serif;
     font-size: 25px;
     font-weight: 400;
-    padding-left: 18px;
-    padding-right: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 53px;
 }
 
 .advertiser-cancel {
