@@ -1,7 +1,12 @@
+.content-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
 .advertiser-back-image {
     width: 130%;
     position: absolute;
-    top: 470px;
+    top: 410px;
     left: -300px;
 }
 
@@ -217,6 +222,7 @@
     border-radius: 5px;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     color: #FFF;
+    cursor: pointer;
     font-family: "Lato", serif;
     font-size: 25px;
     font-weight: 400;
