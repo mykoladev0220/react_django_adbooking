@@ -164,6 +164,7 @@ urlpatterns = [
     path('admin/company/user-access/', views.get_user_company_access, name='get_user_company_access'),
 
 	path('new-advertiser/', views.create_advertiser, name='create_advertiser'),
+	path('register-advertiser/', views.register_advertiser, name='register_advertiser'),
 
 	# Classifieds Routes
 	path('classifieds/', views.list_classifieds, name='list_classifieds'),

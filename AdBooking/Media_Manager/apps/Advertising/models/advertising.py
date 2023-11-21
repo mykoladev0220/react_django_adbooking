@@ -40,9 +40,9 @@ class IndustryCode(models.Model):
 
 class Account(models.Model):
     submitter = models.CharField(max_length=100)
-    account_type = models.ForeignKey('AccountType', on_delete=SET_NULL, null=True)
-    sales_person = models.ForeignKey('SalesPerson', on_delete=SET_NULL, null=True, default=None)
-    industry_code = models.ForeignKey('IndustryCode', on_delete=SET_NULL, null=True, default=None, related_name='account_industry_code')
+    account_type = models.ForeignKey('AccountType', null=True, on_delete=SET_NULL)
+    sales_person = models.ForeignKey('SalesPerson', null=True, on_delete=SET_NULL, default=None)
+    industry_code = models.ForeignKey('IndustryCode', null=True, on_delete=SET_NULL, default=None, related_name='account_industry_code')
     name = models.CharField(max_length=100)
     contact_name = models.CharField(max_length=255)
     address = models.CharField(max_length=100)
@@ -75,7 +75,11 @@ class Account(models.Model):
     write_off_period  = models.CharField(max_length=30, default=None)
     # use_credit_first = models.BooleanField(default=True)
     prepay_required = models.BooleanField(default=False)
-    billing_email = models.EmailField(max_length=150)
+    billing_email = models.EmailField(max_length=100)
+    billing_address = models.EmailField(max_length=100)
+    billing_city = models.EmailField(max_length=100)
+    billing_state = models.EmailField(max_length=100)
+    billing_zip_code = models.EmailField(max_length=100)
     # TODO - add a field for logo image
     # TODO - add a field for secondary legacy id (will be exactly like the first legacy id)
 
@@ -108,11 +112,17 @@ class AccountType(models.Model):
     code = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         db_table = 'advertising_accounttype'
+
+class MarketCode(models.Model):
+    code = models.CharField(max_length=100)
+    description = models.CharField(max_length=100)
+    active = models.IntegerField(max_length=11)
+    account = models.ForeignKey('Account', on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = "advertising_marketcode"
 
 class CompanyContact(models.Model):
     account = models.ForeignKey('Account', on_delete=CASCADE)

@@ -34,51 +34,58 @@
                     <div class="advertiser-item">
                         <label>Account Type:</label>
 
-                        <select class="advertiser-item-input" style="width: 60%">
-                            <option disabled selected value="">Select</option>
+                        <select id="account-type" class="advertiser-item-input" style="width: 60%">
+                            <option disabled selected value="0">Select</option>
+                            {%for accountType in accountTypes%}
+                                <option value="{{accountType.id}}">{{accountType.name}}</option>
+                            {% endfor %}
                         </select>
                     </div>
 
                     <div class="advertiser-item">
                         <label>Contact Name:</label>
                         <div>
-                           <input type="text" class="advertiser-item-input" placeholder="First Name...">
+                           <input id="first-name" type="text" class="advertiser-item-input" placeholder="First Name...">
 
-                           <input type="text" class="advertiser-item-input" placeholder="Last Name...">
+                           <input id="last-name" type="text" class="advertiser-item-input" placeholder="Last Name...">
                         </div>
                     </div>
 
                     <div class="advertiser-item">
                         <label>Business Name:</label>
 
-                        <input type="text" class="advertiser-item-input" placeholder="Enter Business Name...">
+                        <input id="business-name" type="text" class="advertiser-item-input" placeholder="Enter Business Name...">
                     </div>
 
                     <div class="advertiser-item">
                         <label>Address:</label>
 
-                        <input type="text" class="advertiser-item-input" placeholder="Enter Address...">
+                        <input id="address" type="text" class="advertiser-item-input" placeholder="Enter Address...">
                     </div>
 
                     <div class="advertiser-item">
                         <label>City:</label>
 
-                        <input type="text" class="advertiser-item-input" placeholder="Enter City...">
+                        <input id="city" type="text" class="advertiser-item-input" placeholder="Enter City...">
                     </div>
 
                     <div class="advertiser-item-group">
                         <div class="advertiser-item">
                             <label>State:</label>
 
-                            <select class="advertiser-item-input">
-                                <option disabled selected value="">Select</option>
+                            <select id="state" class="advertiser-item-input">
+                                <option disabled selected value="0">Select</option>
+                                <option value="State1">State1</option>
+                                <option value="State2">State2</option>
+                                <option value="State3">State3</option>
+                                <option value="State4">State4</option>
                             </select>
                         </div>
 
                         <div class="advertiser-item">
                             <label>Zip Code:</label>
 
-                            <input type="text" class="advertiser-item-input" placeholder="Enter Zip Code...">
+                            <input id="zip-code" type="text" class="advertiser-item-input" placeholder="Enter Zip Code...">
                         </div>
                     </div>
 
@@ -89,7 +96,7 @@
                                 Phone Number:
                             </label>
 
-                            <input type="text" class="advertiser-item-input" placeholder="(111)111-1111">
+                            <input id="phone-number" type="text" class="advertiser-item-input" placeholder="(111)111-1111">
                         </div>
 
                         <div class="advertiser-item">
@@ -98,14 +105,14 @@
                                 Email:
                             </label>
 
-                            <input type="text" class="advertiser-item-input" placeholder="JhonSmith@gmail.com">
+                            <input id="email" type="text" class="advertiser-item-input" placeholder="JhonSmith@gmail.com">
                         </div>
                     </div>
 
                     <div class="advertiser-item">
                         <label>Website:</label>
 
-                        <input type="text" class="advertiser-item-input" style="width: 70%">
+                        <input id="website" type="text" class="advertiser-item-input" style="width: 70%">
                     </div>
                 </div>
 
@@ -114,16 +121,24 @@
                         <div class="advertiser-item market">
                             <label>Market Code:</label>
 
-                            <select class="advertiser-item-input">
-                                <option disabled selected value="">Select</option>
+                            <select id="market-code" class="advertiser-item-input">
+                                <option disabled selected value="0">Select</option>
+                                {% for marketCode in marketCodes %}
+                                    <option value="{{marketCode.id}}">{{marketCode.code}}</option>
+                                {% endfor %}
                             </select>
                         </div>
 
                         <div class="advertiser-item sales">
                             <label>Sales Person:</label>
 
-                            <select class="advertiser-item-input">
-                                <option disabled selected value="">Select</option>
+                            <select id="sales-person" class="advertiser-item-input">
+                                <option disabled selected value="0">Select</option>
+                                {% for salesPerson in salesPersons %}
+                                    <option value="{{ salesPerson.id }}">
+                                        {{ salesPerson.first_name }} {{ salesPerson.last_name}}
+                                    </option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -132,13 +147,13 @@
                         <div class="advertiser-item submitter">
                             <label>Submitter/Ad Taker:</label>
 
-                            <input type="text" class="advertiser-item-input" placeholder="Enter Submitter/Adtaker...">
+                            <input id="submitter" type="text" class="advertiser-item-input" placeholder="Enter Submitter/Adtaker...">
                         </div>
 
                         <div class="advertiser-item legacy">
                             <label>Legacy ID<span>(optional)</span>:</label>
 
-                            <input type="text" class="advertiser-item-input" placeholder="Enter Legacy ID...">
+                            <input id="legacy-id" type="text" class="advertiser-item-input" placeholder="Enter Legacy ID...">
                         </div>
                     </div>
 
@@ -152,16 +167,16 @@
                             Billing Email:
                         </label>
 
-                        <input type="text" class="advertiser-item-input" placeholder="companyemail@gmail.com" style="width: 55% !important;">
+                        <input id="billing-email" type="text" class="advertiser-item-input" placeholder="companyemail@gmail.com" style="width: 55% !important;">
                     </div>
 
                     <div class="advertiser-address-type">
-                        <div class="advertiser-type-item selected-radio">
+                        <div id="address-0" class="advertiser-type-item selected-radio" onclick="changeAddress(0)">
                             <div class="radio-button"></div>
                             <label>New Address</label>
                         </div>
 
-                        <div class="advertiser-type-item">
+                        <div id="address-1" class="advertiser-type-item" onclick="changeAddress(1)">
                             <div class="radio-button"></div>
                             <label>Use Same Address</label>
                         </div>
@@ -170,35 +185,39 @@
                     <div class="advertiser-item" style="margin-bottom: 29px">
                         <label>Address:</label>
 
-                        <input type="text" class="advertiser-item-input" placeholder="companyemail@gmail.com" style="width: 80%">
+                        <input id="billing-address" type="text" class="advertiser-item-input" placeholder="Enter Address..." style="width: 80%">
                     </div>
 
                     <div class="advertiser-item" style="margin-bottom: 29px">
                         <label>City:</label>
 
-                        <input type="text" class="advertiser-item-input" placeholder="Enter City..." style="width: 80%">
+                        <input id="billing-city" type="text" class="advertiser-item-input" placeholder="Enter City..." style="width: 80%">
                     </div>
 
                     <div class="advertiser-item-group">
                         <div class="advertiser-item state">
                             <label>State:</label>
 
-                            <select class="advertiser-item-input">
-                                <option disabled selected value="">Select</option>
+                            <select id="billing-state" class="advertiser-item-input">
+                                <option disabled selected value="0">Select</option>
+                                <option value="State1">State1</option>
+                                <option value="State2">State2</option>
+                                <option value="State3">State3</option>
+                                <option value="State4">State4</option>
                             </select>
                         </div>
 
                         <div class="advertiser-item zipCode">
                             <label>Zip Code:</label>
 
-                            <input type="text" class="advertiser-item-input" placeholder="Enter Legacy ID...">
+                            <input id="billing-zip-code" type="text" class="advertiser-item-input" placeholder="Enter Zip Code...">
                         </div>
                     </div>
 
                     <div class="advertiser-option">
-                        <div class="advertiser-cancel">Cancel</div>
+                        <div class="advertiser-cancel" onclick="goNewCampaign()">Cancel</div>
 
-                        <div class="advertiser-create">Create Account</div>
+                        <div class="advertiser-create" onclick="createAdvertiser()">Create Account</div>
                     </div>
                 </div>
             </div>

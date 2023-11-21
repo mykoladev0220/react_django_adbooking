@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 from .... import views
 
 # import the necessary models needed
-from ..models.advertising import Account, SalesPerson, wasCreatedRecently, Adjustment
+from ..models.advertising import Account, SalesPerson, AccountType, MarketCode, IndustryCode
 from ..models.publications import Publication, PublicationRunDay, getRunDays
 from ..models.classifieds import ClassifiedAd, ClassifiedGraphic, Classification, ClassifiedAdjustment, ClassifiedRate, \
     ClassifiedRatePublication, ClassifiedPublication, ClassifiedStyling, getClassifiedRates, ClassifiedPublicationRate, \
@@ -92,11 +92,83 @@ def create_advertiser(request):
         return render(request, "advertising.html",
                       {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
 
-    context = {
+    accountTypeQuery = AccountType.objects.all()
+    accountTypeList = serializers.serialize('json', accountTypeQuery)
 
+    marketCodeQuery = MarketCode.objects.all()
+    marketCodeList = serializers.serialize('json', marketCodeQuery)
+
+    salesPersonQuery = SalesPerson.objects.all()
+    salesPersonList = serializers.serialize('json', salesPersonQuery)
+
+    context = {
+        "accountTypes": accountTypeQuery,
+        "accountTypeList": accountTypeList,
+        "marketCodes": marketCodeQuery,
+        "marketCodeList": marketCodeList,
+        "salesPersons": salesPersonQuery,
+        "salesPersonList": salesPersonList
     }
 
     return render(request, "CreateNewAdvertiser.html", context)
+
+def register_advertiser(request):
+    if request is None or not request.user.is_authenticated:
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
+
+    if not request.user.has_perm('BI.advertising_access'):
+        return JsonResponse({"message": "Error. Access forbidden."}, status=403)
+
+    if request.method == 'POST':
+        body = request.body.decode('utf-8')
+        data = json.loads(body)
+
+        modal = Account()
+
+        try:
+            accountId = data['accountType']
+            account = AccountType.objects.get(pk=accountId)
+        except Account.DoesNotExist:
+            account = None
+
+        try:
+            industryCodeId = data['marketCode']
+            industryCode = IndustryCode.objects.get(pk=industryCodeId)
+        except Account.DoesNotExist:
+            industryCode = None
+
+        try:
+            salesPersonId = data['salesPerson']
+            salesPerson = SalesPerson.objects.get(pk=salesPersonId)
+        except Account.DoesNotExist:
+            salesPerson = None
+
+        modal.account_type = account
+        modal.contact_name = data['firstName'] + data['lastName']
+        modal.name = data['businessName']
+        modal.address = data['address']
+        modal.city = data['city']
+        modal.state = data['state']
+        modal.zip_code = data['zipCode']
+        modal.phone = data['phoneNumber']
+        modal.email = data['email']
+        modal.website = data['website']
+        modal.industry_code = industryCode
+        modal.sales_person = salesPerson
+        modal.submitter = data['submitter']
+        modal.legacy_id = data['legacyId']
+        modal.billing_email = data['bilEmail']
+        modal.billing_address = data['bilAddress']
+        modal.billing_city = data['bilCity']
+        modal.billing_state = data['bilState']
+        modal.billing_zip_code = data['bilZipCode']
+
+        modal.save()
+
+        return JsonResponse({'success': "Successful!"})
+    else:
+        return JsonResponse({'error': 'Invalid request'})
+
 
 
 def create_classified_ad(request):
