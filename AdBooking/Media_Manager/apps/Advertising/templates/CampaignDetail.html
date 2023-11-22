@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block endjs %}
-<!--<script src="{% static "dist/js/advertising/ClassfiedsNew.js" %}"></script>-->
+<script src="{% static "dist/js/advertising/CamapaignDetail.js" %}"></script>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -45,32 +45,31 @@
                     <div>History/Logs</div>
                 </div>
 
-                <div class="detail-option-list text-left">
-                    <button class="btn btn-edit">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 12 11" fill="none">
-                          <path d="M6.68706 2.00307L9.63142 4.75355L3.23786 10.7261L0.61272 10.9968C0.261291 11.0331 -0.0356291 10.7555 0.00346968 10.4272L0.29556 7.97325L6.68706 2.00307ZM11.4525 1.59358L10.07 0.302129C9.63878 -0.10071 8.93938 -0.10071 8.50814 0.302129L7.20753 1.51709L10.1519 4.26757L11.4525 3.0526C11.8837 2.64955 11.8837 1.99641 11.4525 1.59358Z" fill="white"/>
-                        </svg>
-                        Edit
-                    </button>
-
-                    <button class="btn btn-cancel">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
-                          <path d="M6.42324 0C2.8758 0 0 2.68628 0 6C0 9.31372 2.8758 12 6.42324 12C9.97068 12 12.8465 9.31369 12.8465 6C12.8465 2.68631 9.9707 0 6.42324 0ZM9.79305 2.85223C11.4882 4.43565 11.6061 6.8558 10.3286 8.55312L3.68999 2.352C5.50829 1.1579 8.09887 1.2697 9.79305 2.85223ZM3.05342 9.14777C1.35831 7.56435 1.24041 5.1442 2.51788 3.44688L9.15648 9.648C7.33821 10.8421 4.7476 10.7303 3.05342 9.14777Z" fill="white"/>
-                        </svg>
-                        Cancel
-                    </button>
-
-                    <button class="btn btn-duplicate">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                          <path d="M3.15337 2.48249C0.149493 4.40256 -0.372059 7.99947 1.62702 10.7284C3.62609 13.4573 7.40421 14.3059 10.4081 12.3858C11.2982 11.8213 12.0284 11.0637 12.5362 10.1777C13.0439 9.29179 13.3141 8.30403 13.3234 7.29915L11.1853 7.43797C11.142 8.67737 10.5124 9.89567 9.34621 10.6411C7.40253 11.8835 4.68776 11.365 3.394 9.59892C2.10025 7.83284 2.56605 5.28132 4.50973 4.03892C5.67006 3.29725 7.10384 3.18858 8.35226 3.59422L7.88888 5.1102L12.2289 3.95165L9.40765 0.100377L8.93125 1.68122C7.96643 1.39505 6.94438 1.31848 5.94306 1.45734C4.94173 1.59621 3.98758 1.94684 3.15337 2.48249Z" fill="white"/>
-                        </svg>
-                        Edit
-                    </button>
-                </div>
-
                 <div class="detail-info">
                     <div class="row detail-info-order text-left">
                         <div class="col-md-6">
+                            <div class="detail-option-list">
+                                <button class="btn btn-edit" data-target="#editCampaign" data-toggle="modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 12 11" fill="none">
+                                      <path d="M6.68706 2.00307L9.63142 4.75355L3.23786 10.7261L0.61272 10.9968C0.261291 11.0331 -0.0356291 10.7555 0.00346968 10.4272L0.29556 7.97325L6.68706 2.00307ZM11.4525 1.59358L10.07 0.302129C9.63878 -0.10071 8.93938 -0.10071 8.50814 0.302129L7.20753 1.51709L10.1519 4.26757L11.4525 3.0526C11.8837 2.64955 11.8837 1.99641 11.4525 1.59358Z" fill="white"/>
+                                    </svg>
+                                    Edit Campaign Detail
+                                </button>
+
+                                <button class="btn btn-cancel">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
+                                      <path d="M6.42324 0C2.8758 0 0 2.68628 0 6C0 9.31372 2.8758 12 6.42324 12C9.97068 12 12.8465 9.31369 12.8465 6C12.8465 2.68631 9.9707 0 6.42324 0ZM9.79305 2.85223C11.4882 4.43565 11.6061 6.8558 10.3286 8.55312L3.68999 2.352C5.50829 1.1579 8.09887 1.2697 9.79305 2.85223ZM3.05342 9.14777C1.35831 7.56435 1.24041 5.1442 2.51788 3.44688L9.15648 9.648C7.33821 10.8421 4.7476 10.7303 3.05342 9.14777Z" fill="white"/>
+                                    </svg>
+                                    Cancel
+                                </button>
+
+                                <button class="btn btn-duplicate">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                      <path d="M3.15337 2.48249C0.149493 4.40256 -0.372059 7.99947 1.62702 10.7284C3.62609 13.4573 7.40421 14.3059 10.4081 12.3858C11.2982 11.8213 12.0284 11.0637 12.5362 10.1777C13.0439 9.29179 13.3141 8.30403 13.3234 7.29915L11.1853 7.43797C11.142 8.67737 10.5124 9.89567 9.34621 10.6411C7.40253 11.8835 4.68776 11.365 3.394 9.59892C2.10025 7.83284 2.56605 5.28132 4.50973 4.03892C5.67006 3.29725 7.10384 3.18858 8.35226 3.59422L7.88888 5.1102L12.2289 3.95165L9.40765 0.100377L8.93125 1.68122C7.96643 1.39505 6.94438 1.31848 5.94306 1.45734C4.94173 1.59621 3.98758 1.94684 3.15337 2.48249Z" fill="white"/>
+                                    </svg>
+                                    Duplicate
+                                </button>
+                            </div>
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="detail-info-label">Campaign Name:</div>
@@ -262,6 +261,21 @@
                                                           fill="#F26722"/>
                                                 </svg>
                                             </div>
+
+                                            <div id="ad-edit-item-` + {{forloop.parentloop.parentloop.counter0}} + `-` + {{forloop.parentloop.counter0}} + `-` + {{forloop.counter0}} +`"
+                                                class="ad-edit-item"
+                                                onclick="editAdItem(` + {{forloop.parentloop.parentloop.counter0}} + `, ` + {{forloop.parentloop.counter0}} + `, ` + {{forloop.counter0}} + `)"
+                                                data-target="#edit-ad" data-toggle="modal"
+                                            >
+                                                <img src="/static/svg/pencil.svg" alt="pencil">
+                                            </div>
+
+                                            <div id="ad-delete-item-` + {{forloop.parentloop.parentloop.counter0}} + `-` + {{forloop.parentloop.counter0}} + `-` + {{forloop.counter0}} +`"
+                                                class="ad-delete-item"
+                                                onclick="deleteAdItem(` + {{forloop.parentloop.parentloop.counter0}} + `, ` + {{forloop.parentloop.counter0}} + `, ` + {{forloop.counter0}} + `)"
+                                            >
+                                                <img src="/static/svg/trash.svg" alt="trash">
+                                            </div>
                                         </div>
                                         {% endfor %}
                                     </div>
@@ -322,47 +336,248 @@
     </div>
 </div>
 
+<div class="modal fade" id="editCampaign" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <div class="modal-title">
+                    <span>Edit Campaign Info</span>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="m-2">
+                    <form class="text-left campaign-form" action="#">
+                        <div class="form-group">
+                            <label for="campaign-name">*Campaign Name:</label>
+
+                            <input type="text" id="campaign-name" class="form-control shadow"
+                                   placeholder="Campaign Example Name" name="orderName">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="sales-contact">*Sales Contact:</label>
+
+                                        <select class="form-control shadow" id="sales-contact" style="border-radius: 4px">
+                                            <option>Select a Salesperson</option>
+                                            {% for salesPerson in salesPersonQuery %}
+                                            <option value="{{ salesPerson.id }}">
+                                                {{ salesPerson.first_name }} {{ salesPerson.last_name}}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="start-date">*Start Date:</label>
+
+                                        <input type="date" id="start-date" class="sel-date"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="end-date">End Date(optional):</label>
+
+                                        <input type="date" id="end-date" class="sel-date">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="brief">Brief Description(optional)</label>
+
+                            <textarea class="form-control shadow" rows="5" id="brief"
+                                      style="resize: none; border-radius: 4px;"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="flex-row">
+                    <button class="btn btn-primary bg-primary campaign-cancel" data-dismiss="modal" style="width: 40%;">
+                        Cancel
+                    </button>
+
+                    <button class="btn btn-primary bg-primary campaign-edit" onclick="EditCampaign()"
+                            style="width: 40%;">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade create-ad" id="edit-ad" role="dialog" style="overflow: hidden auto">
+    <div class="modal-dialog">
+        <!-- Modal header-->
+        <div class="modal-header text-center">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <h3 class="modal-title">
+                New Ad
+                <hr>
+            </h3>
+
+            <div class="value-area">
+                <div class="ad-value-row">
+                    <div class="ad-value-item">
+                        <div>Ad Name:</div>
+                        <input id="ad-name" type="text" placeholder="Enter name here...">
+                    </div>
+
+                    <div class="ad-value-item">
+                        <div>Ad Type:</div>
+                        <select id="ad-type">
+                            {% for item in adTypes %}
+                            <option value="{{item.name}}">{{item.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="ad-value-row">
+                    <div class="ad-value-item">
+                        <div>Ad Sizes:</div>
+                        <select id="ad-size">
+                            {% for item in adSizes %}
+                            <option value="{{item.size}}">{{item.size}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="ad-value-item">
+                        <div>Available Rates:</div>
+                        <select id="ad-rate">
+                            {% for item in rating %}
+                            <option value="{{item.id}}">{{item.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="ad-textarea-row">
+                    <div>Brief Description:</div>
+                    <textarea id="ad-brief"></textarea>
+                </div>
+
+                <div class="ad-adjustment-calender">
+                    <div class="ad-adjustment">
+                        <div class="ad-adjustment-label">
+                            <div>Adjustments:</div>
+
+                            <span>+</span>
+
+                            <div data-target="#add-adjustment" data-toggle="modal">Add Adjustment(s)</div>
+                        </div>
+
+                        <div id="adjustment-value" class="ad-adjustment-value">
+
+                        </div>
+                    </div>
+
+                    <div class="ad-calender">
+                        <span>Select Ad Dates: </span>
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+
+                <div class="create-btn">
+                    <button onclick="createAdItem()" data-dismiss="modal">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="add-adjustment" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal header-->
+        <div class="modal-header text-center">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <h3 class="modal-title">
+                Adjustments
+                <hr>
+            </h3>
+
+            <div class="adjustment-row scrollbar">
+                {% for item in adjustments %}
+                <div class="adjustment-item" onclick="adjustment_select(this, {{item.id}})">
+                    <div class="adj-item-title">
+                        <div id="adjustment-code-{{item.id}}">{{item.code}}</div>
+                        <span id="adjustment-amount-{{item.id}}">${{item.amount}}</span>
+                    </div>
+
+                    <div class="adj-item-value">
+                        <span class="item-value-label">Description:</span>
+                        <span class="item-value-value">{{item.description}}</span>
+                    </div>
+
+                    <div class="adj-item-value">
+                        <div>
+                            <span class="item-value-label">Apply Level:</span>
+                            <span class="item-value-value">{{item.apply_level}}</span>
+                        </div>
+
+                        <div>
+                            <span class="item-value-label">Section:</span>
+                            <span class="item-value-value">{{item.section_id}}</span>
+                        </div>
+                    </div>
+
+                    <div class="adj-item-value">
+                        <div>
+                            <span class="item-value-label">Value:</span>
+                            <span class="item-value-value">{{item.amount}}</span>
+                        </div>
+
+                        <div>
+                            <span class="item-value-label">Value:</span>
+                            <span class="item-value-value">Credit(+)</span>
+                        </div>
+                    </div>
+
+                    <div id="adjustment-select-{{item.id}}" class="adjustment-select">
+                        Selected
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <hr style="color: #666; height: 1px">
+
+            <div class="option-button">
+                <button onclick="addAdjustment()" data-dismiss="modal">Add Adjustment</button>
+            </div>
+
+            <div class="modal-footer-img">
+                <img src="{% static "svg/Ellipse 9 (1).svg" %}" style="width: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-function collapseEditSpec(clickedButton) {
-    const childElements = clickedButton.childNodes;
-
-    for (var i = 0; i < childElements.length; i++) {
-        var item = childElements[i];
-        if (item.nodeName === "svg") {
-            if (item.classList.contains("c-svg-active")) {
-                item.classList.remove("c-svg-active");
-            } else {
-                item.classList.add("c-svg-active");
-            }
-        }
-    }
-}
-
-function collapseEditSpecItem(clickedButton, demo, publication, ad, type) {
-    collapseEditSpec(clickedButton);
-
-    let elementId = type === 0 ? "ad-content-" : "sum-ad-content-";
-
-    const specItem = document.getElementById(elementId + demo + "-" + publication + "-" + ad);
-    const display = specItem.style.display;
-
-    if (display === "none") {
-        specItem.style.display = "block";
-    } else {
-        specItem.style.display = "none";
-    }
-
-    let adElementId = type === 0 ? "edit-ad-item-" : "sum-edit-ad-item-";
-
-    const adSpecItem = document.getElementById(adElementId + demo + "-" + publication + "-" + ad);
-    const maxHeight = adSpecItem.style.maxHeight;
-
-    if (maxHeight === "inherit") {
-        adSpecItem.style.maxHeight = "55px";
-    } else {
-        adSpecItem.style.maxHeight = "inherit";
-    }
-}
+    let ratingList = JSON.parse(`{{ ratingList }}`);
 </script>
 
 {% endblock %}

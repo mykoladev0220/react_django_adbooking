@@ -169,8 +169,6 @@ def register_advertiser(request):
     else:
         return JsonResponse({'error': 'Invalid request'})
 
-
-
 def create_classified_ad(request):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "advertising")
@@ -775,7 +773,7 @@ def user_upload_permission(request):
             logging.info(request.user.username + ' added upload permission from user ' + user.username)
             print(request.user.username + ' added upload permission from user ' + user.username)
 
-            return JsonResponse({"message": "Succesfully granted upload permission to: " + user.username}, status=200)
+            return JsonResponse({"message": "Successfully granted upload permission to: " + user.username}, status=200)
 
         # if the user has the upload permission and the AJAX request is removing the permission
         if hasPermission and not reqData['hasPermission']:
@@ -785,7 +783,7 @@ def user_upload_permission(request):
             logging.info(request.user.username + ' removed upload permission from user ' + user.username)
             print(request.user.username + ' removed upload permission from user ' + user.username)
 
-            return JsonResponse({"message": "Sucessfully removed upload permission from " + user.username})
+            return JsonResponse({"message": "Successfully removed upload permission from " + user.username})
 
         return JsonResponse({"message": "Success"}, status=200)
     else:
@@ -1383,9 +1381,27 @@ def campaign_detail(request):
     campaign = ClassifiedCampaignSummary.objects.get(id=data)
     # campaignList = serializers.serialize('json', campaign)
 
+    salesPersonQuery = SalesPerson.objects.all()
+    salesPersonList = serializers.serialize('json', salesPersonQuery)
+
+    adTypes = ClassifiedAdType.objects.all()
+
+    adSizes = ClassifiedAdSize.objects.all()
+
+    adjustments = ClassifiedAdjustment.objects.all()
+
+    rating = ClassifiedRate.objects.all()
+    ratingList = serializers.serialize('json', rating)
+
     context = {
         "campaign": campaign,
-        # "campaignList": campaignList,
+        "salesPersonQuery": salesPersonQuery,
+        "salesPersonList": salesPersonList,
+        "adTypes": adTypes,
+        "adSizes": adSizes,
+        "adjustments": adjustments,
+        "rating": rating,
+        "ratingList": ratingList
     }
 
     return render(request, "CampaignDetail.html", context)

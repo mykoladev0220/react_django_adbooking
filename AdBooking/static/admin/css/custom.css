@@ -1583,6 +1583,11 @@ td a:hover {
     padding: 4px 12px;
 }
 
+.detail-option-list {
+    display: flex;
+    margin-bottom: 30px;
+}
+
 .detail-option-list button {
     height: 25px;
     border-radius: 4px;
@@ -1598,15 +1603,16 @@ td a:hover {
 
 .btn-edit {
     background: rgba(33, 33, 95, 0.50);
-    margin-left: 55px;
 }
 
 .btn-cancel {
     background: #B32D2E;
+    margin-left: auto;
 }
 
 .btn-duplicate {
     background: #21215F;
+    margin-right: 30px;
 }
 
 .detail-info {
@@ -1704,4 +1710,53 @@ td a:hover {
 .detail-spec .edit-ad-item {
     width: calc((100% - 45px) / 4) !important;
     margin-right: 15px !important;
+}
+
+#editCampaign .modal-dialog {
+    width: 1000px;
+}
+
+#editCampaign .modal-title {
+    margin-top: 30px;
+}
+
+#editCampaign .modal-title span {
+    border-bottom: 3px solid black;
+    color: #000;
+    font-family: "Lato", serif;
+    font-size: 33px;
+    font-weight: 400;
+    padding: 0 120px 10px 120px;
+}
+
+.campaign-form {
+   padding: 0 80px;
+}
+
+#editCampaign .campaign-form input,
+#editCampaign .campaign-form select {
+    color: black;
+    height: 40px;
+}
+
+.campaign-cancel,
+.campaign-edit {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.campaign-cancel {
+    background: #666;
+    margin-left: 80px;
+}
+
+.campaign-edit {
+    background: #21215F;
+    margin-right: 80px;
+}
+
+.sel-date {
+    border-color: #d2d6de;
+    border-radius: 4px;
 }
