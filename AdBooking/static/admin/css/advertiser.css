@@ -1,3 +1,7 @@
+.modal {
+    background-color: rgba(0, 0, 0, .7) !important;
+}
+
 .fa {
     margin-right: 7px;
 }
@@ -755,6 +759,7 @@
     width: 765px;
     height: 430px;
     background-color: white;
+    border-radius: 8px;
 }
 
 .contacts-left-first {
@@ -1051,4 +1056,11 @@
 
 .font-s-1 {
     font-size: 10px
+}
+
+.bill-info-back-img {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
 }

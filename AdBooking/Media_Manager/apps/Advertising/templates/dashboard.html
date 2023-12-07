@@ -40,10 +40,9 @@
                 </div>
             </div>
             <div class="overview-btn-walmart">
-                <button class="overview-btn-edit-info" data-toggle="modal" data-target="#overview_walmart">
+                <button class="overview-btn-edit-info" data-toggle="modal" data-target="#overview-walmart">
                     <i class="fa fa-eyedropper" style="font-size: 10px"></i>Edit Info
                 </button>
-                <!--                <button class="btn btn-primary" id="id_edit_info" >Edit Info</button>-->
             </div>
             <div class="row">
                 <div class="col-md-6 text-left mt-1" style="padding-left:60px">
@@ -77,7 +76,7 @@
                     <div class="billing-line" style="">
                         <span class="billing-label" style="">Billing Info</span>
                         <button class="overview-btn-edit-info pull-right" data-toggle="modal"
-                                data-target="#overview_billing"><i class="fa fa-eyedropper" style="font-size: 10px"></i>
+                                data-target="#overview-billing"><i class="fa fa-eyedropper" style="font-size: 10px"></i>
                             Edit Billiing Info
                         </button>
                     </div>
@@ -358,14 +357,10 @@
         </div>
     </div>
 
-    <div class="modal fade mt-4" id="overview_walmart" role="dialog">
+    <div class="modal fade" id="overview-walmart" role="dialog">
         <div class="modal-dialog walmart-model-dig" style=" ">
-
-            <img src="{% static " svg/advertising_modal_img.svg" %}" class="advertising-modal-img">
-
             <!-- Modal content-->
             <div class="modal-content">
-
                 <div class="modal-notice text-center walmart-model" style=" ">
                     Walmart Edit
                 </div>
@@ -375,7 +370,8 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Status</label>
-                                <div class="col-sm-4">
+
+                                <div class="col-sm-10">
                                     <select class="form-control" id="id_walmart_status_type">
                                         <option>active</option>
                                         <option>inactive</option>
@@ -385,20 +381,25 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Address</label>
+
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="id_walmart_address"
                                            placeholder="address">
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Website</label>
+
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="id_walmart_website"
                                            placeholder="website">
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">AccountType</label>
+
                                 <div class="col-sm-4">
                                     <select class="form-control" id="id_walmart_account">
                                         <option disabled selected value="0">Select</option>
@@ -408,14 +409,18 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">phone</label>
+
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="id_walmart_phone" placeholder="phone">
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Email</label>
+
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="id_walmart_email" placeholder="email">
                                 </div>
@@ -427,19 +432,16 @@
 
                 <div class="modal-footer walmart-model-footer" style="">
 
-                    <button class="btn btn-primary">Cancel</button>
+                    <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade mt-4" id="overview_billing" role="dialog">
+    <div class="modal fade" id="overview-billing" role="dialog">
         <div class="modal-dialog" style="position: relative; overflow: hidden;height: auto ">
-            <img src="{% static " svg/advertising_modal_img.svg" %}" class="advertising-modal-img">
-
             <!-- Modal content-->
             <div class="modal-content">
-
                 <div class="modal-notice text-center billing-model-content" style=" ">
                     Billing Info
                 </div>
@@ -449,19 +451,24 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Billing Total</label>
+
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control" id="id_billing_total" placeholder="total">
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Address</label>
+
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="id_billing_address"
                                            placeholder="address">
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Credit limit</label>
+
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="id_credit_limit"
                                            placeholder="credit_limit">
@@ -470,16 +477,17 @@
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Email</label>
+
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="id_billing_email" placeholder="email">
                                 </div>
                             </div>
                         </div>
                     </form>
-
                 </div>
+
                 <div class="modal-footer" style="display: flex;gap: 40px;justify-content: center">
-                    <button class="btn btn-primary">Cancel</button>
+                    <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-primary">Save</button>
                 </div>
             </div>
