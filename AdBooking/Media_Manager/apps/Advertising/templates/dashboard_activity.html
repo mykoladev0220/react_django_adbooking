@@ -16,81 +16,90 @@
 
 {% block content %}
 
-<!--<div class="advertising-back-image">-->
-<!--    <img src="{% static "svg/advertising_back_img.svg" %}">-->
-<!--</div>-->
-
 <div class="dashboard mt-2">
     <div>
         <h1 class="text-center" style="margin-bottom: 10px"></i>&nbsp;Advertiser Dashboard</h1>
+
         <div class="dashboard-title-line"></div>
+
         <div class="back-advertiser text-left">
             <a class="advertiser-btn-back"><- Back to Advertisers</a>
         </div>
+
         <div class=" dashboard-content">
             <div class="advertiser-overview">
                 <div class="overview-title text-center">
                     < Activity >
                 </div>
+
                 <div class="overview-menu mt-2">
                     <a id="id_overview_active" href="{% url 'advertiser_dashboard' %}">Advertiser Overview</a>
-                    <a id="id_overview_activity" class="overview-active" href="{% url 'advertiser_dashboard_activity' %}">Activity</a>
+                    <a id="id_overview_activity" class="overview-active"
+                       href="{% url 'advertiser_dashboard_activity' %}">Activity</a>
                     <a id="id_order_history" href="{% url 'advertiser_dashboard_order_history' %}">Ad Order History</a>
                 </div>
             </div>
+
             <div class="activity-section-one">
                 <div class="action-section-one-left">
                     <div class="action-section-one-left-title">
                         To Do's
                     </div>
+
                     <div class="action-section-one-left-content">
 
                     </div>
                 </div>
+
                 <div class="action-section-one-right">
                     <div class="action-section-one-left-title">
-                       Recent Activity
+                        Recent Activity
                     </div>
-                       <div class="action-section-one-left-content">
+
+                    <div class="action-section-one-left-content">
 
                     </div>
                 </div>
             </div>
+
             <div class="overview-contacts">
                 <div class="overview-contacts-title">
                     <span>Sales</span>
                 </div>
-               <div class="activity-sales-display mt-4">
+
+                <div class="activity-sales-display mt-4">
                     Display Sales By:
-               </div>
+                </div>
+
                 <div class="activity-menu mt-2 ">
                     <a class="activity-active" id="id_activity_time" href="{% url 'advertiser_dashboard' %}">Time</a>
                     <a id="id_activity_product" href="{% url 'advertiser_dashboard_activity' %}">Products</a>
                     <a id="id_activity_format" href="{% url 'advertiser_dashboard_order_history' %}">Format/Ad Type</a>
                 </div>
             </div>
+
             <div class="activity-sales-content">
                 <div class="sales-content-header">
                     <div class="sales-content-header-section">
-                                  <select class="form-control shadow" id="id_sales_year" style="width:30%;border-radius: 4px">
-                                            <option>Year</option>
-<!--                                            {% for salesPerson in salesPersonQuery %}-->
-<!--                                            <option value="{{ salesPerson.id }}">-->
-<!--                                                {{ salesPerson.first_name }} {{ salesPerson.last_name}}-->
-                                            </option>
-<!--                                            {% endfor %}-->
-                                        </select>
+                        <select class="form-control shadow" id="id_sales_year" style="width:30%;border-radius: 4px">
+                            <option>Year</option>
+
+                        </select>
                     </div>
+
                     <div class="sales-content-header-section">
-                            Print Sales
+                        Print Sales
                     </div>
+
                     <div class="sales-content-header-section">
-                            Digital Sales
+                        Digital Sales
                     </div>
+
                     <div class="sales-content-header-section">
-                            Totals
+                        Totals
                     </div>
                 </div>
+
                 <div class="sales-content-body">
 
                 </div>
@@ -100,7 +109,7 @@
 
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog" style="position: relative; overflow: hidden">
-            <img src="{% static " svg/advertising_modal_img.svg" %}" class="advertising-modal-img">
+            <img src="{% static "svg/advertising_modal_img.svg" %}" class="advertising-modal-img">
 
             <!-- Modal content-->
             <div class="modal-content">
