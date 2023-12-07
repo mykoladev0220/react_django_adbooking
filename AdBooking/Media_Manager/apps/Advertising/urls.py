@@ -165,7 +165,11 @@ urlpatterns = [
 
 	path('new-advertiser/', views.create_advertiser, name='create_advertiser'),
 	path('register-advertiser/', views.register_advertiser, name='register_advertiser'),
-
+    
+	# Advertiser Dashboard
+	path('advertiser_dashboard/', views.advertiser_dashboard, name='advertiser_dashboard'),
+    path('advertiser_dashboard_activity/', views.advertiser_dashboard_activity, name='advertiser_dashboard_activity'),
+	path('advertiser_dashboard_order_history/', views.advertiser_dashboard_order_history, name='advertiser_dashboard_order_history'),
 	# Classifieds Routes
 	path('classifieds/', views.list_classifieds, name='list_classifieds'),
 	path('classifieds/new/', views.create_classified_ad, name='create_classified_ad'),

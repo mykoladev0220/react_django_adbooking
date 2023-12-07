@@ -1,5 +1,6 @@
 let typeItems = document.querySelectorAll(".advertiser-type-item");
-
+let advertiser_new_address=document.getElementById("advertiser_new_address");
+let advertiser_same_address=document.getElementById("advertiser_same_address");
 let bilAddressEle = document.getElementById("billing-address");
 let bilCityEle = document.getElementById("billing-city");
 let bilStateEle = document.getElementById("billing-state");
@@ -145,13 +146,15 @@ function createAdvertiser() {
     .then(data => {
         // $.toastr.success('Saved Success');
 
-        window.location.href = `/advertising/`;
+        window.location.href = `/advertising/advertiser_dashboard/`;
     })
     .catch(error => {
         $.toastr.error("Saved failure");
     });
 }
-
+function goNewCampaign () {
+    window.location.href = `/advertising/advertiser_dashboard/`;
+}
 function changeAddress(index) {
     addressFlag = index;
 
@@ -162,15 +165,15 @@ function changeAddress(index) {
     document.getElementById("address-" + index).classList.add("selected-radio");
 
     if (index == 0) {
+        document.getElementById("advertiser_new_address").style.display = 'block'
+        document.getElementById("advertiser_same_address").style.display = 'none'
         bilAddressEle.disabled = false;
         bilCityEle.disabled = false;
         bilStateEle.disabled = false;
         bilZipCodeEle.disabled = false;
     } else {
-        bilAddressEle.disabled = true;
-        bilCityEle.disabled = true;
-        bilStateEle.disabled = true;
-        bilZipCodeEle.disabled = true;
+        document.getElementById("advertiser_new_address").style.display = 'none'
+        document.getElementById("advertiser_same_address").style.display = 'block'
     }
 }
 
@@ -183,6 +186,6 @@ const getCookie = name => {
     return cookie[name];
 }
 
-function goNewCampaign () {
-    window.location.href = `/advertising/classifieds/new/`;
-}
+// function goNewCampaign () {
+//     window.location.href = `/advertising/classifieds/new/`;
+// }
