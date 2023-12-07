@@ -85,7 +85,6 @@
                         <img src="{% static "img/Rectangle_1.png" %}">
                         <span style="font-size: 23px;font-weight: 700">$230.50</span>
                         <img src="{% static "img/Rectangle_2.png" %}">
-                        <img src="{% static "img/Rectangle_2.png" %}">
                     </div>
                     <div class="row mt-4 mb-2">
                         <div class="col-md-4">
@@ -123,7 +122,7 @@
 
                                         <i class="fa fa-filter big-icon" onclick="selFilter()"></i>
 
-                                        <i class="fa fa-plus big-icon" style="padding-right: 40px;"></i>
+                                        <i class="fa fa-plus big-icon" style="padding-right: 40px;" onclick="addCompany()"></i>
                                     </div>
                                 </div>
 
@@ -190,8 +189,8 @@
                                         </div>
                                     </div>
                                     <div class="contacts-left-third">
-                                        <i class="fa fa-pencil" style="font-size: 30px;padding-right: 20px" onclick="editCompanyContact()"></i>
-                                        <i class="fa fa-trash" style="font-size: 30px;color: #F00;"></i>
+                                        <i class="fa fa-pencil midi-icon" onclick="editCompanyContact()"></i>
+                                        <i class="fa fa-trash midi-icon"></i>
                                     </div>
 
                                 </div>
@@ -222,8 +221,8 @@
                                         </div>
                                     </div>
                                     <div class="contacts-left-third">
-                                        <i class="fa fa-pencil" style="font-size: 30px;padding-right: 20px"></i>
-                                        <i class="fa fa-trash" style="font-size: 30px;color: #F00;"></i>
+                                        <i class="fa fa-pencil midi-icon"></i>
+                                        <i class="fa fa-trash midi-icon"></i>
                                     </div>
 
                                 </div>
@@ -253,8 +252,8 @@
                                         </div>
                                     </div>
                                     <div class="contacts-left-third">
-                                        <i class="fa fa-pencil" style="font-size: 30px;padding-right: 20px"></i>
-                                        <i class="fa fa-trash" style="font-size: 30px;color: #F00;"></i>
+                                        <i class="fa fa-pencil midi-icon"></i>
+                                        <i class="fa fa-trash midi-icon"></i>
                                     </div>
 
                                 </div>
@@ -265,38 +264,9 @@
                                 <div style="width:200px;height: 4px; background: #666"></div>
                             </div>
                             <div class="contacts-inactive">
-                                <!--                                if there are inactive contacts-->
-                                <!--                                 <div class="contacts-left-active-item">-->
-                                <!--                                    <div class="contacts-left-first">-->
-                                <!--                                            1-->
-                                <!--                                    </div>-->
-                                <!--                                    <div class="contacts-left-second">-->
-                                <!--                                            <div class="contacts-left-second-one">-->
-                                <!--                                                <span style="font-size: 14px">Dave Brubeck</span>-->
-                                <!--                                                <span style="font-size: 12px">-Billing Contact</span>-->
-                                <!--                                                 <i class="fa fa-star" style="font-size: 20px;padding-left: 10px"></i>-->
-                                <!--                                            </div>-->
-                                <!--                                            <div class="contacts-left-second-two">-->
-                                <!--                                                    <div class="contacts-left-second-two-a">-->
-                                <!--                                                             <div style=""><i class="fa fa-phone" style="font-size:10px"></i>Phone</div>-->
-                                <!--                                                             <div style="font-size: 12px;font-weight: 400">22222-222</div>-->
-                                <!--                                                    </div>-->
-                                <!--                                                    <div class="contacts-left-second-two-a">-->
-                                <!--                                                             <div><i class="fa fa-envelope-o" style="font-size:10px"></i>Email</div>-->
-                                <!--                                                            <div style="font-size: 12px;font-weight: 400">22222-222</div>-->
-                                <!--                                                    </div>-->
-                                <!--                                            </div>-->
-                                <!--                                    </div>-->
-                                <!--                                    <div class="contacts-left-third">-->
-                                <!--                                                <i class="fa fa-pencil" style="font-size: 30px;padding-right: 20px"></i>-->
-                                <!--                                                <i class="fa fa-trash" style="font-size: 30px;color: #F00;"></i>-->
-                                <!--                                    </div>-->
-
-                                <!--                                </div>-->
                                 <div class="contacts-inactive-no">
                                     There are currently no inactive company contacts
                                 </div>
-
                             </div>
                         </div>
 
@@ -350,7 +320,7 @@
                                 <div class="company-primary">
                                     <span>Primary Company Contact: </span>
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="38" viewBox="0 0 40 38" fill="none">
+                                    <svg id="company-star" class="" xmlns="http://www.w3.org/2000/svg" width="40" height="38" viewBox="0 0 40 38" fill="none" onclick="selStar()">
                                       <g filter="url(#filter0_d_0_116)">
                                         <path d="M18.2834 3.04358L14.3776 10.8004L5.6389 12.0483C4.0718 12.271 3.44377 14.1633 4.58021 15.2472L10.9024 21.2816L9.40712 29.8059C9.13796 31.3467 10.7948 32.5009 12.1824 31.7803L20 27.7554L27.8176 31.7803C29.2052 32.495 30.862 31.3467 30.5929 29.8059L29.0976 21.2816L35.4198 15.2472C36.5562 14.1633 35.9282 12.271 34.3611 12.0483L25.6224 10.8004L21.7166 3.04358C21.0168 1.66094 18.9892 1.64337 18.2834 3.04358Z" fill="white"/>
                                       </g>
@@ -372,7 +342,7 @@
                                 <div class="company-option">
                                     <a class="create-contact">Create Contact</a>
 
-                                    <a class="cancel-contact">Cancel</a>
+                                    <a class="cancel-contact" onclick="cancelContact()">Cancel</a>
                                 </div>
                             </div>
 

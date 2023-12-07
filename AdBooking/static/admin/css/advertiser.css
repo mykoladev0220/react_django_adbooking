@@ -501,11 +501,20 @@
     margin-top: 20px;
 }
 
+.company-primary span {
+    line-height: 32px;
+}
+
 .company-primary svg {
+    cursor: pointer;
     fill: #FFF;
     stroke-width: 0.5px;
     stroke: #000;
     filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+.company-primary svg.sel-star path {
+    fill: #F0CC0D !important;
 }
 
 .company-option {
@@ -619,7 +628,7 @@
     font-weight: 700;
     line-height: normal;
     cursor: pointer;
-
+    margin-top: 15px;
 }
 
 .contacts-left-active-menu {
@@ -974,4 +983,17 @@
     padding: 5px 7px;
     font-size: 12px;
     margin-top: 12px;
+}
+
+.midi-icon {
+    font-size: 26px;
+}
+
+.fa-pencil {
+    color: #21215F;
+    margin-right: 10px;
+}
+
+.fa-trash {
+    color: #CA0F0F;
 }

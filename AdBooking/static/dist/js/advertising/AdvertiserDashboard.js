@@ -6,9 +6,11 @@ let bilCityEle = document.getElementById("billing-city");
 let bilStateEle = document.getElementById("billing-state");
 let bilZipCodeEle = document.getElementById("billing-zip-code");
 
+let contactSectionEle = document.getElementById("contact-section");
 let addBtnEle = document.getElementById("add-company");
 let companyInfoEle = document.getElementById("company-info");
 let companyBackImg = document.getElementById("company-backImg");
+let companyStar = document.getElementById("company-star");
 
 let addressFlag = 0;
 
@@ -48,21 +50,22 @@ $('#id_edit_info').click(e => {
 })
 
 function selSearch() {
-    let ele = document.getElementById("contact-section");
-    ele.classList.remove('filter-active');
-    ele.classList.add('search-active');
+    contactSectionEle.classList.remove('filter-active');
+    contactSectionEle.classList.add('search-active');
 }
 
 function selFilter() {
-    let ele = document.getElementById("contact-section");
-    ele.classList.remove('search-active');
-    ele.classList.add('filter-active');
+    contactSectionEle.classList.remove('search-active');
+    contactSectionEle.classList.add('filter-active');
 }
 
 function addCompany() {
     addBtnEle.style.display = "none";
     companyBackImg.style.display = "none";
     companyInfoEle.style.opacity = "1";
+
+    contactSectionEle.classList.remove("search-active");
+    contactSectionEle.classList.remove("filter-active");
 }
 
 function editCompanyContact() {
@@ -79,4 +82,18 @@ function editCompanyContact() {
     document.getElementById("i-email").value = email;
     document.getElementById("i-department").value = department;
     document.getElementById("i-phone-number").value = phoneNumber;
+}
+
+function cancelContact() {
+    companyInfoEle.style.opacity = "0";
+    addBtnEle.style.display = "block";
+    companyBackImg.style.display = "block";
+}
+
+function selStar() {
+    if (companyStar.classList.contains("sel-star")) {
+        companyStar.classList.remove("sel-star");
+    } else {
+        companyStar.classList.add("sel-star");
+    }
 }
