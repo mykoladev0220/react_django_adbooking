@@ -182,37 +182,41 @@
                         </div>
                     </div>
 
-                    <div class="advertiser-item" style="margin-bottom: 29px">
-                        <label>Address:</label>
+                    <div id="address-section" class="address-section">
+                        <div class="advertiser-item" style="margin-bottom: 29px">
+                            <label>Address:</label>
 
-                        <input id="billing-address" type="text" class="advertiser-item-input" placeholder="Enter Address..." style="width: 80%">
-                    </div>
-
-                    <div class="advertiser-item" style="margin-bottom: 29px">
-                        <label>City:</label>
-
-                        <input id="billing-city" type="text" class="advertiser-item-input" placeholder="Enter City..." style="width: 80%">
-                    </div>
-
-                    <div class="advertiser-item-group">
-                        <div class="advertiser-item state">
-                            <label>State:</label>
-
-                            <select id="billing-state" class="advertiser-item-input">
-                                <option disabled selected value="0">Select</option>
-                                <option value="State1">State1</option>
-                                <option value="State2">State2</option>
-                                <option value="State3">State3</option>
-                                <option value="State4">State4</option>
-                            </select>
+                            <input id="billing-address" type="text" class="advertiser-item-input" placeholder="Enter Address..." style="width: 80%">
                         </div>
 
-                        <div class="advertiser-item zipCode">
-                            <label>Zip Code:</label>
+                        <div class="advertiser-item" style="margin-bottom: 29px">
+                            <label>City:</label>
 
-                            <input id="billing-zip-code" type="text" class="advertiser-item-input" placeholder="Enter Zip Code...">
+                            <input id="billing-city" type="text" class="advertiser-item-input" placeholder="Enter City..." style="width: 80%">
+                        </div>
+
+                        <div class="advertiser-item-group">
+                            <div class="advertiser-item state">
+                                <label>State:</label>
+
+                                <select id="billing-state" class="advertiser-item-input">
+                                    <option disabled selected value="0">Select</option>
+                                    <option value="State1">State1</option>
+                                    <option value="State2">State2</option>
+                                    <option value="State3">State3</option>
+                                    <option value="State4">State4</option>
+                                </select>
+                            </div>
+
+                            <div class="advertiser-item zipCode">
+                                <label>Zip Code:</label>
+
+                                <input id="billing-zip-code" type="text" class="advertiser-item-input" placeholder="Enter Zip Code...">
+                            </div>
                         </div>
                     </div>
+
+
 
                     <div class="advertiser-option">
                         <div class="advertiser-cancel" onclick="goNewCampaign()">Cancel</div>
