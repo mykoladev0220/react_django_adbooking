@@ -6,6 +6,10 @@ let bilCityEle = document.getElementById("billing-city");
 let bilStateEle = document.getElementById("billing-state");
 let bilZipCodeEle = document.getElementById("billing-zip-code");
 
+let addBtnEle = document.getElementById("add-company");
+let companyInfoEle = document.getElementById("company-info");
+let companyBackImg = document.getElementById("company-backImg");
+
 let addressFlag = 0;
 
 
@@ -53,4 +57,26 @@ function selFilter() {
     let ele = document.getElementById("contact-section");
     ele.classList.remove('search-active');
     ele.classList.add('filter-active');
+}
+
+function addCompany() {
+    addBtnEle.style.display = "none";
+    companyBackImg.style.display = "none";
+    companyInfoEle.style.opacity = "1";
+}
+
+function editCompanyContact() {
+    addCompany();
+
+    let firstName = document.getElementById("first-name").innerText;
+    let lastName = document.getElementById("last-name").innerText;
+    let department = document.getElementById("department").innerText;
+    let phoneNumber = document.getElementById("phone-number").innerText;
+    let email = document.getElementById("email").innerText;
+
+    document.getElementById("i-first-name").value = firstName;
+    document.getElementById("i-last-name").value = lastName;
+    document.getElementById("i-email").value = email;
+    document.getElementById("i-department").value = department;
+    document.getElementById("i-phone-number").value = phoneNumber;
 }
