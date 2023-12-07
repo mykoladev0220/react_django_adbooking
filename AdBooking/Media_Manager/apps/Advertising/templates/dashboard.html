@@ -22,7 +22,7 @@
 
 <div class="dashboard mt-2">
     <div>
-        <h1 class="text-center" style="margin-bottom: 10px"></i>&nbsp;Advertiser Dashboard</h1>
+        <h1 class="text-center mt-1" ></i>&nbsp;Advertiser Dashboard</h1>
         <div class="dashboard-title-line"></div>
         <div class="back-advertiser text-left">
             <a class="advertiser-btn-back"><- Back to Advertisers</a>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="billing-rec">
                         <img src="{% static "img/Rectangle_1.png" %}">
-                        <span style="font-size: 23px;font-weight: 700">$230.50</span>
+                        <span class="billing-rec-total">$230.50</span>
                         <img src="{% static "img/Rectangle_2.png" %}">
                     </div>
                     <div class="row mt-4 mb-2">
@@ -157,8 +157,8 @@
                             </div>
 
                             <div class="contacts-left-active">
-                                <span style="margin-left:20px;margin-top: 26px">Active</span>
-                                <div style="width:200px;height: 4px; background: #666"></div>
+                                <span class="contacts-left-active-title" style="">Active</span>
+                                <div class="contacts-left-active-border" style=""></div>
                             </div>
                             <div class="contacts-left-active-menu">
                                 <div class="contacts-left-active-item">
@@ -178,12 +178,12 @@
                                         </div>
                                         <div class="contacts-left-second-two">
                                             <div class="contacts-left-second-two-a">
-                                                <div style=""><i class="fa fa-phone" style="font-size:10px"></i>Phone
+                                                <div style=""><i class="fa fa-phone font-s-1" style=""></i>Phone
                                                 </div>
                                                 <div id="phone-number" class="company-data">22222-222</div>
                                             </div>
                                             <div class="contacts-left-second-two-a">
-                                                <div><i class="fa fa-envelope-o" style="font-size:10px"></i>Email</div>
+                                                <div><i class="fa fa-envelope-o font-s-1"></i>Email</div>
                                                 <div id="email" class="company-data">jazzboy.gmail.com</div>
                                             </div>
                                         </div>
@@ -260,8 +260,8 @@
                             </div>
 
                             <div class="contacts-left-active">
-                                <span style="margin-left:20px;margin-top: 26px">Inactive</span>
-                                <div style="width:200px;height: 4px; background: #666"></div>
+                                <span class="contacts-left-inactive-title" style="">Inactive</span>
+                                <div class="contacts-left-inactive-border " style=""></div>
                             </div>
                             <div class="contacts-inactive">
                                 <div class="contacts-inactive-no">
@@ -359,12 +359,14 @@
     </div>
 
     <div class="modal fade mt-4" id="overview_walmart" role="dialog">
-        <div class="modal-dialog" style="position: relative; overflow: hidden;height: auto ">
+        <div class="modal-dialog walmart-model-dig" style=" ">
+
             <img src="{% static " svg/advertising_modal_img.svg" %}" class="advertising-modal-img">
 
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-notice text-center" style=" height:40px; font-size: 30px;font-family: 700">
+
+                <div class="modal-notice text-center walmart-model" style=" ">
                     Walmart Edit
                 </div>
 
@@ -422,7 +424,9 @@
                     </form>
 
                 </div>
-                <div class="modal-footer" style="display: flex;gap: 40px;justify-content: center">
+
+                <div class="modal-footer walmart-model-footer" style="">
+
                     <button class="btn btn-primary">Cancel</button>
                     <button class="btn btn-primary">Save</button>
                 </div>
@@ -435,7 +439,8 @@
 
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-notice text-center" style=" height:40px; font-size: 30px;font-family: 700">
+
+                <div class="modal-notice text-center billing-model-content" style=" ">
                     Billing Info
                 </div>
 
