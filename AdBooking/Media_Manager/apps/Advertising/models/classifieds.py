@@ -59,7 +59,7 @@ class ClassifiedCampaignSummary(models.Model):
     total_sub = models.IntegerField(max_length=10)
     total_adjustment = models.IntegerField(max_length=10)
     total_campaign = models.IntegerField(max_length=10)
-    campaign_detail = models.JSONField(max_length=10000)
+    campaign_detail = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:

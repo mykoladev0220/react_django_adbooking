@@ -168,8 +168,20 @@ urlpatterns = [
     
 	# Advertiser Dashboard
 	path('advertiser_dashboard/', views.advertiser_dashboard, name='advertiser_dashboard'),
-    path('advertiser_dashboard_activity/', views.advertiser_dashboard_activity, name='advertiser_dashboard_activity'),
-	path('advertiser_dashboard_order_history/', views.advertiser_dashboard_order_history, name='advertiser_dashboard_order_history'),
+
+	#advertiser walmart edit
+	# path('edit_new_advertiser/<str:param>/edit', views.edit_new_advertiser, name='edit_new_advertiser'),
+	path('edit_new_advertiser/', views.edit_new_advertiser, name='edit_new_advertiser'),
+	path('search_filter_contacts/', views.search_filter_contacts, name='search_filter_contacts'),
+	path('get_id_contact/', views.get_id_contact, name='get_id_contact'),
+	path('delete_id_contact/', views.delete_id_contact, name='delete_id_contact'),
+	path('create_contact/', views.create_contact, name='create_contact'),
+	path('getTaskList/', views.getTaskList, name='getTaskList'),
+	path('taskRemove/', views.taskRemove, name='taskRemove'),
+	path('taskSetActivity/', views.taskSetActivity, name='taskSetActivity'),
+	path('create_task/', views.create_task, name='create_task'),
+
+
 	# Classifieds Routes
 	path('classifieds/', views.list_classifieds, name='list_classifieds'),
 	path('classifieds/new/', views.create_classified_ad, name='create_classified_ad'),

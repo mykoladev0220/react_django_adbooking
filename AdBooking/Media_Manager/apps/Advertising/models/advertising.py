@@ -38,6 +38,14 @@ class IndustryCode(models.Model):
     class Meta:
         db_table = 'advertising_industrycode'
 
+class CompanyDepartment(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+    def __str__(self):
+        return self.code
+
+    class Meta:
+        db_table = 'advertising_department'
+
 class Account(models.Model):
     submitter = models.CharField(max_length=100)
     account_type = models.ForeignKey('AccountType', null=True, on_delete=SET_NULL)
@@ -125,27 +133,29 @@ class MarketCode(models.Model):
         db_table = "advertising_marketcode"
 
 class CompanyContact(models.Model):
-    account = models.ForeignKey('Account', on_delete=CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100, default=None)
-    department = models.CharField(max_length=100, default=None)
-    phone_number = models.CharField(max_length=100, null=True, default=None)
-    default = models.BooleanField(default=False)
-    active = models.BooleanField(default=True)
-    is_billing = models.BooleanField(default=False)
-    last_updated = models.DateTimeField(auto_now=True, null=True)
-
-    def __str__(self):
-        return self.first_name + ' ' + self.last_name
-
+    full_name = models.CharField(max_length=100)
+    email = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=100)
+    account = models.ForeignKey('Account', on_delete=CASCADE)
+    department = models.ForeignKey('CompanyDepartment', on_delete=CASCADE)
+    default = models.IntegerField()
+    active = models.IntegerField()
     class Meta:
-        permissions = (
-            ('can_edit_contact', 'Can edit company contacts'),
-            ("can_delete_contact", "Can delete company contacts"),
-        )
-
         db_table = 'advertising_companycontact'
+
+class AdvertiserTaskList(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.CharField(max_length=100)
+    due_date = models.CharField(max_length=100)
+    priority = models.CharField(max_length=100)
+    note = models.CharField(max_length=100)
+    account = models.ForeignKey('Account', on_delete=CASCADE)
+    status = models.IntegerField()
+    complete = models.IntegerField()
+    class Meta:
+        db_table = 'advertising_tasks'
 
 class AccountHistory(models.Model):
     account = models.ForeignKey('Account', on_delete=CASCADE)
