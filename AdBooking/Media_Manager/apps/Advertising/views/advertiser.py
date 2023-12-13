@@ -205,19 +205,35 @@ def create_contact (request):
     if request.method == 'POST':
         body = request.body.decode('utf-8')
         data = json.loads(body)
-        print(data)
-        contact = CompanyContact(
-            account_id=data['account'],
-            first_name=data['firstname'],
-            last_name=data['lastname'],
-            email=data['email'],
-            department_id=data['department'],
-            phone_number=data['phone'],
-            full_name=data['full_name'],
-            default=data['default'],
-            active=1
-        )
-        contact.save()
+
+        if (data['id'] == 0):
+            contact = CompanyContact(
+                account_id=data['account'],
+                first_name=data['firstname'],
+                last_name=data['lastname'],
+                email=data['email'],
+                department_id=data['department'],
+                phone_number=data['phone'],
+                full_name=data['full_name'],
+                default=data['default'],
+                active=1
+            )
+            contact.save()
+
+        if (data['id'] != 0):
+            contact = CompanyContact.objects.get(id=data['id'])
+
+            contact.account_id = data['account']
+            contact.first_name = data['firstname']
+            contact.last_name = data['lastname']
+            contact.email = data['email']
+            contact.department_id = data['department']
+            contact.phone_number = data['phone']
+            contact.full_name = data['full_name']
+            contact.default = data['default']
+
+            contact.save()
+
         active_contacts = CompanyContact.objects.filter(active=1)
         ac_con = list(active_contacts.values())
 

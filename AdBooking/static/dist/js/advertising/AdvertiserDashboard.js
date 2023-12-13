@@ -291,11 +291,13 @@ function editCompanyContact(id) {
     let firstName = nameParts[0] ? nameParts[0] : "";
     let lastName = nameParts[1] ? nameParts[1] : "";
     
+    document.getElementById("i-company-item-id").value = id
     document.getElementById("i-first-name").value = firstName
     document.getElementById("i-last-name").value = lastName
     document.getElementById("i-email").value = document.getElementById('email-' + id).innerHTML;
     document.getElementById("i-department").value = document.getElementById('department-' + id).innerHTML;
     document.getElementById("i-phone-number").value = document.getElementById('phone-' + id).innerHTML ? document.getElementById('phone-' + id).innerHTML : "";
+
     addCompany();
 }
 
@@ -310,12 +312,17 @@ function createContact(id) {
         $.toastr.warning("Please select Department");
         return;
     }
-    if (document.getElementById('i-first-name').value == '' || document.getElementById('i-last-name').value == '' || document.getElementById('i-email').value == '' || document.getElementById('i-phone-number').value == '') {
+    if (document.getElementById('i-first-name').value == '' ||
+        document.getElementById('i-last-name').value == '' ||
+        document.getElementById('i-email').value == '' ||
+        document.getElementById('i-phone-number').value == ''
+        ) {
         $.toastr.warning("Please Input Value Correctly");
         return;
     }
 
     data = {
+        'id': document.getElementById("i-company-item-id").value,
         'account': Number(id),
         'firstname': $('#i-first-name').val(),
         'lastname': $('#i-last-name').val(),
@@ -336,7 +343,7 @@ function createContact(id) {
     })
         .then(response => response.json())
         .then(data => {
-            $.toastr.success('Updated Success');
+            $.toastr.success('Save Success');
             showData(data)
         })
         .catch(error => {
@@ -554,8 +561,11 @@ function showData(data) {
             $('#id_active_items').append(`
                 <div class="contacts-left-active-item ">
                     <div class="contacts-left-first">
-                    ${i + 1}
+                        ${i + 1}
                     </div>
+                    
+                    <input id="active-id" type="hidden" value="${data['active'][i]['id']}">
+                    
                     <div class="contacts-left-second">
                         <div class="contacts-left-second-one">
                             <div class="contact-name-section">
@@ -564,18 +574,21 @@ function showData(data) {
                             -<span id="department-${data['active'][i]['id']}" style="font-size: 14px">${data['active'][i]['department_id']}</span>
                             ` + starEle + `
                         </div>
+                        
                         <div class="contacts-left-second-two">
                             <div class="contacts-left-second-two-a">
                                 <div style=""><i class="fa fa-phone font-s-1" style=""></i>Phone
                                 </div>
                                 <div id="phone-${data['active'][i]['id']}" class="company-data">${data['active'][i]['phone_number']}</div>
                             </div>
+                            
                             <div class="contacts-left-second-two-a">
                                 <div><i class="fa fa-envelope-o font-s-1"></i>Email</div>
                                 <div id="email-${data['active'][i]['id']}" class="company-data">${data['active'][i]['email']}</div>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="contacts-left-third">
                         <i class="fa fa-pencil midi-icon" onClick="editCompanyContact(${data['active'][i]['id']})"></i>
                         <i class="fa fa-trash midi-icon" onClick="deleteCompanyContact(${data['active'][i]['id']})"></i>
@@ -603,6 +616,9 @@ function showData(data) {
                     <div class="contacts-left-first">
                     ${i + 1}
                     </div>
+                    
+                    <input id="inactive-id" type="hidden" value="${data['inactive'][i]['id']}">
+
                     <div class="contacts-left-second">
                         <div class="contacts-left-second-one">
                             <div class="contact-name-section">
@@ -611,18 +627,21 @@ function showData(data) {
                             -<span id="department-${data['inactive'][i]['id']}" style="font-size: 14px">${data['inactive'][i]['department']}</span>
                             ` + inStarEle + `
                         </div>
+                        
                         <div class="contacts-left-second-two">
                             <div class="contacts-left-second-two-a">
                                 <div style=""><i class="fa fa-phone font-s-1" style=""></i>Phone
                                 </div>
                                 <div id="phone-${data['inactive'][i]['id']}" class="company-data">${data['inactive'][i]['phone']}</div>
                             </div>
+                            
                             <div class="contacts-left-second-two-a">
                                 <div><i class="fa fa-envelope-o font-s-1"></i>Email</div>
                                 <div id="email-${data['inactive'][i]['id']}" class="company-data">${data['inactive'][i]['email']}</div>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="contacts-left-third">
                         <i class="fa fa-pencil midi-icon" onClick="editCompanyContact(${data['inactive'][i]['id']})"></i>
                     </div>
