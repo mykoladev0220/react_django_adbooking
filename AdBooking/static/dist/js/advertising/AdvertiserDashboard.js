@@ -148,8 +148,8 @@ function search_contacts() {
         'param': 'search',
         'search_val': search_val
     }
-    search_filter_result(data)
 
+    search_filter_result(data)
 }
 
 function filterContacts() {
@@ -257,6 +257,13 @@ function addCompany() {
 
     contactSectionEle.classList.remove("search-active");
     contactSectionEle.classList.remove("filter-active");
+
+    document.getElementById("i-company-item-id").value = 0
+    document.getElementById("i-first-name").value = "";
+    document.getElementById("i-last-name").value = "";
+    document.getElementById("i-email").value = "";
+    document.getElementById("i-department").value = "";
+    document.getElementById("i-phone-number").value = "";
 }
 
 function deleteCompanyContact(id) {
@@ -286,6 +293,8 @@ function deleteCompanyContact(id) {
 }
 
 function editCompanyContact(id) {
+    addCompany();
+
     let full_name = document.getElementById('first-name-' + id).innerHTML
     let nameParts = full_name.split(" ");
     let firstName = nameParts[0] ? nameParts[0] : "";
@@ -297,8 +306,6 @@ function editCompanyContact(id) {
     document.getElementById("i-email").value = document.getElementById('email-' + id).innerHTML;
     document.getElementById("i-department").value = document.getElementById('department-' + id).innerHTML;
     document.getElementById("i-phone-number").value = document.getElementById('phone-' + id).innerHTML ? document.getElementById('phone-' + id).innerHTML : "";
-
-    addCompany();
 }
 
 function cancelContact() {
@@ -322,7 +329,7 @@ function createContact(id) {
     }
 
     data = {
-        'id': document.getElementById("i-company-item-id").value,
+        'id': Number(document.getElementById("i-company-item-id").value),
         'account': Number(id),
         'firstname': $('#i-first-name').val(),
         'lastname': $('#i-last-name').val(),
@@ -344,7 +351,9 @@ function createContact(id) {
         .then(response => response.json())
         .then(data => {
             $.toastr.success('Save Success');
-            showData(data)
+            showData(data);
+
+            document.getElementById("id_contact_count").innerText = Number(data['active'].length) + Number(data['inactive'].length);
         })
         .catch(error => {
             $.toastr.error("Saved failure");

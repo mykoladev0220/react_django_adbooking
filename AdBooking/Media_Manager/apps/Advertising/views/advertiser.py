@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 import json
 from django.shortcuts import render
 from ..models.advertising import *
-from ..models.advertising import Account, SalesPerson, AccountType, MarketCode, IndustryCode, CompanyContact,AdvertiserTaskList
+from ..models.advertising import Account, SalesPerson, AccountType, MarketCode, IndustryCode, CompanyContact, AdvertiserTaskList
 from .... import views
 from ..forms import *
 from django.core import serializers
@@ -206,25 +206,27 @@ def create_contact (request):
     if not request.user.has_perm('BI.advertising_access'):
         return render(request, "dashboard.html",
                       {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+
     if request.method == 'POST':
         body = request.body.decode('utf-8')
         data = json.loads(body)
 
-        if (data['id'] == 0):
+        if data['id'] == 0:
             contact = CompanyContact(
                 account_id=data['account'],
                 first_name=data['firstname'],
                 last_name=data['lastname'],
+                full_name=data['firstname'] + " " + data['lastname'],
                 email=data['email'],
                 department_id=data['department'],
                 phone_number=data['phone'],
-                full_name=data['full_name'],
                 default=data['default'],
                 active=1
             )
             contact.save()
 
-        if (data['id'] != 0):
+        if data['id'] != 0:
+            print("==============update=================")
             contact = CompanyContact.objects.get(id=data['id'])
 
             contact.account_id = data['account']
@@ -233,7 +235,7 @@ def create_contact (request):
             contact.email = data['email']
             contact.department_id = data['department']
             contact.phone_number = data['phone']
-            contact.full_name = data['full_name']
+            contact.full_name = data['firstname'] + " " + data['lastname']
             contact.default = data['default']
 
             contact.save()
@@ -263,6 +265,7 @@ def get_id_contact (request) :
         search_contacts = Account.objects.filter(id=data['id'])
         contacts = list(search_contacts.values())
         return JsonResponse(contacts)
+
 def getTaskList (request):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "dashboard.html")
@@ -291,6 +294,7 @@ def getTaskList (request):
             }
 
             return JsonResponse(contacts)
+
 def search_filter_contacts (request):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "dashboard.html")
