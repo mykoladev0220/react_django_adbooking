@@ -443,9 +443,9 @@ function TaskList(data) {
                     <div class="task-option">
                         <div class="task-edit" data-target="#new-task" data-toggle="modal"><i class="fa fa-pencil" onclick="editTaskActivity(${tempData['id']})"></i></div>
 
-                        <div class="task-check"><i class="fa fa-check" onclick="taskSetActivty(${tempData['id']})" style="color: black"></i></div>
+                        <div class="task-check" onclick="completeTask(${tempData['id']})"><i class="fa fa-check" style="color: black"></i></div>
 
-                        <div class="task-trash"><i class="fa fa-trash" onclick="taskDelete(${tempData['id']})"></i></div>
+                        <div class="task-trash" onclick="deleteTask(${tempData['id']})"><i class="fa fa-trash"></i></div>
                     </div>
                 </div>
             `);
@@ -482,14 +482,11 @@ function toogle(type) {
     }
 }
 
-function taskDelete(id) {
+function deleteTask(id) {
     let isConfirmed = confirm('Are you sure you want to remove?');
     if (!isConfirmed) return;
-    let data = {}
 
-    data = {
-        'id': id,
-    }
+    let data = {'id': id,};
 
     fetch('/advertising/taskRemove/', {
         method: 'POST',
@@ -500,14 +497,15 @@ function taskDelete(id) {
         },
         body: JSON.stringify(data),
     })
-        .then(response => response.json())
-        .then(data => {
-            $.toastr.success('Changed InActive');
-            TaskList(data)
-        })
-        .catch(error => {
-            $.toastr.error("Saved failure");
-        });
+    .then(response => response.json())
+    .then(data => {
+        $.toastr.success('Deleted Task');
+
+        TaskList(data)
+    })
+    .catch(error => {
+        $.toastr.error("Saved failure");
+    });
 }
 
 function selSalesTab(type) {
@@ -524,11 +522,9 @@ function selSalesTab(type) {
     }
 }
 
-function taskSetActivty(id) {
-    let data = {}
-    data = {
-        'id': id,
-    }
+function completeTask(id) {
+    let data = {'id': id};
+
     fetch('/advertising/taskSetActivity/', {
         method: 'POST',
         headers: {
@@ -540,7 +536,8 @@ function taskSetActivty(id) {
     })
         .then(response => response.json())
         .then(data => {
-            $.toastr.success('Changed InActive');
+            $.toastr.success('Completed Task');
+
             TaskList(data)
         })
         .catch(error => {

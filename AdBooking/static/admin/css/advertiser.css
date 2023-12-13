@@ -1126,7 +1126,7 @@
     font-size: 14px;
     font-weight: 400;
     text-align: center;
-    padding: 4px 29px 7px;
+    padding: 9px 29px 7px;
 }
 
 .to-do-toogle {
@@ -1143,7 +1143,7 @@
 .to-do-toogle div {
     border-radius: 30px !important;
     cursor: pointer;
-    padding: 4px 10px 7px;
+    padding: 9px 10px 7px;
 }
 
 .toogle-active {
@@ -1598,7 +1598,7 @@
 }
 
 .contacts-left-active-menu::-webkit-scrollbar-thumb {
-    background-color: #21215F;
+    background-color: #AD65E5;
     border-radius: 33px;
 }
 

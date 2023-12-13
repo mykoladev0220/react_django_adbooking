@@ -84,12 +84,15 @@ def taskSetActivity(request):
     if not request.user.has_perm('BI.advertising_access'):
         return render(request, "dashboard.html",
                       {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+
     if request.method == 'POST':
         body = request.body.decode('utf-8')
         data = json.loads(body)
+
         row = AdvertiserTaskList.objects.get(id=data['id'])
-        row.status = 1
+        row.complete = 1
         row.save()
+
         active_Tasks = AdvertiserTaskList.objects.filter(status=1)
         ac_con = list(active_Tasks.values())
 
@@ -186,6 +189,7 @@ def taskRemove (request):
 
         obj_to_delete.status = 0
         obj_to_delete.save()
+
         active_Tasks = AdvertiserTaskList.objects.filter(status=1)
         ac_con = list(active_Tasks.values())
 
