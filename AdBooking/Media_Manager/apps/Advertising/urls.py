@@ -170,7 +170,6 @@ urlpatterns = [
 	path('advertiser_dashboard/', views.advertiser_dashboard, name='advertiser_dashboard'),
 
 	#advertiser walmart edit
-	# path('edit_new_advertiser/<str:param>/edit', views.edit_new_advertiser, name='edit_new_advertiser'),
 	path('edit_new_advertiser/', views.edit_new_advertiser, name='edit_new_advertiser'),
 	path('search_filter_contacts/', views.search_filter_contacts, name='search_filter_contacts'),
 	path('get_id_contact/', views.get_id_contact, name='get_id_contact'),

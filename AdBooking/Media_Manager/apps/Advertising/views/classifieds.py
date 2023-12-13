@@ -144,7 +144,7 @@ def register_advertiser(request):
             salesPerson = None
 
         modal.account_type = account
-        modal.contact_name = data['firstName'] + data['lastName']
+        modal.contact_name = data['firstName'] + " " + data['lastName']
         modal.name = data['businessName']
         modal.address = data['address']
         modal.city = data['city']
@@ -162,10 +162,13 @@ def register_advertiser(request):
         modal.billing_city = data['bilCity']
         modal.billing_state = data['bilState']
         modal.billing_zip_code = data['bilZipCode']
+        modal.status = 0
 
         modal.save()
 
-        return JsonResponse({'success': "Successful!"})
+        latest_id = Account.objects.latest('id').id
+
+        return JsonResponse({'success': "Successful!", 'id': latest_id})
     else:
         return JsonResponse({'error': 'Invalid request'})
 
@@ -1361,6 +1364,8 @@ def register_campaign(request):
         modal.save()
 
         latest_data = (ClassifiedCampaignSummary.objects.last()).id
+
+
 
         return JsonResponse({'id': latest_data})
     else:

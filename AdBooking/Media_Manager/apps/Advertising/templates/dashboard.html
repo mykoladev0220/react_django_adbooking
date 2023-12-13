@@ -17,6 +17,8 @@
 {% block content %}
 
 <div class="dashboard mt-2">
+    <input type="hidden" id="advertiser-id" value="{{id}}">
+
     <div>
         <h1 class="text-center mt-1"></i>&nbsp;Advertiser Dashboard</h1>
 
@@ -43,8 +45,9 @@
 
             <div id="id_overview_tab">
                 <div class="overview-btn-walmart">
-                    <button class="overview-btn-edit-info" data-toggle="modal" data-target="#overview-walmart">
-                        <i class="fa fa-eyedropper" style="font-size: 10px"></i>Edit Info
+                    <button class="overview-btn-edit-info" data-toggle="modal" data-target="#overview-walmart" onclick="setMainModal()">
+                        <i class="fa fa-eyedropper" style="font-size: 10px"></i>
+                        Edit Info
                     </button>
                 </div>
 
@@ -55,20 +58,42 @@
 
                             <div class="col-md-4">
                                 <span class="walmart-label">Status</span>
-                                <p class="mb-2 walmart-content">{{ newAccount.name }}</p>
+
+                                <p id="main_status_content" class="mb-2 walmart-content">
+                                    {% if newAccount.status == 0 %}
+                                      Active
+                                    {% else %}
+                                      InActive
+                                    {% endif %}
+                                </p>
+
+                                <input type="hidden" id="main_status" value="{{newAccount.status}}">
+
                                 <span class="walmart-label">Address</span>
-                                <p class="mb-2 walmart-content">{{ newAccount.address }}</p>
+
+                                <p id="main_address" class="mb-2 walmart-content">{{ newAccount.address }}</p>
+
                                 <span class="walmart-label">Website</span>
-                                <p class="walmart-content" style="text-decoration-line: underline;">{{ newAccount.website }}</p>
+
+                                <p id="main_website" class="walmart-content" style="text-decoration-line: underline;">{{ newAccount.website }}</p>
                             </div>
+
                             <div class="col-md-2"></div>
+
                             <div class="col-md-6">
                                 <span class="walmart-label">Account Type</span>
-                                <p class="mb-2 walmart-content">{{ newAccount.account_type_id }}</p>
+
+                                <p id="main_account_type" class="mb-2 walmart-content">{{ newAccount.account_type_id }}</p>
+
+                                <input id="main_account_type_id" type="hidden" value="{{ newAccount.account_type_id }}">
+
                                 <span class="walmart-label"><i class="fa fa-phone"></i>Phone</span>
-                                <p class="mb-2 walmart-content">{{ newAccount.phone }}</p>
+
+                                <p id="main_phone" class="mb-2 walmart-content">{{ newAccount.phone }}</p>
+
                                 <span class="walmart-label"><i class="fa fa-envelope-o"></i> Email</span>
-                                <p class="walmart-content">{{ newAccount.email }}</p>
+
+                                <p id="main_email" class="walmart-content">{{ newAccount.email }}</p>
                             </div>
                         </div>
                     </div>
@@ -81,27 +106,39 @@
                     <div class="col-md-6 text-left mt-1" style="margin-left:60px">
                         <div class="billing-line" style="">
                             <span class="billing-label" style="">Billing Info</span>
-                            <button class="overview-btn-edit-info pull-right" data-toggle="modal" data-target="#overview-billing">
+
+                            <button class="overview-btn-edit-info pull-right" onclick="setBillingModal()"
+                                    data-toggle="modal" data-target="#overview-billing">
                                 <i class="fa fa-eyedropper" style="font-size: 10px"></i>
-                                Edit Billiing Info
+                                Edit Billing Info
                             </button>
                         </div>
+
                         <div class="billing-rec">
-                            <img src="{% static "img/Rectangle_1.png" %}">
-                            <span class="billing-rec-total">${{newAccount.total_spent}}</span>
-                            <img src="{% static "img/Rectangle_2.png" %}">
+                            <img src="{% static "img/Rectangle_1.png" %}" alt="billing left">
+
+                            <span class="billing-rec-total">$<span id="bill_rec_total">{{newAccount.total_spent}}</span></span>
+
+                            <img src="{% static "img/Rectangle_2.png" %}" alt="billing right">
                         </div>
+
                         <div class="row mt-4 mb-2">
                             <div class="col-md-4">
                                 <span class="walmart-label">Billing Address</span>
-                                <p class="mb-2 walmart-content">{{newAccount.billing_address}}</p>
+
+                                <p id="bill_address" class="mb-2 walmart-content">{{newAccount.billing_address}}</p>
+
                                 <span class="walmart-label">Credit limit</span>
-                                <!--                               <p class="mb-2 walmart-content">Status</p>-->
+
+                                <p id="bill_credit_limit" class="mb-2 walmart-content">{{newAccount.credit_limit}}</p>
                             </div>
+
                             <div class="col-md-4"></div>
+
                             <div class="col-md-4">
                                 <span class="walmart-label ">Billing Email</span>
-                                <p class="mb-2 walmart-content ">{{newAccount.billing_email}}</p>
+
+                                <p id="bill_email" class="mb-2 walmart-content ">{{newAccount.billing_email}}</p>
                             </div>
                         </div>
                     </div>
@@ -115,6 +152,7 @@
                     <div class="overview-contacts-title">
                         <span>Contacts</span>
                     </div>
+
                     <div class="overview-contacts-contents" style="">
                         <div class="company-section">
                             <div class="editor-section">
@@ -123,6 +161,7 @@
                                         <div class="contacts-left-title-one text-left">
                                             Company Contacts(<span id="id_contact_count"></span>)
                                         </div>
+
                                         <div class="contacts-left-title-two text-right">
                                             <i class="fa fa-search big-icon" onclick="selSearch()"></i>
 
@@ -142,6 +181,7 @@
                                     <div class="filter-section">
                                         <div class="filter-ele">
                                             <span>Status:</span>
+
                                             <select id="id_filter_status">
                                                 <option value="2">Active & inActive</option>
                                                 <option value="1">Active</option>
@@ -151,12 +191,12 @@
 
                                         <div class="filter-ele">
                                             <span>Department:</span>
-                                            <select id="id_filter_dept">
 
-                                                    <option disabled selected value="0">All</option>
-                                                    {%for dept in department%}
-                                                    <option value="{{dept.id}}">{{dept.name}}</option>
-                                                    {% endfor %}
+                                            <select id="id_filter_dept">
+                                                <option disabled selected value="0">All</option>
+                                                {%for dept in department%}
+                                                <option value="{{dept.id}}">{{dept.name}}</option>
+                                                {% endfor %}
                                             </select>
                                         </div>
 
@@ -167,8 +207,10 @@
 
                                 <div class="contacts-left-active">
                                     <span class="contacts-left-active-title" style="">Active</span>
+
                                     <div class="contacts-left-active-border" style=""></div>
                                 </div>
+
                                 <div class="contacts-left-active-menu" id="id_active_items">
                                 </div>
 
@@ -176,8 +218,8 @@
                                     <span class="contacts-left-inactive-title" style="">Inactive</span>
 
                                     <div class="contacts-left-inactive-border " style=""></div>
-
                                 </div>
+
                                 <div class="contacts-left-active-menu" id="id_inactive_items">
 
                                 </div>
@@ -218,7 +260,7 @@
                                             <span class="company-item-label">Department:</span>
 
                                             <select id="i-department" class="form-control shadow">
-                                                 <option disabled selected value="0">Select</option>
+                                                <option disabled selected value="0">Select</option>
                                                 {%for dept in department%}
                                                 <option value="{{dept.id}}">{{dept.name}}</option>
                                                 {% endfor %}
@@ -277,8 +319,6 @@
                                 <img id="company-backImg" src="{% static "img/Ellipse_2.png" %}">
                             </div>
                         </div>
-
-                        <!--                    <div class="col-md-6"></div>-->
                     </div>
                 </div>
             </div>
@@ -357,6 +397,7 @@
                 <div class="overview-contacts">
                     <div class="overview-contacts-title">
                         <img class="mr-1 title-icon" src="{% static 'svg/sales.svg' %}" alt="sales">
+
                         <span>Sales</span>
                     </div>
 
@@ -605,8 +646,8 @@
 
                                 <div class="col-sm-4">
                                     <select class="form-control" name="walmart_status_type" id="id_walmart_status_type">
-                                        <option value="1">active</option>
-                                        <option value="0">inactive</option>
+                                        <option value="0">active</option>
+                                        <option value="1">inactive</option>
                                     </select>
                                 </div>
 
@@ -615,7 +656,7 @@
                                 <label class="col-sm-2 control-label">Address</label>
 
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="walmart_address" value={{newAccount.address}} id="id_walmart_address"
+                                    <input type="text" class="form-control" name="walmart_address" id="id_walmart_address"
                                            placeholder="address">
                                 </div>
                             </div>
@@ -624,7 +665,7 @@
                                 <label class="col-sm-2 control-label">Website</label>
 
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="walmart_website" value={{newAccount.website}} id="id_walmart_website"
+                                    <input type="text" class="form-control" name="walmart_website" id="id_walmart_website"
                                            placeholder="website">
                                 </div>
                             </div>
@@ -646,7 +687,7 @@
                                 <label class="col-sm-2 control-label">phone</label>
 
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="walmart_phone" id="id_walmart_phone" value={{newAccount.phone}} placeholder="phone">
+                                    <input type="text" class="form-control" name="walmart_phone" id="id_walmart_phone" placeholder="phone">
                                 </div>
                             </div>
 
@@ -654,20 +695,18 @@
                                 <label class="col-sm-2 control-label">Email</label>
 
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="walmart_email" id="id_walmart_email" value={{newAccount.email}} placeholder="email">
+                                    <input type="text" class="form-control" name="walmart_email" id="id_walmart_email" placeholder="email">
                                 </div>
                             </div>
                         </div>
-
                     </form>
-                         <div class="modal-footer walmart-model-footer" style="">
-                            <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
 
-                            <button onclick="editWalmartInfo('walmart')" class="btn btn-primary" >Save</button>
-                        </div>
+                    <div class="modal-footer walmart-model-footer">
+                       <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+
+                       <button onclick="editWalmartInfo('walmart')" class="btn btn-primary">Save</button>
+                    </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -682,12 +721,12 @@
 
                 <div class="modal-body advertising-modal-body" style="z-index: 1">
                     <form class="form-horizontal" >
-
                         <div class="box-body">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Billing Total</label>
+
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="billing_total"  value={{newAccount.total_spent}} id="id_billing_total" placeholder="total">
+                                    <input type="text" class="form-control" name="billing_total" id="id_billing_total" placeholder="total">
                                 </div>
                             </div>
 
@@ -695,8 +734,7 @@
                                 <label class="col-sm-2 control-label">Address</label>
 
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="billing_address"  id="id_billing_address" value={{newAccount.address}}
-                                           placeholder="address">
+                                    <input id="id_billing_address" type="text" class="form-control" name="billing_address" placeholder="address">
                                 </div>
                             </div>
 
@@ -704,8 +742,7 @@
                                 <label class="col-sm-2 control-label">Credit limit</label>
 
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="billing_credit_limit"  id="id_credit_limit" value={{newAccount.credit_limit}}
-                                           placeholder="credit_limit">
+                                    <input id="id_credit_limit" type="text" class="form-control" name="billing_credit_limit" placeholder="credit_limit">
                                 </div>
                             </div>
 
@@ -713,19 +750,18 @@
                                 <label class="col-sm-2 control-label">Email</label>
 
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="billing_email" id="id_billing_email" value={{newAccount.email}} placeholder="email">
+                                    <input id="id_billing_email" type="text" class="form-control" name="billing_email" placeholder="email">
                                 </div>
                             </div>
                         </div>
 
                     </form>
-                     <div class="modal-footer" style="display: flex;gap: 40px;justify-content: center">
-                            <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                            <button onclick="editWalmartInfo('billing')" class="btn btn-primary">Save</button>
-                        </div>
+
+                    <div class="modal-footer" style="display: flex;gap: 40px;justify-content: center">
+                        <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        <button onclick="editWalmartInfo('billing')" class="btn btn-primary">Save</button>
+                    </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -774,13 +810,12 @@
                         <div class="task-label">Assigned To: </div>
 
                         <select class="task-assign-ele" id="id_assign" >
-                                <option selected disabled value="0">select assign</option>
-                                {% for account in accountInfo %}
-                                    <option value="{{ account.id }}">
-                                        {{ account.name }}
-                                    </option>
-                               {% endfor %}
-
+                            <option selected disabled value="0">select assign</option>
+                            {% for account in accountInfo %}
+                            <option value="{{ account.id }}">
+                                {{ account.name }}
+                            </option>
+                           {% endfor %}
                         </select>
                     </div>
 
@@ -802,6 +837,15 @@
 </div>
 
 <script>
+    let accountTypeList = JSON.parse(`{{ accountTypeList }}`);
+    let advertiserId = document.getElementById("advertiser-id").value;
 
+    let mainAccountType = document.getElementById("main_account_type").innerText;
+
+    for (let i = 0; i < accountTypeList.length; i ++) {
+        if (accountTypeList[i]['pk'] == mainAccountType) {
+            document.getElementById("main_account_type").innerText = accountTypeList[i]['fields']['name'];
+        }
+    }
 </script>
 {% endblock %}

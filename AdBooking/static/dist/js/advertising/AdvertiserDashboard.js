@@ -20,8 +20,8 @@ let overviewTab = document.getElementById("id_overview_tab");
 let activityTab = document.getElementById("id_activity_tab");
 let historyTab = document.getElementById("id_order_history_tab");
 
-let activeToogle = document.getElementById("id_to_active");
-let compeletToogle = document.getElementById("id_to_complete");
+let activeToggle = document.getElementById("id_to_active");
+let completeToggle = document.getElementById("id_to_complete");
 
 let activityTime = document.getElementById("id_activity_time");
 let activityProduct = document.getElementById("id_activity_product");
@@ -30,6 +30,19 @@ let activityFormat = document.getElementById("id_activity_format");
 let historyFilterPolygon = document.getElementById("id_history_filter_polygon");
 let historyFilter = document.getElementById("id_history_filter");
 let filterFlag = false;
+
+let mainStatusContent = document.getElementById("main_status_content");
+let mainStatus = document.getElementById("main_status");
+let mainAddress = document.getElementById("main_address");
+let mainWebsite = document.getElementById("main_website");
+let mainAccountTypeId = document.getElementById("main_account_type_id");
+let mainPhone = document.getElementById("main_phone");
+let mainEmail = document.getElementById("main_email");
+
+let billRecTotal = document.getElementById("bill_rec_total");
+let billAddress = document.getElementById("bill_address");
+let billCreditLimit = document.getElementById("bill_credit_limit");
+let billEmail = document.getElementById("bill_email");
 
 let addressFlag = 0;
 
@@ -151,35 +164,26 @@ function editWalmartInfo(param) {
             $.toastr.warning("Please select accountType");
             return;
         }
-        var status = document.getElementById('id_walmart_status_type').value;
-        var address = document.getElementById('id_walmart_address').value;
-        var website = document.getElementById('id_walmart_website').value;
-        var accountType = document.getElementById('id_walmart_account').value;
-        var phone = document.getElementById('id_walmart_phone').value;
-        var email = document.getElementById('id_walmart_email').value;
 
         data = {
+            id: advertiserId,
             param: param,
-            accountType: accountType,
-            address: address,
-            status: status,
-            phone: phone,
-            email: email,
-            website: website,
+            accountType: document.getElementById('id_walmart_account').value,
+            address: document.getElementById('id_walmart_address').value,
+            status: document.getElementById('id_walmart_status_type').value,
+            phone: document.getElementById('id_walmart_phone').value,
+            email: document.getElementById('id_walmart_email').value,
+            website: document.getElementById('id_walmart_website').value
         }
     }
     if (param == 'billing') {
-        var billing_total = document.getElementById('id_billing_total').value;
-        var billing_address = document.getElementById('id_billing_address').value;
-        var credit_limit = document.getElementById('id_credit_limit').value;
-        var billing_email = document.getElementById('id_billing_email').value;
-
         data = {
+            id: advertiserId,
             param: param,
-            billing_total_spent: billing_total,
-            billing_address: billing_address,
-            credit_limit: credit_limit,
-            billing_email: billing_email,
+            billing_total_spent: document.getElementById('id_billing_total').value,
+            billing_address: document.getElementById('id_billing_address').value,
+            credit_limit: document.getElementById('id_credit_limit').value,
+            billing_email: document.getElementById('id_billing_email').value,
         }
     }
 
@@ -194,9 +198,33 @@ function editWalmartInfo(param) {
     })
         .then(response => response.json())
         .then(data => {
+            let tempData = data['data'];
             $.toastr.success('Updated Success');
 
-            $('#overview-walmart').modal('hide');
+            if (tempData['param'] === "walmart") {
+                $('#overview-walmart').modal('hide');
+
+                mainStatusContent.innerText = tempData['status'] == 0 ? "Active" : "InActive";
+                mainStatus.value = tempData['status'];
+                mainAddress.innerText = tempData['address'];
+                mainWebsite.innerText = tempData['website'];
+                mainAccountTypeId.innerText = tempData['accountType'];
+                mainPhone.innerText = tempData['phone'];
+                mainEmail.innerText = tempData['email'];
+
+                for (let i = 0; i < accountTypeList.length; i ++) {
+                    if (accountTypeList[i]['pk'] == tempData['accountType']) {
+                        mainAccountType.innerText = accountTypeList[i]['fields']['name'];
+                    }
+                }
+            } else {
+                $('#overview-billing').modal('hide');
+
+                billRecTotal.innerText = tempData['billing_total_spent'];
+                billAddress.innerText = tempData['billing_address'];
+                billCreditLimit.innerText = tempData['credit_limit'];
+                billEmail.innerText = tempData['billing_email'];
+            }
         })
         .catch(error => {
             $.toastr.error("Saved failure");
@@ -248,13 +276,13 @@ function editCompanyContact(id) {
     let nameParts = full_name.split(" ");
     let firstName = nameParts[0] ? nameParts[0] : "";
     let lastName = nameParts[1] ? nameParts[1] : "";
+    
     document.getElementById("i-first-name").value = firstName
     document.getElementById("i-last-name").value = lastName
     document.getElementById("i-email").value = document.getElementById('email-' + id).innerHTML;
     document.getElementById("i-department").value = document.getElementById('department-' + id).innerHTML;
     document.getElementById("i-phone-number").value = document.getElementById('phone-' + id).innerHTML ? document.getElementById('phone-' + id).innerHTML : "";
     addCompany();
-
 }
 
 function cancelContact() {
@@ -330,7 +358,6 @@ function activateTab(type) {
 
     } else if (type === 1) {
         showActivity()
-        // $('#id_todo_task_list')
         activityMenu.classList.add('overview-active');
         activityTab.classList.remove('disable-tab');
     } else {
@@ -341,8 +368,6 @@ function activateTab(type) {
 
 function showActivity() {
     showTaskList("active")
-    // showRecentActivity()
-    // showSales()
 }
 
 function showTaskList(param) {
@@ -402,15 +427,15 @@ function TaskList(data) {
                         <div class="task-trash"><i class="fa fa-trash" onclick="taskDelete(${tempData['id']})"></i></div>
                     </div>
                 </div>
-                `);
+            `);
         }
     } else {
         $('#id_todo_task_list').append(`
-                        <div class="contacts-inactive">
-                            <div class="contacts-inactive-no">
-                                There is no TO DO's
-                            </div>
-                        </div>`)
+            <div class="contacts-inactive">
+                <div class="contacts-inactive-no">
+                    There is no TO DO's
+                </div>
+            </div>`)
     }
 }
 
@@ -424,15 +449,15 @@ function editTaskActivity(id) {
 }
 
 function toogle(type) {
-    activeToogle.classList.remove('toogle-active');
-    compeletToogle.classList.remove('toogle-active');
+    activeToggle.classList.remove('toogle-active');
+    completeToggle.classList.remove('toogle-active');
 
     if (type === 0) {
         showTaskList('active')
-        activeToogle.classList.add('toogle-active');
+        activeToggle.classList.add('toogle-active');
     } else {
         showTaskList('complete')
-        compeletToogle.classList.add('toogle-active');
+        completeToggle.classList.add('toogle-active');
     }
 }
 
@@ -547,10 +572,10 @@ function showData(data) {
     } else {
         $('#id_active_items').append(
             `<div class="contacts-inactive">
-                            <div class="contacts-inactive-no">
-                                There are currently no inactive company contacts
-                            </div>
-                        </div>`);
+                <div class="contacts-inactive-no">
+                    There are currently no inactive company contacts
+                </div>
+            </div>`);
     }
 
     if (data['inactive'].length > 0) {
@@ -560,36 +585,35 @@ function showData(data) {
                 inStarEle = `<i class="fa fa-star"></i>`;
 
             $('#id_inactive_items').append(`
-                                <div class="contacts-left-active-item ">
-                                    <div class="contacts-left-first">
-                                    ${i + 1}
-                                    </div>
-                                    <div class="contacts-left-second">
-                                        <div class="contacts-left-second-one">
-                                            <div class="contact-name-section">
-                                                <span id="first-name-${data['inactive'][i]['id']}" class="contact-name">${data['inactive'][i]['full_name']}</span>
-                                            </div>
-                                            -<span id="department-${data['inactive'][i]['id']}" style="font-size: 14px">${data['inactive'][i]['department']}</span>
-                                            ` + inStarEle + `
-                                        </div>
-                                        <div class="contacts-left-second-two">
-                                            <div class="contacts-left-second-two-a">
-                                                <div style=""><i class="fa fa-phone font-s-1" style=""></i>Phone
-                                                </div>
-                                                <div id="phone-${data['inactive'][i]['id']}" class="company-data">${data['inactive'][i]['phone']}</div>
-                                            </div>
-                                            <div class="contacts-left-second-two-a">
-                                                <div><i class="fa fa-envelope-o font-s-1"></i>Email</div>
-                                                <div id="email-${data['inactive'][i]['id']}" class="company-data">${data['inactive'][i]['email']}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="contacts-left-third">
-                                        <i class="fa fa-pencil midi-icon" onClick="editCompanyContact(${data['inactive'][i]['id']})"></i>
-<!--                                        <i class="fa fa-trash midi-icon" onClick="deleteCompanyContact(${data['inactive'][i]['id']})"></i>-->
-                                    </div>
+                <div class="contacts-left-active-item ">
+                    <div class="contacts-left-first">
+                    ${i + 1}
+                    </div>
+                    <div class="contacts-left-second">
+                        <div class="contacts-left-second-one">
+                            <div class="contact-name-section">
+                                <span id="first-name-${data['inactive'][i]['id']}" class="contact-name">${data['inactive'][i]['full_name']}</span>
+                            </div>
+                            -<span id="department-${data['inactive'][i]['id']}" style="font-size: 14px">${data['inactive'][i]['department']}</span>
+                            ` + inStarEle + `
+                        </div>
+                        <div class="contacts-left-second-two">
+                            <div class="contacts-left-second-two-a">
+                                <div style=""><i class="fa fa-phone font-s-1" style=""></i>Phone
                                 </div>
-                            `);
+                                <div id="phone-${data['inactive'][i]['id']}" class="company-data">${data['inactive'][i]['phone']}</div>
+                            </div>
+                            <div class="contacts-left-second-two-a">
+                                <div><i class="fa fa-envelope-o font-s-1"></i>Email</div>
+                                <div id="email-${data['inactive'][i]['id']}" class="company-data">${data['inactive'][i]['email']}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contacts-left-third">
+                        <i class="fa fa-pencil midi-icon" onClick="editCompanyContact(${data['inactive'][i]['id']})"></i>
+                    </div>
+                </div>
+            `);
         }
     } else {
         $('#id_inactive_items').append(
@@ -665,4 +689,20 @@ function clickHistoryFilter() {
         historyFilterPolygon.classList.add('disable-tab');
         historyFilter.classList.add('disable-tab');
     }
+}
+
+function setMainModal() {
+    document.getElementById("id_walmart_status_type").value = mainStatus.value;
+    document.getElementById("id_walmart_address").value = mainAddress.innerText;
+    document.getElementById("id_walmart_website").value = mainWebsite.innerText;
+    document.getElementById("id_walmart_account").value = mainAccountTypeId.value;
+    document.getElementById("id_walmart_phone").value = mainPhone.innerText;
+    document.getElementById("id_walmart_email").value = mainEmail.innerText;
+}
+
+function setBillingModal() {
+    document.getElementById("id_billing_total").value = billRecTotal.innerText;
+    document.getElementById("id_billing_address").value = billAddress.innerText;
+    document.getElementById("id_credit_limit").value = billCreditLimit.innerText;
+    document.getElementById("id_billing_email").value = billEmail.innerText;
 }

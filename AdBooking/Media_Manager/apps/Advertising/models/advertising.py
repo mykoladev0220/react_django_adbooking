@@ -88,6 +88,7 @@ class Account(models.Model):
     billing_city = models.EmailField(max_length=100)
     billing_state = models.EmailField(max_length=100)
     billing_zip_code = models.EmailField(max_length=100)
+    status = models.IntegerField(default=0)
     # TODO - add a field for logo image
     # TODO - add a field for secondary legacy id (will be exactly like the first legacy id)
 

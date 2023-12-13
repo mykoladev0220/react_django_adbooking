@@ -144,17 +144,19 @@ function createAdvertiser() {
     })
     .then(response => response.json())
     .then(data => {
-        // $.toastr.success('Saved Success');
+        $.toastr.success('Saved Success');
 
-        window.location.href = `/advertising/advertiser_dashboard/`;
+        setTimeout(goNewCampaign(data['id']), 500);
     })
     .catch(error => {
         $.toastr.error("Saved failure");
     });
 }
-function goNewCampaign () {
-    window.location.href = `/advertising/advertiser_dashboard/`;
+
+function goNewCampaign (id) {
+    window.location.href = `/advertising/advertiser_dashboard/?advertiserId=${id}`;
 }
+
 function changeAddress(index) {
     addressFlag = index;
 
@@ -185,7 +187,3 @@ const getCookie = name => {
     })
     return cookie[name];
 }
-
-// function goNewCampaign () {
-//     window.location.href = `/advertising/classifieds/new/`;
-// }

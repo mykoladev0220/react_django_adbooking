@@ -1,22 +1,16 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
 
 import logging
 logger = logging.getLogger(__name__)
 
 import json
-from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from ..models.advertising import *
-from ..models.orders import *
-from ..models.rates import *
-from ..models.publications import *
-from ..models.permissions import AdAssistant
-# import the necessary models needed
 from ..models.advertising import Account, SalesPerson, AccountType, MarketCode, IndustryCode, CompanyContact,AdvertiserTaskList
 from .... import views
 from ..forms import *
 from django.core import serializers
+
 login_redirect = "/login/?next="
 
 daysOfTheWeek = ['monday', 'tuesday', 'wednesday',
@@ -28,18 +22,27 @@ def advertiser_dashboard(request):
 
     if not request.user.has_perm('BI.advertising_access'):
         return render(request, "advertising.html", {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
-    accountTypes= AccountType.objects.all()
-    department= CompanyDepartment.objects.all()
-    newAccount = Account.objects.last()
-    accountInfo=Account.objects.all()
+
+    if request.method == 'GET':
+        advertiserId = request.GET.get('advertiserId')
+
+    newAccount = Account.objects.get(id=advertiserId)
+    accountTypes = AccountType.objects.all()
+    accountTypeList = serializers.serialize('json', accountTypes)
+    department = CompanyDepartment.objects.all()
+    accountInfo = Account.objects.all()
+
     context = {
+        "id": advertiserId,
         "newAccount": newAccount,
-        'accountTypes': accountTypes,
-        'department': department,
-        'accountInfo': accountInfo
+        "accountTypes": accountTypes,
+        "accountTypeList": accountTypeList,
+        "department": department,
+        "accountInfo": accountInfo
     }
 
     return render(request, "dashboard.html", context)
+
 def edit_new_advertiser(request):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "dashboard.html")
@@ -47,11 +50,12 @@ def edit_new_advertiser(request):
     if not request.user.has_perm('BI.advertising_access'):
         return render(request, "dashboard.html",
                       {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
+
     if request.method == 'POST':
-        # row = get_object_or_404(Account, pk=request.POST.get('account_id'))
-        row = Account.objects.last()
         body = request.body.decode('utf-8')
         data = json.loads(body)
+
+        row = Account.objects.get(id=data['id'])
 
         if data['param'] == 'walmart':
             row.status = data['status']
@@ -61,7 +65,8 @@ def edit_new_advertiser(request):
             row.phone = data['phone']
             row.email = data['email']
             row.save()
-            return JsonResponse({"message": "Success!"}, status=200)
+
+            return JsonResponse({"data": data}, status=200)
 
         if data['param'] == 'billing':
             row.total_spent = data['billing_total_spent']
@@ -70,7 +75,7 @@ def edit_new_advertiser(request):
             row.billing_email = data['billing_email']
             row.save()
 
-            return JsonResponse({"message": "Success!"}, status=200)
+            return JsonResponse({"data": data}, status=200)
 
 def taskSetActivity(request):
     if request is None or not request.user.is_authenticated:
@@ -80,7 +85,6 @@ def taskSetActivity(request):
         return render(request, "dashboard.html",
                       {"access": "deny", "message": "Access denied!", "menu": views.get_sidebar(request)})
     if request.method == 'POST':
-        # row = get_object_or_404(Account, pk=request.POST.get('account_id'))
         body = request.body.decode('utf-8')
         data = json.loads(body)
         row = AdvertiserTaskList.objects.get(id=data['id'])
@@ -94,6 +98,7 @@ def taskSetActivity(request):
         }
 
         return JsonResponse(contacts)
+
 def create_task (request):
     if request is None or not request.user.is_authenticated:
         return redirect(login_redirect + "dashboard.html")
