@@ -45,6 +45,8 @@ let billCreditLimit = document.getElementById("bill_credit_limit");
 let billEmail = document.getElementById("bill_email");
 
 let addressFlag = 0;
+let mainSearchFlag = false;
+let mainFilterFlag = false;
 
 $(function () {
     let data = {}
@@ -90,8 +92,14 @@ $('#id_edit_info').click(e => {
 })
 
 function selSearch() {
+    mainSearchFlag = !mainSearchFlag
+
     contactSectionEle.classList.remove('filter-active');
-    contactSectionEle.classList.add('search-active');
+
+    if (mainSearchFlag)
+        contactSectionEle.classList.add('search-active');
+    else
+        contactSectionEle.classList.remove('search-active');
 }
 
 var input = document.getElementById("id_search_contacts");
@@ -232,8 +240,14 @@ function editWalmartInfo(param) {
 }
 
 function selFilter() {
+    filterFlag = !filterFlag;
+
     contactSectionEle.classList.remove('search-active');
-    contactSectionEle.classList.add('filter-active');
+
+    if (filterFlag)
+        contactSectionEle.classList.add('filter-active');
+    else
+        contactSectionEle.classList.remove('filter-active');
 }
 
 function addCompany() {
