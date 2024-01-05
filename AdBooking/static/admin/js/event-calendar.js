@@ -1,4 +1,3 @@
-!function() {
   var today = moment();
   var selectedDates = [];
   const tooltip = document.createElement('div');
@@ -238,4 +237,3 @@
 
   // Call the function to populate selectors initially
   populateSelectors();
-}();

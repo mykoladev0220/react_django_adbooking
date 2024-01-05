@@ -103,3 +103,50 @@
   float: right;
   margin-left: 5px;
 }
+
+
+//////
+
+#ad-sum-calendar table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#ad-sum-calendar th, #ad-sum-calendar td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#ad-sum-calendar th {
+  background-color: #f2f2f2;
+}
+
+#ad-sum-calendar td:hover {
+  background-color: rgb(193,213,252); /* Adjust the background color on hover */
+}
+
+#ad-sum-calendar .other-month {
+  opacity: 0.5; /* Adjust the opacity value as needed */
+  color: #aaa; /* Optional: Change the color for better visibility */
+}
+
+
+#ad-sum-calendar .arrow-btn {
+  font-size: 18px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: none;
+  background-color: #f2f2f2;
+}
+
+#ad-sum-calendar .arrow-btn:hover {
+  background-color: #ddd;
+}
+
+#ad-calendar-controls button {
+  font-size: 17px;
+  float: right;
+  margin-left: 5px;
+}
