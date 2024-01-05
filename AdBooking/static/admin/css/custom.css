@@ -2236,3 +2236,22 @@ button {
 .c-task-chat-desc-item-5-color {
     background-color: #333055;
 }
+
+#year-selector,
+#month-selector,
+#prev-month-btn,
+#next-month-btn,
+#ad-year-selector,
+#ad-month-selector,
+#ad-prev-month-btn,
+#ad-next-month-btn {
+    border: none !important;
+    font-weight: 700 !important;
+}
+
+#prev-month-btn,
+#next-month-btn,
+#ad-year-selector,
+#ad-month-selector {
+    background-color: transparent !important;
+}

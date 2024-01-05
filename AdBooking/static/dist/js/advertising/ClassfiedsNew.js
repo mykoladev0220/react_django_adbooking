@@ -210,19 +210,24 @@ function publication_next() {
                                                 <div class="value-items">
                                                     <div class="ad-date">
                                                         <div class="ad-type-label">Dates:</div>
-                                                        <div id="ad-calendar-controls">
-                                                            <select id="ad-sum-year-selector" class="form-select">
-                                                                <!-- Add options for years (e.g., 2022, 2023, etc.) -->
-                                                            </select>
-                                                            <select id="ad-sum-month-selector" class="form-select">
-                                                            <!-- Add options for months (1-12) -->
-                                                            </select>
-                
-                                                            <button id="ad-sum-prev-month-btn" class="arrow-btn">&#8595;</button>
-                                                            <button id="ad-sum-next-month-btn" class="arrow-btn">&#8593;</button>
+                                                        
+                                                        <div style="border: 1px solid #666; border-radius: 4px">
+                                                            <div id="ad-calendar-controls">
+                                                                <select id="ad-sum-year-selector" class="form-select">
+                                                                    <!-- Add options for years (e.g., 2022, 2023, etc.) -->
+                                                                </select>
+                                                                
+                                                                <select id="ad-sum-month-selector" class="form-select">
+                                                                <!-- Add options for months (1-12) -->
+                                                                </select>
+                    
+                                                                <button id="ad-sum-prev-month-btn" class="arrow-btn">&#8595;</button>
+                                                                
+                                                                <button id="ad-sum-next-month-btn" class="arrow-btn">&#8593;</button>
+                                                            </div>
                                                             
+                                                            <div id="ad-sum-calendar"></div>
                                                         </div>
-                                                        <div id="ad-sum-calendar"></div>
                                                     </div>
                                                 </div>
                 
@@ -609,19 +614,23 @@ function createAdItem() {
                                 <div class="value-items">
                                     <div class="ad-date">
                                         <div class="ad-type-label">Dates:</div>
-                                        <div id="ad-calendar-controls">
-                                            <select id="ad-year-selector" class="form-select">
-                                                <!-- Add options for years (e.g., 2022, 2023, etc.) -->
-                                            </select>
-                                            <select id="ad-month-selector" class="form-select">
-                                            <!-- Add options for months (1-12) -->
-                                            </select>
-
-                                            <button id="ad-prev-month-btn" class="arrow-btn">&#8595;</button>
-                                            <button id="ad-next-month-btn" class="arrow-btn">&#8593;</button>
+                                        
+                                        <div style="border: 1px solid #666; border-radius: 4px">
+                                            <div id="ad-calendar-controls">
+                                                <select id="ad-year-selector" class="form-select">
+                                                    <!-- Add options for years (e.g., 2022, 2023, etc.) -->
+                                                </select>
+                                                <select id="ad-month-selector" class="form-select">
+                                                <!-- Add options for months (1-12) -->
+                                                </select>
+    
+                                                <button id="ad-prev-month-btn" class="arrow-btn">&#8595;</button>
+                                                <button id="ad-next-month-btn" class="arrow-btn">&#8593;</button>
+                                                
+                                            </div>
                                             
+                                            <div id="ad-calendar"></div>
                                         </div>
-                                        <div id="ad-calendar"></div>
                                     </div>
                                 </div>
 

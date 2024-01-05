@@ -1,4 +1,4 @@
-  var today = moment();
+ var today = moment();
   var selectedDates = [];
   const tooltip = document.createElement('div');
   tooltip.className = 'td-tooltip';
@@ -13,11 +13,11 @@
 
     let calendarHTML = '<table>';
     calendarHTML += '<tr>';
-    
+
     for (let i = 0; i < daysOfWeek.length; i++) {
       calendarHTML += '<th>' + daysOfWeek[i] + '</th>';
     }
-    
+
     calendarHTML += '</tr>';
 
     let dayCounter = 1;
@@ -169,32 +169,32 @@
   function showTooltip(element, text) {
     // Set tooltip text
     tooltip.textContent = text;
-  
+
     // Create a slider container
     const sliderContainer = document.createElement('div');
     sliderContainer.className = 'slider-container';
-  
+
     // Create a slider fill
     const sliderFill = document.createElement('div');
     sliderFill.className = 'slider-fill';
-  
+
     // Append the slider fill to the slider container
     sliderContainer.appendChild(sliderFill);
-  
+
     // Append the slider container to the tooltip
     tooltip.appendChild(sliderContainer);
-  
+
     // Append the tooltip to the document body
     document.body.appendChild(tooltip);
-  
+
     // Position tooltip using CSS
     const modal = document.getElementById('create-ad');
     const topPosition = window.scrollY + modal.getBoundingClientRect().top + element.getBoundingClientRect().bottom;
     const leftPosition = modal.getBoundingClientRect().left + element.getBoundingClientRect().left;
-  
+
     tooltip.style.position = 'absolute';
-    tooltip.style.top = topPosition + 'px';
-    tooltip.style.left = leftPosition + 'px';
+    tooltip.style.top = (topPosition + 10) + 'px';
+    tooltip.style.left = (leftPosition - 75) + 'px';
     tooltip.style.display = 'block';
     tooltip.style.zIndex = '9999';
     tooltip.style.backgroundColor = 'white';
@@ -204,10 +204,10 @@
     tooltip.style.fontSize = '12px';
     tooltip.style.border = '1px solid black';
     tooltip.style.borderRadius = '3px';
-    
+
   }
-  
-  
+
+
   function hideTooltip() {
     // Hide the tooltip
     tooltip.style.display = 'none';
@@ -224,6 +224,7 @@
   document.getElementById('calendar').addEventListener('mouseover', function (event) {
     if (event.target.tagName === 'TD') {
       const dayValue = parseInt(event.target.textContent, 10);
+      // const tooltipText = `5 ads have been booked`;
       const tooltipText = `5 ads have been booked for ${dayValue}/${parseInt(document.getElementById('month-selector').value, 10)}/${parseInt(document.getElementById('year-selector').value, 10)}`;
       showTooltip(event.target, tooltipText);
     }
