@@ -1,369 +1,241 @@
 !function() {
-
   var today = moment();
+  var selectedDates = [];
+  const tooltip = document.createElement('div');
+  tooltip.className = 'td-tooltip';
+  document.body.appendChild(tooltip);
 
-  function Calendar(selector, events) {
-    this.el = document.querySelector(selector);
-    this.events = events;
-    this.current = moment().date(1);
-    this.draw();
-    var current = document.querySelector('.today');
-    if(current) {
-      var self = this;
-      window.setTimeout(function() {
-        self.openDay(current);
-      }, 500);
+  function getPerpetualCalendar(year, month) {
+    const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    const firstDayOfMonth = moment([year, month - 1, 1]);
+    const lastDayOfMonth = moment([year, month, 0]);
+    const daysInMonth = lastDayOfMonth.date();
+    const firstDayOfWeek = firstDayOfMonth.day();
+
+    let calendarHTML = '<table>';
+    calendarHTML += '<tr>';
+    
+    for (let i = 0; i < daysOfWeek.length; i++) {
+      calendarHTML += '<th>' + daysOfWeek[i] + '</th>';
     }
-  }
+    
+    calendarHTML += '</tr>';
 
-  Calendar.prototype.draw = function() {
-    //Create Header
-    this.drawHeader();
+    let dayCounter = 1;
 
-    // Draw Day Name
-    this.drawDayName();
+    for (let i = 0; i < 6; i++) {
+      calendarHTML += '<tr>';
 
-    //Draw Month
-    this.drawMonth();
+      for (let j = 0; j < 7; j++) {
+        const dayValue = i * 7 + j + 1 - firstDayOfWeek;
+        const isPrevMonthDay = dayValue <= 0;
+        const isNextMonthDay = dayValue > daysInMonth;
+        if (i === 0 && j < firstDayOfWeek) {
+          const prevMonthDays = moment([year, month - 2, 1]).endOf('month').date();
+          calendarHTML += '<td class="other-month">' + (prevMonthDays - (firstDayOfWeek - 1) + j) + '</td>';
+        } else if (dayCounter > daysInMonth) {
+          calendarHTML += '<td class="other-month">' + (dayCounter - daysInMonth) + '</td>';
+          dayCounter++;
+        } else {
+          const isSelected = isDateSelected(year, month, dayCounter);
+          const backgroundColor = isSelected ? 'rgb(50, 115, 246)' : '';
+          const tooltipText = getTooltipText(year, month, dayCounter);
 
-    // this.drawLegend();
-  }
-
-  Calendar.prototype.drawHeader = function() {
-    var self = this;
-    if(!this.header) {
-      //Create the header elements
-      this.header = createElement('div', 'header');
-      this.header.className = 'header';
-
-      this.title = createElement('h1');
-
-      var right = createElement('div', 'right');
-      right.addEventListener('click', function() { self.nextMonth(); });
-
-      var left = createElement('div', 'left');
-      left.addEventListener('click', function() { self.prevMonth(); });
-
-      //Append the Elements
-      this.header.appendChild(this.title);
-      this.header.appendChild(right);
-      this.header.appendChild(left);
-      this.el.appendChild(this.header);
-    }
-
-    this.title.innerHTML = this.current.format('MMMM YYYY');
-  }
-
-  Calendar.prototype.drawDayName = function () {
-    if (!this.nameRow) {
-      var dayList = ["S", "M", "T", "W", "T", "F", "S"];
-
-      this.nameRow = createElement('div', 'name-row');
-
-      for (var i = 0; i < dayList.length; i ++) {
-        this.name = createElement('div', 'name-ele', dayList[i]);
-        this.nameRow.appendChild(this.name);
-      }
-
-      this.el.appendChild(this.nameRow);
-    }
-  }
-
-  Calendar.prototype.drawMonth = function() {
-    var self = this;
-
-    this.events.forEach(function(ev) {
-     ev.date = self.current.clone().date(Math.random() * (29 - 1) + 1);
-    });
-
-
-    if(this.month) {
-      this.oldMonth = this.month;
-      this.oldMonth.className = 'month out ' + (self.next ? 'next' : 'prev');
-      this.oldMonth.addEventListener('webkitAnimationEnd', function() {
-        self.oldMonth.parentNode.removeChild(self.oldMonth);
-        self.month = createElement('div', 'month');
-        self.backFill();
-        self.currentMonth();
-        self.fowardFill();
-        self.el.appendChild(self.month);
-        window.setTimeout(function() {
-          self.month.className = 'month in ' + (self.next ? 'next' : 'prev');
-        }, 16);
-      });
-    } else {
-        this.month = createElement('div', 'month');
-        this.el.appendChild(this.month);
-        this.backFill();
-        this.currentMonth();
-        this.fowardFill();
-        this.month.className = 'month new';
-    }
-  }
-
-  Calendar.prototype.backFill = function() {
-    var clone = this.current.clone();
-    var dayOfWeek = clone.day();
-
-    if(!dayOfWeek) { return; }
-
-    clone.subtract('days', dayOfWeek+1);
-
-    for(var i = dayOfWeek; i > 0 ; i--) {
-      this.drawDay(clone.add('days', 1));
-    }
-  }
-
-  Calendar.prototype.fowardFill = function() {
-    var clone = this.current.clone().add('months', 1).subtract('days', 1);
-    var dayOfWeek = clone.day();
-
-    if(dayOfWeek === 6) { return; }
-
-    for(var i = dayOfWeek; i < 6 ; i++) {
-      this.drawDay(clone.add('days', 1));
-    }
-  }
-
-  Calendar.prototype.currentMonth = function() {
-    var clone = this.current.clone();
-
-    while(clone.month() === this.current.month()) {
-      this.drawDay(clone);
-      clone.add('days', 1);
-    }
-  }
-
-  Calendar.prototype.getWeek = function(day) {
-    if(!this.week || day.day() === 0) {
-      this.week = createElement('div', 'week');
-      this.month.appendChild(this.week);
-    }
-  }
-
-  Calendar.prototype.drawDay = function(day) {
-    var self = this;
-    this.getWeek(day);
-
-    //Outer Day
-    var outer = createElement('div', this.getDayClass(day));
-    outer.addEventListener('click', function() {
-      self.openDay(this);
-    });
-
-    //Day Name
-    // var name = createElement('div', 'day-name', day.format('ddd'));
-
-    //Day Number
-    var number = createElement('div', 'day-number', day.format('DD'));
-
-
-    //Events
-    var events = createElement('div', 'day-events');
-    this.drawEvents(day, events);
-
-    // outer.appendChild(name);
-    outer.appendChild(number);
-    // outer.appendChild(events);
-    this.week.appendChild(outer);
-  }
-
-  Calendar.prototype.drawEvents = function(day, element) {
-    if(day.month() === this.current.month()) {
-      var todaysEvents = this.events.reduce(function(memo, ev) {
-        if(ev.date.isSame(day, 'day')) {
-          memo.push(ev);
+          calendarHTML += '<td style="background-color: ' + backgroundColor + ';">' + dayCounter + '</td>';
+          dayCounter++;
         }
-        return memo;
-      }, []);
-
-      todaysEvents.forEach(function(ev) {
-        var evSpan = createElement('span', ev.color);
-        element.appendChild(evSpan);
-      });
-    }
-  }
-
-  Calendar.prototype.getDayClass = function(day) {
-    classes = ['day'];
-    if(day.month() !== this.current.month()) {
-      classes.push('other');
-    } else if (today.isSame(day, 'day')) {
-      classes.push('today');
-    }
-    return classes.join(' ');
-  }
-
-  Calendar.prototype.openDay = function(el) {
-    var details, arrow;
-    var dayNumber = +el.querySelectorAll('.day-number')[0].innerText || +el.querySelectorAll('.day-number')[0].textContent;
-    var day = this.current.clone().date(dayNumber);
-
-    var currentOpened = document.querySelector('.details');
-
-    //Check to see if there is an open detais box on the current row
-    if(currentOpened && currentOpened.parentNode === el.parentNode) {
-      details = currentOpened;
-      arrow = document.querySelector('.arrow');
-    } else {
-      //Close the open events on differnt week row
-      //currentOpened && currentOpened.parentNode.removeChild(currentOpened);
-      if(currentOpened) {
-        currentOpened.addEventListener('webkitAnimationEnd', function() {
-          currentOpened.parentNode.removeChild(currentOpened);
-        });
-        currentOpened.addEventListener('oanimationend', function() {
-          currentOpened.parentNode.removeChild(currentOpened);
-        });
-        currentOpened.addEventListener('msAnimationEnd', function() {
-          currentOpened.parentNode.removeChild(currentOpened);
-        });
-        currentOpened.addEventListener('animationend', function() {
-          currentOpened.parentNode.removeChild(currentOpened);
-        });
-        currentOpened.className = 'details out';
       }
 
-      //Create the Details Container
-      details = createElement('div', 'details in');
-
-      //Create the arrow
-      var arrow = createElement('div', 'arrow');
-
-      //Create the event wrapper
-
-      details.appendChild(arrow);
-      el.parentNode.appendChild(details);
+      calendarHTML += '</tr>';
     }
 
-    var todaysEvents = this.events.reduce(function(memo, ev) {
-      if(ev.date.isSame(day, 'day')) {
-        memo.push(ev);
-      }
-      return memo;
-    }, []);
-
-    this.renderEvents(todaysEvents, details);
-
-    arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + 27 + 'px';
+    calendarHTML += '</table>';
+    return calendarHTML;
   }
 
-  Calendar.prototype.renderEvents = function(events, ele) {
-    //Remove any events in the current details element
-    var currentWrapper = ele.querySelector('.events');
-    var wrapper = createElement('div', 'events in' + (currentWrapper ? ' new' : ''));
+  const year = today.year();
+  const month = today.month() + 1; // Months are 0-indexed in moment.js
+  const perpetualCalendar = getPerpetualCalendar(year, month);
 
-    events.forEach(function(ev) {
-      var div = createElement('div', 'event');
-      var square = createElement('div', 'event-category ' + ev.color);
-      var span = createElement('span', '', ev.eventName);
+  // Display the calendar in an HTML element with id "calendar-container"
+  document.getElementById("calendar").innerHTML = perpetualCalendar;
 
-      div.appendChild(square);
-      div.appendChild(span);
-      wrapper.appendChild(div);
+  document.getElementById('prev-month-btn').addEventListener('click', showPreviousMonth);
+  document.getElementById('next-month-btn').addEventListener('click', showNextMonth);
+  document.getElementById('month-selector').addEventListener('change', showSelectedMonth);
+  document.getElementById('year-selector').addEventListener('change', showSelectedYear);
+
+  // Function to populate month and year selectors
+  function populateSelectors() {
+    const monthSelector = document.getElementById('month-selector');
+    const yearSelector = document.getElementById('year-selector');
+    const months = moment.months();
+    const currentYear = moment().year();
+    const years = Array.from({ length: 10 }, (_, i) => currentYear - 5 + i); // Adjust the range as needed
+
+    months.forEach((month, index) => {
+      const option = document.createElement('option');
+      option.value = index + 1;
+      option.textContent = month;
+      monthSelector.appendChild(option);
     });
 
-    if(!events.length) {
-      var div = createElement('div', 'event empty');
-      var span = createElement('span', '', 'No Events');
-
-      div.appendChild(span);
-      wrapper.appendChild(div);
-    }
-
-    if(currentWrapper) {
-      currentWrapper.className = 'events out';
-      currentWrapper.addEventListener('webkitAnimationEnd', function() {
-        currentWrapper.parentNode.removeChild(currentWrapper);
-        ele.appendChild(wrapper);
-      });
-      currentWrapper.addEventListener('oanimationend', function() {
-        currentWrapper.parentNode.removeChild(currentWrapper);
-        ele.appendChild(wrapper);
-      });
-      currentWrapper.addEventListener('msAnimationEnd', function() {
-        currentWrapper.parentNode.removeChild(currentWrapper);
-        ele.appendChild(wrapper);
-      });
-      currentWrapper.addEventListener('animationend', function() {
-        currentWrapper.parentNode.removeChild(currentWrapper);
-        ele.appendChild(wrapper);
-      });
-    } else {
-      ele.appendChild(wrapper);
-    }
-  }
-
-  Calendar.prototype.drawLegend = function() {
-    var legend = createElement('div', 'legend');
-    var calendars = this.events.map(function(e) {
-      return e.calendar + '|' + e.color;
-    }).reduce(function(memo, e) {
-      if(memo.indexOf(e) === -1) {
-        memo.push(e);
-      }
-      return memo;
-    }, []).forEach(function(e) {
-      var parts = e.split('|');
-      var entry = createElement('span', 'entry ' +  parts[1], parts[0]);
-      legend.appendChild(entry);
+    years.forEach((year) => {
+      const option = document.createElement('option');
+      option.value = year;
+      option.textContent = year;
+      yearSelector.appendChild(option);
     });
-    this.el.appendChild(legend);
+
+    // Set initial values
+    monthSelector.value = moment().month() + 1;
+    yearSelector.value = currentYear;
   }
 
-  Calendar.prototype.nextMonth = function() {
-    this.current.add('months', 1);
-    this.next = true;
-    this.draw();
+  // Function to show the previous month
+  function showPreviousMonth() {
+    const monthSelector = document.getElementById('month-selector');
+    const currentMonth = parseInt(monthSelector.value, 10);
+    const newMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+    const newYear = currentMonth === 1 ? parseInt(document.getElementById('year-selector').value, 10) - 1 : parseInt(document.getElementById('year-selector').value, 10);
+    monthSelector.value = newMonth;
+    document.getElementById('year-selector').value = newYear;
+    // Update your calendar with the new month and year
+    const perpetualCalendar = getPerpetualCalendar(newYear, newMonth);
+    document.getElementById("calendar").innerHTML = perpetualCalendar;
   }
 
-  Calendar.prototype.prevMonth = function() {
-    this.current.subtract('months', 1);
-    this.next = false;
-    this.draw();
+  // Function to show the next month
+  function showNextMonth() {
+    const monthSelector = document.getElementById('month-selector');
+    const currentMonth = parseInt(monthSelector.value, 10);
+    const newMonth = currentMonth === 12 ? 1 : currentMonth + 1;
+    const newYear = currentMonth === 12 ? parseInt(document.getElementById('year-selector').value, 10) + 1 : parseInt(document.getElementById('year-selector').value, 10);
+    monthSelector.value = newMonth;
+    document.getElementById('year-selector').value = newYear;
+    // Update your calendar with the new month and year
+    const perpetualCalendar = getPerpetualCalendar(newYear, newMonth);
+    document.getElementById("calendar").innerHTML = perpetualCalendar;
   }
 
-  window.Calendar = Calendar;
+  // Function to show the selected month
+  function showSelectedMonth() {
+    const selectedMonth = parseInt(document.getElementById('month-selector').value, 10);
+    const selectedYear = parseInt(document.getElementById('year-selector').value, 10);
+    // Update your calendar with the selected month and year
+    const perpetualCalendar = getPerpetualCalendar(selectedYear, selectedMonth);
+    document.getElementById("calendar").innerHTML = perpetualCalendar;
+  }
 
-  function createElement(tagName, className, innerText) {
-    var ele = document.createElement(tagName);
-    if(className) {
-      ele.className = className;
+  // Function to show the selected year
+  function showSelectedYear() {
+    const selectedYear = parseInt(document.getElementById('year-selector').value, 10);
+    const selectedMonth = parseInt(document.getElementById('month-selector').value, 10);
+    // Update your calendar with the selected month and year
+    const perpetualCalendar = getPerpetualCalendar(selectedYear, selectedMonth);
+    document.getElementById("calendar").innerHTML = perpetualCalendar;
+  }
+
+  function isDateSelected(year, month, day) {
+    return selectedDates.some(date => date.year === year && date.month === month && date.day === day);
+  }
+
+  function selectDate(year, month, day) {
+    const index = selectedDates.findIndex(date => date.year === year && date.month === month && date.day === day);
+
+    if (index === -1) {
+      // Not selected, add to the array
+      selectedDates.push({ year, month, day, adsBooked: 5 }); // You can set the initial value for adsBooked here
+    } else {
+      // Already selected, remove from the array
+      selectedDates.splice(index, 1);
     }
-    if(innerText) {
-      ele.innderText = ele.textContent = innerText;
+
+    // Update the calendar with the new selection
+    const perpetualCalendar = getPerpetualCalendar(year, month);
+    document.getElementById("calendar").innerHTML = perpetualCalendar;
+  }
+
+  function getTooltipText(year, month, day) {
+    const selectedDate = selectedDates.find(date => date.year === year && date.month === month && date.day === day);
+
+    if (selectedDate) {
+      const numAdsBooked = selectedDate.adsBooked || 0;
+      return numAdsBooked + ' ad' + (numAdsBooked !== 1 ? 's' : '') + ' have been booked';
     }
-    return ele;
-  }
-}();
 
-!function() {
-  var data = [
-    { eventName: 'Lunch Meeting w/ Mark', calendar: 'Work', color: 'orange' },
-    { eventName: 'Interview - Jr. Web Developer', calendar: 'Work', color: 'orange' },
-    { eventName: 'Demo New App to the Board', calendar: 'Work', color: 'orange' },
-    { eventName: 'Dinner w/ Marketing', calendar: 'Work', color: 'orange' },
-
-    { eventName: 'Game vs Portalnd', calendar: 'Sports', color: 'blue' },
-    { eventName: 'Game vs Houston', calendar: 'Sports', color: 'blue' },
-    { eventName: 'Game vs Denver', calendar: 'Sports', color: 'blue' },
-    { eventName: 'Game vs San Degio', calendar: 'Sports', color: 'blue' },
-
-    { eventName: 'School Play', calendar: 'Kids', color: 'yellow' },
-    { eventName: 'Parent/Teacher Conference', calendar: 'Kids', color: 'yellow' },
-    { eventName: 'Pick up from Soccer Practice', calendar: 'Kids', color: 'yellow' },
-    { eventName: 'Ice Cream Night', calendar: 'Kids', color: 'yellow' },
-
-    { eventName: 'Free Tamale Night', calendar: 'Other', color: 'green' },
-    { eventName: 'Bowling Team', calendar: 'Other', color: 'green' },
-    { eventName: 'Teach Kids to Code', calendar: 'Other', color: 'green' },
-    { eventName: 'Startup Weekend', calendar: 'Other', color: 'green' }
-  ];
-
-  function addDate(ev) {
-
+    return '';
   }
 
-  var calendar = new Calendar('#calendar', data);
+  function showTooltip(element, text) {
+    // Set tooltip text
+    tooltip.textContent = text;
+  
+    // Create a slider container
+    const sliderContainer = document.createElement('div');
+    sliderContainer.className = 'slider-container';
+  
+    // Create a slider fill
+    const sliderFill = document.createElement('div');
+    sliderFill.className = 'slider-fill';
+  
+    // Append the slider fill to the slider container
+    sliderContainer.appendChild(sliderFill);
+  
+    // Append the slider container to the tooltip
+    tooltip.appendChild(sliderContainer);
+  
+    // Append the tooltip to the document body
+    document.body.appendChild(tooltip);
+  
+    // Position tooltip using CSS
+    const modal = document.getElementById('create-ad');
+    const topPosition = window.scrollY + modal.getBoundingClientRect().top + element.getBoundingClientRect().bottom;
+    const leftPosition = modal.getBoundingClientRect().left + element.getBoundingClientRect().left;
+  
+    tooltip.style.position = 'absolute';
+    tooltip.style.top = topPosition + 'px';
+    tooltip.style.left = leftPosition + 'px';
+    tooltip.style.display = 'block';
+    tooltip.style.zIndex = '9999';
+    tooltip.style.backgroundColor = 'white';
+    tooltip.style.color = 'black';
+    tooltip.style.padding = '5px';
+    tooltip.style.borderRadius = '3px';
+    tooltip.style.fontSize = '12px';
+    tooltip.style.border = '1px solid black';
+    tooltip.style.borderRadius = '3px';
+    
+  }
+  
+  
+  function hideTooltip() {
+    // Hide the tooltip
+    tooltip.style.display = 'none';
+  }
 
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('calendar').addEventListener('click', function(event) {
+      if (event.target.tagName === 'TD') {
+        const dayValue = parseInt(event.target.textContent, 10);
+        selectDate(parseInt(document.getElementById('year-selector').value, 10), parseInt(document.getElementById('month-selector').value, 10), dayValue);
+      }
+    });
+  });
+  document.getElementById('calendar').addEventListener('mouseover', function (event) {
+    if (event.target.tagName === 'TD') {
+      const dayValue = parseInt(event.target.textContent, 10);
+      const tooltipText = `5 ads have been booked for ${dayValue}/${parseInt(document.getElementById('month-selector').value, 10)}/${parseInt(document.getElementById('year-selector').value, 10)}`;
+      showTooltip(event.target, tooltipText);
+    }
+  });
+
+  document.getElementById('calendar').addEventListener('mouseout', function (event) {
+    if (event.target.tagName === 'TD') {
+      hideTooltip();
+    }
+  });
+
+  // Call the function to populate selectors initially
+  populateSelectors();
 }();

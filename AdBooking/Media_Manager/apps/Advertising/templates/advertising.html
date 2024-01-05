@@ -66,61 +66,63 @@
                         Publication
                         <hr class="bg-success c-pub-hr">
                     </h3>
+                    <div id="advertising-table">
+                        <table id="publication-table" class="w-full general-table">
+                            <thead>
+                                <th>ID</th>
+                                <th>NAME</th>
+                            </thead>
 
-                    <table id="publication-table" class="w-full general-table">
-                        <thead>
-                            <th>ID</th>
-                            <th>NAME</th>
-                        </thead>
+                            {% if publications %}
+                            <tbody>
+                                {% for publication in publications %}
+                                <tr>
+                                    <td>{{ publication.id }}</td>
+                                    <td>
+                                        <a href="{% url 'view_publication' publication.id %}">{{ publication.name }}</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            {% else %}
 
-                        {% if publications %}
-                        <tbody>
-                            {% for publication in publications %}
-                            <tr>
-                                <td>{{ publication.id }}</td>
-                                <td>
-                                    <a href="{% url 'view_publication' publication.id %}">{{ publication.name }}</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                        {% else %}
-
-                        <tbody>
-                            <tr>
-                                <td colspan="3">No Publications Found</td>
-                            </tr>
-                        </tbody>
-                        {% endif %}
-                    </table>
+                            <tbody>
+                                <tr>
+                                    <td colspan="3">No Publications Found</td>
+                                </tr>
+                            </tbody>
+                            {% endif %}
+                        </table>
+                    </div>
                 </div>
 
                 <div class="col-md-8">
                     <h3>Accounts
                         <hr class="bg-success c-acc-hr">
                     </h3>
+                    <div id="advertising-table">
+                        <table id="account-table" class="w-full general-table">
+                            <thead>
+                                <th>ID</th>
+                                <th>NAME</th>
+                                <th>TYPE</th>
+                            </thead>
 
-                    <table id="account-table" class="w-full general-table">
-                        <thead>
-                            <th>ID</th>
-                            <th>NAME</th>
-                            <th>TYPE</th>
-                        </thead>
-
-                        <tbody>
-                            {% for account in accountList %}
-                            <tr>
-                                <td>{{ account.id }}</td>
-                                <td><a href="{% url 'advertising_account' account.id %}">{{ account.name }}</a></td>
-                                <td>{{ account.account_type.name }}</td>
-                            </tr>
-                            {% empty %}
-                            <tr>
-                                <td colspan="3">No Accounts Found</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                            <tbody>
+                                {% for account in accountList %}
+                                <tr>
+                                    <td>{{ account.id }}</td>
+                                    <td><a href="{% url 'advertising_account' account.id %}">{{ account.name }}</a></td>
+                                    <td>{{ account.account_type.name }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="3">No Accounts Found</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

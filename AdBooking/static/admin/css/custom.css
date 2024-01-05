@@ -508,19 +508,19 @@ button {
     height: 2.5px;
 }
 
-table {
+#advertising-table table {
     border: .5px solid black;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
-th {
+#advertising-table th {
     text-align: center;
     font-size: 16px !important;
     font-family: "Lato", serif !important;
     font-weight: 700;
 }
 
-td {
+#advertising-table td {
     border-left: none;
     border-top: 1px solid rgba(102, 102, 102, 0.40);
     text-align: center;
@@ -528,16 +528,16 @@ td {
     font-family: "Karla", serif !important;
 }
 
-tr:hover {
+#advertising-table tr:hover {
     background-color: rgba(33, 33, 95, 0.20);
 }
 
-td a {
+#advertising-table td a {
     color: black !important;
     text-decoration: none;
 }
 
-td a:hover {
+#advertising-table td a:hover {
     color: black;
 }
 
@@ -868,6 +868,10 @@ td a:hover {
     width: 50%;
 }
 
+.value-itmes-1-3 {
+    width: 33.33%;
+}
+
 .ad-type {
     margin-bottom: 19px;
 }
@@ -918,6 +922,7 @@ td a:hover {
     line-height: normal;
     margin-bottom: 5px;
     text-align: left;
+    margin-top: 15px;
 }
 
 .adjustment-value {
